@@ -63,11 +63,11 @@ all: 			$(LIBFT) $(MLX) ${NAME}
 
 $(LIBFT):
 				@$(PRINT_LOADING)
-				$(MAKE) --silent -C libft/
+				$(MAKE) -s -C libft/
 
 $(MLX):			
 				@$(PRINT_LOADING_MLX)
-				$(MAKE) --silent -C mlx/
+				$(MAKE) >/dev/null -C  mlx/
 
 ${NAME}: 		${OBJS}
 				$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) $(MLX_FLAGS)
@@ -81,17 +81,17 @@ clean:
 				$(RM) -r $(OBJ_DIR)
 				${RM} ${OBJS} ${BOBJS}
 				@echo "$(RED)Clean libft$(END)"
-				$(MAKE) --silent clean -C ./libft/
+				$(MAKE) clean -s -C ./libft/
 				@echo "$(RED)Clean mlx$(END)"
-				$(MAKE) --silent clean -C ./mlx/
+				$(MAKE) clean >/dev/null -C ./mlx/
 				@echo "$(GREEN)$(BOLD_START)Clean done$(BOLD_END)$(END)"
 
 fclean: clean
 				${RM} ${NAME} ${NAME_BONUS}
 				@echo "$(RED)Fclean libft$(END)"
-				$(MAKE) --silent fclean -C ./libft/
+				$(MAKE) fclean -s -C ./libft/
 				@echo "$(RED)Fclean mlx$(END)"
-				$(MAKE) --silent clean -C ./mlx/
+				$(MAKE) clean >/dev/null -C ./mlx/
 				@echo "$(GREEN)$(BOLD_START)Fclean done$(BOLD_END)$(END)"
 
 re: fclean all
