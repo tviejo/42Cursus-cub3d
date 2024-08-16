@@ -79,7 +79,7 @@ $(OBJ_DIR)%.o: %.c
 
 clean:
 				$(RM) -r $(OBJ_DIR)
-				${RM} ${OBJS} ${BOBJS}
+				${RM} ${OBJS}
 				@echo "$(RED)Clean libft$(END)"
 				$(MAKE) clean -s -C ./libft/
 				@echo "$(RED)Clean mlx$(END)"
