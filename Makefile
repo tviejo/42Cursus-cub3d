@@ -5,6 +5,12 @@ SRC_DIR		=	srcs/
 OBJ_DIR     =   objs/
 
 SRCS		+= parsing/parsing.c
+SRCS		+= parsing/init_parsing.c
+SRCS		+= parsing/parse_map.c
+SRCS		+= parsing/parse_colors.c
+SRCS		+= parsing/parse_textures.c
+SRCS		+= parsing/free_parsing.c
+SRCS		+= parsing/print_parsing.c
 
 SRCS		+= main.c
 
@@ -14,7 +20,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-g3 -Wall -Wextra -Werror
+CFLAGS		=	-g3 -Wall -Wextra -Werror -MMD -MP
 
 LIBFT 		= 	libft/libft.a
 
@@ -26,6 +32,8 @@ INCLUDES	+= 	-I/opt/X11/include -Imlx
 LIBS		=   -L libft -lft
 
 MLX_FLAGS	=	-lm -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11
+
+D_FILES		=	$(OBJS:.o=.d)
 
 RM			=	rm -f
 
@@ -80,6 +88,7 @@ $(OBJ_DIR)%.o: %.c
 clean:
 				$(RM) -r $(OBJ_DIR)
 				${RM} ${OBJS}
+				${RM} ${D_FILES}
 				@echo "$(RED)Clean libft$(END)"
 				$(MAKE) clean -s -C ./libft/
 				@echo "$(RED)Clean mlx$(END)"
@@ -95,6 +104,8 @@ fclean: clean
 				@echo "$(GREEN)$(BOLD_START)Fclean done$(BOLD_END)$(END)"
 
 re: fclean all
+
+sinclude $(D_FILES)
 
 .PHONY: all clean fclean re bonus libft
 .SILENT:
