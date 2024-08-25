@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 17:32:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:31:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_page
 	LANDING_PAGE,
 	GAME_PAGE,
 	EXIT_PAGE
-}       t_page;
+}				t_page;
 typedef struct s_mlx
 {
 	void		*mlx_img;
@@ -39,12 +39,23 @@ typedef struct s_mlx
 	void		*win_ptr;
 	int			**pixel;
 }				t_mlx;
+
 typedef struct s_color
 {
 	int			r;
 	int			g;
 	int			b;
 }				t_color;
+
+typedef struct s_keys
+{
+    bool		up;
+    bool		down;
+    bool		left;
+    bool		right;
+    bool		turn_left;
+    bool		turn_right;
+}				t_keys;
 
 typedef struct s_parsing
 {
@@ -61,13 +72,14 @@ typedef struct s_parsing
 
 typedef struct s_game
 {
-	t_page        page;
+	t_page		page;
 }				t_game;
 typedef struct s_cub3d
 {
 	t_mlx		mlx;
 	t_parsing	parsing;
 	t_game		game;
+    t_keys		keys;
 }				t_cub3d;
 
 int				parse_cub(char *file, t_cub3d *cub3d);
@@ -99,5 +111,10 @@ int				ft_close(t_cub3d *cub3d);
 int				render_landing_page(t_cub3d *cub3d);
 int				render_game_page(t_cub3d *cub3d);
 int				render_exit_page(t_cub3d *cub3d);
+
+void			render_background(t_cub3d *cub3d, int color);
+
+int             key_press(int keycode, t_cub3d *cub3d);
+int             key_release(int keycode, t_cub3d *cub3d);
 
 #endif

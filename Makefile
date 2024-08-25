@@ -28,6 +28,8 @@ SRCS		+= landing_page/landing_page.c
 
 SRCS		+= exit_page/exit_page.c
 
+SRCS		+= keys/keys.c
+
 SRCS		+= main.c
 
 vpath %.c $(SRC_DIR)
@@ -98,7 +100,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
