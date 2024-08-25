@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:56:34 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/24 23:04:54 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/25 14:42:14 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int find_type(char *line)
         i++;
     if (line && line[i] == 'F')
         return (FLOOR);
-    return (CEILING);
+    return (ce);
 }
 
 void        parse_color(char *line, t_cub3d *cube3d)
@@ -71,8 +71,8 @@ void        parse_color(char *line, t_cub3d *cube3d)
     if (is_valid_rgb(r, g, b) == false)
         return ;
     if ((find_type(line)) == FLOOR)
-        assign_color(r, g, b, &cube3d->floor);
+        assign_color(r, g, b, &cube3d->parsing.floor);
     else
-        assign_color(r, g, b, &cube3d->ceiling);
+        assign_color(r, g, b, &cube3d->parsing.cei);
     free(line);
 }

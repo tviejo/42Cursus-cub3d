@@ -11,6 +11,22 @@ SRCS		+= parsing/parse_colors.c
 SRCS		+= parsing/parse_textures.c
 SRCS		+= parsing/free_parsing.c
 SRCS		+= parsing/print_parsing.c
+SRCS		+= parsing/check_parsing.c
+
+SRCS		+= mlx_utils/mlx_utils.c
+SRCS		+= mlx_utils/mlx_create_image.c
+SRCS		+= mlx_utils/mlx_looping.c
+SRCS		+= mlx_utils/init_data.c
+
+SRCS		+= render/render.c
+
+SRCS		+= close/close.c
+
+SRCS		+= game_page/game_page.c
+
+SRCS		+= landing_page/landing_page.c
+
+SRCS		+= exit_page/exit_page.c
 
 SRCS		+= main.c
 
@@ -82,7 +98,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)parsing/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

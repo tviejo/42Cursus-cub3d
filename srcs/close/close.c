@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 16:29:21 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 14:42:53 by tviejo           ###   ########.fr       */
+/*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
+/*   Updated: 2024/08/25 15:05:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+# include "../../includes/cub3d.h"
 
-# include "cub3d.h"
-# include <fcntl.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# define ce 0
-# define FLOOR 1
-
-
-
-#endif
+int     ft_close(t_cub3d *cub3d)
+{
+    free_parsing(cub3d);
+    mlx_close(cub3d);
+    exit(EXIT_SUCCESS);
+    return (EXIT_SUCCESS);
+}

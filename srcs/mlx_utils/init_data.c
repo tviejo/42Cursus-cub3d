@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 16:29:21 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 14:42:53 by tviejo           ###   ########.fr       */
+/*   Created: 2024/08/25 15:25:40 by tviejo            #+#    #+#             */
+/*   Updated: 2024/08/25 16:18:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+# include "../../includes/cub3d.h"
 
-# include "cub3d.h"
-# include <fcntl.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# define ce 0
-# define FLOOR 1
-
-
-
-#endif
+int init_data_mlx(t_cub3d *cub3d)
+{
+    cub3d->mlx.pixel = NULL;
+    return (0);
+}

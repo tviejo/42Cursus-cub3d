@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/24 23:05:10 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/25 14:44:00 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static char	*get_texture(char *line)
 void    parse_texture(char *line, t_cub3d *cub3d)
 {
     if (ft_strncmp(line, "NO", 2) == 0)
-        cub3d->no = get_texture(line);
+        cub3d->parsing.no = get_texture(line);
     if (ft_strncmp(line, "SO", 2) == 0)
-        cub3d->so = get_texture(line);
+        cub3d->parsing.so = get_texture(line);
     if (ft_strncmp(line, "WE", 2) == 0)
-        cub3d->we = get_texture(line);
+        cub3d->parsing.we = get_texture(line);
     if (ft_strncmp(line, "EA", 2) == 0)
-        cub3d->ea = get_texture(line);
+        cub3d->parsing.ea = get_texture(line);
     free(line);
 }
