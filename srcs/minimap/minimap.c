@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 16:57:03 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:52:08 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void print_player(t_cub3d *cub3d)
 {
-    size_t x;
-    size_t y;
+    int x;
+    int y;
 
-    x = 0;
-    while (x < 10)
+    x = -3;
+    while (x < 3)
     {
-        y = 0;
-        while (y < 10)
+        y = -3;
+        while (y < 3)
         {
             img_pix_put(cub3d, cub3d->player.y * 10 + x, cub3d->player.x * 10 + y, 0xFF0000);
             y++;
@@ -63,6 +63,10 @@ int minimap(t_cub3d *cub3d)
                 print_square(i, j, cub3d, 0x0000FF);
             else if (cub3d->parsing.map[i][j] == '0')
                 print_square(i, j, cub3d, 0xFFFFFF);
+            else if (cub3d->parsing.map[i][j] == 'C')
+                print_square(i, j, cub3d, 0xFF00FF);
+            else if (cub3d->parsing.map[i][j] == 'O')
+                print_square(i, j, cub3d, 0x00FF00);
             j++;
         }
         i++;

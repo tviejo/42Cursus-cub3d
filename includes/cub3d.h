@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 17:58:18 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:57:14 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>
+# include <sys/time.h>
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
@@ -65,6 +66,7 @@ typedef struct s_player
 
 typedef struct s_keys
 {
+	bool		open;
     bool		up;
     bool		down;
     bool		left;
@@ -130,6 +132,7 @@ int				ft_close(t_cub3d *cub3d);
 
 int				render_landing_page(t_cub3d *cub3d);
 int				render_game_page(t_cub3d *cub3d);
+void			fps_counter(t_cub3d *cub3d);
 int				render_exit_page(t_cub3d *cub3d);
 
 void			render_background(t_cub3d *cub3d, int color);

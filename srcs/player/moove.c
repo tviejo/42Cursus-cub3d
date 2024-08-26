@@ -6,21 +6,25 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 18:20:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 19:07:25 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/cub3d.h"
 
+static int open_door(t_cub3d *cub3d, int i, int j)
+{
+    cub3d->parsing.map[i][j] = 'O';
+    return (0);
+}
 static bool wall(t_cub3d *cub3d)
 {
-    if (cub3d->parsing.map[(int)cub3d->player.x][(int)cub3d->player.y] == '1')
+    if (cub3d->parsing.map[(int)cub3d->player.x][(int)cub3d->player.y] == '1' || cub3d->parsing.map[(int)cub3d->player.x][(int)cub3d->player.y] == 'C')
     {
-        return (true); 
-    }
-    if (cub3d->parsing.map[(int)cub3d->player.x + 1][(int)cub3d->player.y + 1] == '1')
-    {
-        return (true);
+        if (cub3d->parsing.map[(int)cub3d->player.x][(int)cub3d->player.y] == 'C' && cub3d->keys.open)
+            open_door(cub3d, cub3d->player.x, cub3d->player.y);
+        else
+            return (true);
     }
     return (false);
 }
