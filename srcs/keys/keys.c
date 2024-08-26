@@ -6,12 +6,23 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 18:56:38 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:46:08 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+
+int init_keys(t_cub3d *cub3d)
+{
+	cub3d->keys.up = false;
+	cub3d->keys.down = false;
+	cub3d->keys.left = false;
+	cub3d->keys.right = false;
+	cub3d->keys.turn_left = false;
+	cub3d->keys.turn_right = false;
+	return (0);
+}
 int	key_press(int keycode, t_cub3d *cub3d)
 {
 	if ((keycode == XK_Escape || keycode == XK_y)

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 18:31:04 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 16:15:51 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@
 # include "parsing.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <math.h>
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
+
+# define PI 3.1416
+# define TRANS_SPEED 0.001
+# define ROT_SPEED 0.005
 
 typedef enum e_page
 {
@@ -46,6 +51,13 @@ typedef struct s_color
 	int			g;
 	int			b;
 }				t_color;
+
+typedef struct s_player
+{
+	double		x;
+	double		y;
+	double		dir;
+}				t_player;
 
 typedef struct s_keys
 {
@@ -76,6 +88,7 @@ typedef struct s_game
 }				t_game;
 typedef struct s_cub3d
 {
+	t_player	player;
 	t_mlx		mlx;
 	t_parsing	parsing;
 	t_game		game;
@@ -116,5 +129,11 @@ void			render_background(t_cub3d *cub3d, int color);
 
 int             key_press(int keycode, t_cub3d *cub3d);
 int             key_release(int keycode, t_cub3d *cub3d);
+int 		    init_keys(t_cub3d *cub3d);
+
+int 		    minimap(t_cub3d *cub3d);
+
+int				update_player_pos(t_cub3d *cub3d);
+
 
 #endif

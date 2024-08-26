@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 14:44:00 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:51:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,53 @@ static int	allocate_map(t_cub3d *cub3d)
 	size_t	i;
 
 	i = 0;
-	cub3d->parsing.map = malloc(sizeof(char *) * (cub3d->parsing.map_height + 1));
+	cub3d->parsing.map = malloc(sizeof(char *) * (cub3d->parsing.map_height + 3));
 	if (!cub3d->parsing.map)
 		return (EXIT_FAILURE);
-	while (i < cub3d->parsing.map_height)
+	while (i < cub3d->parsing.map_height + 2)
 	{
-		cub3d->parsing.map[i] = malloc(sizeof(char) * (cub3d->parsing.map_with + 1));
+		cub3d->parsing.map[i] = malloc(sizeof(char) * (cub3d->parsing.map_with + 2));
 		if (!cub3d->parsing.map[i])
 			return (EXIT_FAILURE);
-		ft_memset(cub3d->parsing.map[i], '0', cub3d->parsing.map_with);
-		cub3d->parsing.map[i][cub3d->parsing.map_with] = '\0';
+		ft_memset(cub3d->parsing.map[i], '9', cub3d->parsing.map_with + 2);
+		cub3d->parsing.map[i][cub3d->parsing.map_with + 1] = '\0';
 		i++;
 	}
 	cub3d->parsing.map[i] = NULL;
 	return (EXIT_SUCCESS);
 }
 
-static char	*replace_spaces(char *line)
+static void parse_player(t_cub3d *cub3d, int x, int y, char dir)
+{
+	if (cub3d->player.x != -1)
+		ft_dprintf(2, "error: multiple player\n");
+	cub3d->player.x = x;
+	cub3d->player.y = y;
+	if (dir == 'N')
+		cub3d->player.dir = 0;
+	else if (dir == 'E')
+		cub3d->player.dir = 90;
+	else if (dir == 'S')
+		cub3d->player.dir = 180;
+	else if (dir == 'W')
+		cub3d->player.dir = 270;
+}
+static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 {
 	size_t	i;
 
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 	{
-		if (line[i] == ' ')
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		{
+			if (cub3d->player.x != -1)
+				return (NULL);
+			parse_player(cub3d, x, i, line[i]);
 			line[i] = '0';
+		}
+		if (line[i] == ' ')
+			line[i] = '9';
 		i++;
 	}
 	line[i] = '\0';
@@ -89,18 +111,18 @@ int	parse_map(char *line, int fd, t_cub3d *cub3d)
 {
 	size_t		i;
 	static bool	map = false;
-
 	if (map == true)
 		return (EXIT_FAILURE);
 	map = true;
-	ft_dprintf(1, "Parsing map\n");
 	if (allocate_map(cub3d) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	i = 0;
-	while (i < cub3d->parsing.map_height && line)
+	i = 1;
+	while (i <= cub3d->parsing.map_height && line)
 	{
-		line = replace_spaces(line);
-		cub3d->parsing.map[i] = ft_memcpy(cub3d->parsing.map[i], line, ft_strlen(line));
+		line = replace_spaces(line, cub3d, i);
+		if (line == NULL)
+			return (ft_dprintf(2, "error: multiple player\n"), EXIT_FAILURE);
+		ft_memcpy(&cub3d->parsing.map[i][1], line, ft_strlen(line));
 		free(line);
 		line = get_next_line(fd);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:41:19 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 18:32:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 15:13:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	render(t_cub3d *cub3d)
 {
-    render_background(cub3d, 0x555555);
+	mlx_clear_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 	if (cub3d->game.page == LANDING_PAGE)
 		render_landing_page(cub3d);
 	else if (cub3d->game.page == GAME_PAGE)
