@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:08:35 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 17:54:19 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 19:49:48 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	init_parsing(t_cub3d *cub3d)
     cub3d->parsing.map = NULL;
     cub3d->player.x = -1;
     cub3d->player.y = -1;
+    cub3d->parsing.error = NO_ERROR;
 }

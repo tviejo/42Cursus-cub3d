@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 18:17:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 19:53:06 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static int	allocate_map(t_cub3d *cub3d)
 
 static void parse_player(t_cub3d *cub3d, int x, int y, char dir)
 {
-	if (cub3d->player.x != -1)
-		ft_dprintf(2, "error: multiple player\n");
 	cub3d->player.x = x;
 	cub3d->player.y = y;
 	if (dir == 'N')
@@ -85,6 +83,17 @@ static void parse_player(t_cub3d *cub3d, int x, int y, char dir)
 	else if (dir == 'W')
 		cub3d->player.dir = 270;
 }
+
+static bool is_valid(char c)
+{
+	if (c == '0' || c == '1' || c == ' ')
+		return (true);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (true);
+	if (c == 'C' || c == 'O')
+		return (true);
+	return (false);
+}
 static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 {
 	size_t	i;
@@ -92,10 +101,12 @@ static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 	{
+		if (is_valid(line[i]) == false)
+			cub3d->parsing.error = INVALID_CHAR;
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 		{
 			if (cub3d->player.x != -1)
-				return (NULL);
+				cub3d->parsing.error = MULTPLE_PLAYER;
 			parse_player(cub3d, x, i + 1, line[i]);
 			line[i] = '0';
 		}
@@ -120,8 +131,10 @@ int	parse_map(char *line, int fd, t_cub3d *cub3d)
 	while (i <= cub3d->parsing.map_height && line)
 	{
 		line = replace_spaces(line, cub3d, i);
-		if (line == NULL)
+		if (cub3d->parsing.error == MULTPLE_PLAYER)
 			return (ft_dprintf(2, "error: multiple player\n"), EXIT_FAILURE);
+		if (cub3d->parsing.error == INVALID_CHAR)
+			return (ft_dprintf(2, "error: invalid char\n"), EXIT_FAILURE);
 		ft_memcpy(&cub3d->parsing.map[i][1], line, ft_strlen(line));
 		free(line);
 		line = get_next_line(fd);

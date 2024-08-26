@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 18:57:14 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 19:49:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ typedef enum e_page
 	GAME_PAGE,
 	EXIT_PAGE
 }				t_page;
+
+typedef enum e_error
+{
+	NO_ERROR,
+	MULTPLE_PLAYER,
+	NO_PLAYER,
+	NO_MAP,
+	NO_TEXTURE,
+	NO_COLOR,
+	INVALID_CHAR,
+}			t_error;
+
 typedef struct s_mlx
 {
 	void		*mlx_img;
@@ -88,6 +100,7 @@ typedef struct s_parsing
 	char		*ea;
 	t_color		floor;
 	t_color		cei;
+	t_error		error;
 }				t_parsing;
 
 typedef struct s_game
