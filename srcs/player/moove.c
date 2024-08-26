@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 16:15:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 16:58:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ static bool wall(t_cub3d *cub3d)
     if (cub3d->parsing.map[(int)cub3d->player.x][(int)cub3d->player.y] == '1')
     {
         return (true); 
+    }
+    if (cub3d->parsing.map[(int)cub3d->player.x + 1][(int)cub3d->player.y + 1] == '1')
+    {
+        return (true);
     }
     return (false);
 }

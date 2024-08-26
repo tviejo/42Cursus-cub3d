@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 16:15:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 17:23:28 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define WINDOW_HEIGHT 1080
 
 # define PI 3.1416
-# define TRANS_SPEED 0.001
+# define TRANS_SPEED 0.005
 # define ROT_SPEED 0.005
 
 typedef enum e_page
@@ -36,6 +36,10 @@ typedef enum e_page
 typedef struct s_mlx
 {
 	void		*mlx_img;
+	void		*img_north;
+	void		*img_south;
+	void		*img_west;
+	void		*img_east;
 	char		*addr;
 	int			bpp;
 	int			line_len;
@@ -116,6 +120,7 @@ int				ft_reset_img(t_cub3d *cub3d);
 int				ft_free_img(t_cub3d *cub3d);
 int				ft_init_img(t_cub3d *cub3d);
 int				init_data_mlx(t_cub3d *cub3d);
+void 			img_pix_put(t_cub3d *cub3d, int x, int y, int color);
 
 int				render(t_cub3d *cub3d);
 

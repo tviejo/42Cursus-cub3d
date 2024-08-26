@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 14:44:00 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 17:24:14 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ bool    is_texture(char *line)
         return (true);
     return (false);
 }
-
 static char	*get_texture(char *line)
 {
     int		i;
