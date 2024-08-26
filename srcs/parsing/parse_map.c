@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 15:51:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:17:08 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 		{
 			if (cub3d->player.x != -1)
 				return (NULL);
-			parse_player(cub3d, x, i, line[i]);
+			parse_player(cub3d, x, i + 1, line[i]);
 			line[i] = '0';
 		}
 		if (line[i] == ' ')

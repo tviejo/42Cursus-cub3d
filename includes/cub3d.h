@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 17:23:28 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 17:58:18 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_keys
     bool		right;
     bool		turn_left;
     bool		turn_right;
+	int			mouse_x;
+	int			mouse_y;
 }				t_keys;
 
 typedef struct s_parsing
@@ -135,6 +137,7 @@ void			render_background(t_cub3d *cub3d, int color);
 int             key_press(int keycode, t_cub3d *cub3d);
 int             key_release(int keycode, t_cub3d *cub3d);
 int 		    init_keys(t_cub3d *cub3d);
+int	mouse_move(int button, int x, int y, t_cub3d *cub3d);
 
 int 		    minimap(t_cub3d *cub3d);
 

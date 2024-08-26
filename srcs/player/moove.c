@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 16:58:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/26 18:20:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ static void translation(t_cub3d *cub3d)
 
 static void rotation(t_cub3d *cub3d)
 {
+    int x;
+    int y;
+
+    mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, &x, &y);
+    if (y - cub3d->keys.mouse_y < 10)
+        cub3d->player.dir -= (y - cub3d->keys.mouse_y) * 0.1;
+    cub3d->keys.mouse_x = x;
+    cub3d->keys.mouse_y = y;
     if (cub3d->keys.turn_left)
         cub3d->player.dir += ROT_SPEED;
     if (cub3d->keys.turn_right)
