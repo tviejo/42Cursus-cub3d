@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:51:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:23:23 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:39:08 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,18 @@ int	ft_init_img(t_cub3d *cub3d)
 
 int	mlx_create_img(t_cub3d *cub3d)
 {
-	cub3d->mlx.mlx_img = mlx_new_image(cub3d->mlx.mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (cub3d->mlx.mlx_img == NULL)
+	t_mlx *const	m = &cub3d->mlx;
+
+	m->mlx_img = mlx_new_image(m->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (m->mlx_img == NULL)
 		return (EXIT_FAILURE);
-	cub3d->mlx.pixels = mlx_get_data_addr(cub3d->mlx.mlx_img, &cub3d->mlx.bpp,
-			&cub3d->mlx.line_size, &cub3d->mlx.endian);
-	if (cub3d->mlx.pixels == NULL)
+	m->pixels = mlx_get_data_addr(m->mlx_img, &m->bpp, &m->line_size,
+			&m->endian);
+	if (m->pixels == NULL)
 		return (EXIT_FAILURE);
-	cub3d->mlx.pixel = NULL;
+	m->width = WINDOW_WIDTH;
+	m->height = WINDOW_HEIGHT;
+	m->pixel = NULL;
 	init_data_mlx(cub3d);
 	ft_init_img(cub3d);
 	return (EXIT_SUCCESS);

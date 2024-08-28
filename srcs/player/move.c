@@ -6,15 +6,15 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 17:18:00 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/29 01:04:07 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int	open_door(t_cub3d *cub3d, int i, int j)
+static int	open_door(t_cub3d *cub3d, int x, int y)
 {
-	cub3d->map.m[i][j] = 'O';
+	cub3d->map.m[y][x] = 'O';
 	return (0);
 }
 
@@ -22,11 +22,11 @@ static bool	wall(t_cub3d *cub3d)
 {
 	const int	x = (int)cub3d->player.x;
 	const int	y = (int)cub3d->player.y;
-	const int	map_xy = cub3d->map.m[x][y];
+	const int	item = cub3d->map.m[y][x];
 
-	if (map_xy == '1' || map_xy == 'C')
+	if (item == '1' || item == 'C')
 	{
-		if (map_xy == 'C' && cub3d->inputs.open)
+		if (item == 'C' && cub3d->inputs.open)
 			open_door(cub3d, x, y);
 		else
 			return (true);
@@ -36,22 +36,22 @@ static bool	wall(t_cub3d *cub3d)
 
 static void	translation(t_cub3d *cub3d)
 {
-	if (cub3d->inputs.mv_forward)
+	if (cub3d->inputs.mv_left)
 	{
 		cub3d->player.x -= cos(cub3d->player.dir) * TRANS_SPEED;
 		cub3d->player.y -= sin(cub3d->player.dir) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_backward)
+	if (cub3d->inputs.mv_right)
 	{
 		cub3d->player.x += cos(cub3d->player.dir) * TRANS_SPEED;
 		cub3d->player.y += sin(cub3d->player.dir) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_left)
+	if (cub3d->inputs.mv_forward)
 	{
 		cub3d->player.x += cos(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
 		cub3d->player.y += sin(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_right)
+	if (cub3d->inputs.mv_backward)
 	{
 		cub3d->player.x += cos(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
 		cub3d->player.y += sin(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
@@ -77,9 +77,9 @@ static void	translation(t_cub3d *cub3d)
 static void	rotation(t_cub3d *cub3d)
 {
 	if (cub3d->inputs.turn_left)
-		cub3d->player.dir += ROT_SPEED;
-	if (cub3d->inputs.turn_right)
 		cub3d->player.dir -= ROT_SPEED;
+	if (cub3d->inputs.turn_right)
+		cub3d->player.dir += ROT_SPEED;
 }
 
 int	update_player_pos(t_cub3d *cub3d)

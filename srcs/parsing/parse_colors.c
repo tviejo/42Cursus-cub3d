@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:56:34 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:04:05 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:45:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	find_type(char *line)
 		i++;
 	if (line && line[i] == 'F')
 		return (FLOOR);
-	return (ce);
+	return (CEIL);
 }
 
 void	parse_color(char *line, t_cub3d *cube3d)

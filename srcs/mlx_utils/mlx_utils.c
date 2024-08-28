@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:30:29 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:54:14 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	mlx_start(t_cub3d *cub3d)
 	if (cub3d->mlx.mlx_ptr == NULL)
 		return (EXIT_FAILURE);
 	cub3d->mlx.win_ptr = mlx_new_window(cub3d->mlx.mlx_ptr, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "cub3d");
+			WINDOW_HEIGHT, "cub3D");
 	if (cub3d->mlx.win_ptr == NULL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -39,12 +39,12 @@ int	mlx_close(t_cub3d *cub3d)
 	return (EXIT_SUCCESS);
 }
 
-void	img_pix_put(t_cub3d *cub3d, int x, int y, int color)
+void	img_pix_put(t_cub3d *cub3d, t_uint x, t_uint y, int color)
 {
 	char	*pixel;
 	int		i;
 
-	if (x < WINDOW_WIDTH && y < WINDOW_HEIGHT)
+	if (x < (t_uint)cub3d->mlx.width && y < (t_uint)cub3d->mlx.height)
 	{
 		i = cub3d->mlx.bpp - 8;
 		pixel = cub3d->mlx.pixels

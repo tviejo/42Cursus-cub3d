@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/08/28 12:26:36 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/28 23:19:06 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,17 +359,16 @@ void		img_put_pixel(t_image *img, int x, int y, int color);
 void		img_put_pixel32(t_image *img, int x, int y, int color);
 void		img_put_pixel32_safe(t_image *img, t_uint x, t_uint y, int color);
 
-void		draw_h_line(t_image *img, t_pt2d p0, t_pt2d p1);
-void		draw_h_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
-void		draw_v_line(t_image *img, t_pt2d p0, t_pt2d p1);
-void		draw_v_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
-void		draw_line_fast(t_image *img, t_pt2d p0, t_pt2d p1);
+//void		draw_h_line(t_image *img, t_pt2d p0, t_pt2d p1);
+//void		draw_h_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
+//void		draw_v_line(t_image *img, t_pt2d p0, t_pt2d p1);
+//void		draw_v_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
+//void		draw_line_fast(t_mlx *mlx, t_pt2d *p0, t_pt2d *p1);  => cub3d.h
 void		draw_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
 void		draw_line_color(t_image *img, t_pt2d *p0, t_pt2d *p1);
-void		draw_line_palette(t_fdfmap *map, t_image *img, t_pt2d *p0, t_pt2d *p1);
-void		draw_line(t_fdfmap *map, t_image *img, t_pt2d p0, t_pt2d p1);
-void		draw_line_raw_clip(t_fdfmap *map, t_image *img,
-				t_pt2d *p0, t_pt2d *p1);
+void		draw_line_palette(t_fdfmap *map, t_image *img, t_pt2d *p0,
+				t_pt2d *p1);
+//void		draw_line(t_mlx *mlx, t_pt2d p0, t_pt2d p1);  => cub3d.h
 
 int			get_inter_color(int c1, int c2, double ramp);
 

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 17:34:09 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/29 01:18:18 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define WINDOW_HEIGHT 1080
 
 # define PI 3.14159265359
-# define TRANS_SPEED 0.005
-# define ROT_SPEED 0.005
+# define TRANS_SPEED 0.008
+# define ROT_SPEED 0.009
 
 typedef enum e_keys
 {
@@ -67,18 +67,20 @@ typedef enum e_error
 
 typedef struct s_mlx
 {
+	void		*mlx_ptr;
+	void		*win_ptr;
 	void		*mlx_img;
-	void		*img_north;
-	void		*img_south;
-	void		*img_west;
-	void		*img_east;
+	int			width;
+	int			height;
 	char		*pixels;
 	int			bpp;
 	int			line_size;
 	int			endian;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	// pixel array is useless (to remove), we can use pixels (old name was addr)
+	void		*text_north;
+	void		*text_south;
+	void		*text_west;
+	void		*text_east;
+	// 'pixel' array is useless, we can use 'pixels' from mlx_get_data_addr()
 	int			**pixel;
 }	t_mlx;
 
@@ -152,7 +154,7 @@ typedef struct s_cub3d
 
 int				parse_cub(char *file, t_cub3d *cub3d);
 bool			is_map(char *line);
-int				parse_map(char *line, int fd, t_cub3d *cub3d);
+int				parse_map(t_cub3d *cub3d, int fd, char *line);
 int				find_map_size(int fd, t_cub3d *cub3d);
 void			parse_texture(char *line, t_cub3d *cub3d);
 void			parse_color(char *line, t_cub3d *cub3d);
@@ -171,7 +173,7 @@ int				ft_reset_img(t_cub3d *cub3d);
 int				ft_free_img(t_cub3d *cub3d);
 int				ft_init_img(t_cub3d *cub3d);
 int				init_data_mlx(t_cub3d *cub3d);
-void			img_pix_put(t_cub3d *cub3d, int x, int y, int color);
+void			img_pix_put(t_cub3d *cub3d, t_uint x, t_uint y, int color);
 
 int				render(t_cub3d *cub3d);
 
@@ -182,7 +184,7 @@ int				render_game_page(t_cub3d *cub3d);
 void			update_n_draw_fps(t_cub3d *cub3d);
 int				render_exit_page(t_cub3d *cub3d);
 
-void			render_background(t_cub3d *cub3d, int color);
+//void			render_background(t_cub3d *cub3d, int color);
 
 int				key_press(int keycode, t_cub3d *cub3d);
 int				key_release(int keycode, t_cub3d *cub3d);
@@ -192,5 +194,8 @@ int				mouse_move(int button, int x, int y, t_cub3d *cub3d);
 int				draw_minimap(t_cub3d *cub3d);
 
 int				update_player_pos(t_cub3d *cub3d);
+
+void			draw_line(t_mlx *mlx, t_pt2d p0, t_pt2d p1);
+void			draw_line_fast(t_mlx *mlx, t_pt2d *p0, t_pt2d *p1);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:21 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 14:42:53 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 21:41:35 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define ce 0
+# define CEIL 0
 # define FLOOR 1
-
-
 
 #endif

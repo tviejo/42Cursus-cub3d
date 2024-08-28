@@ -4,6 +4,11 @@ SRC_DIR		=	srcs/
 
 OBJ_DIR     =   objs/
 
+SRCS		+= draw/draw_line_main.c
+SRCS		+= draw/draw_line_fast.c
+SRCS		+= draw/image_fill.c
+SRCS		+= draw/put_pixel.c
+
 SRCS		+= parsing/parsing.c
 SRCS		+= parsing/init_parsing.c
 SRCS		+= parsing/parse_map.c
@@ -107,7 +112,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

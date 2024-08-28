@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 17:20:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:16:38 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool	is_valid(char c)
 	return (false);
 }
 
-static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
+static char	*replace_spaces(t_cub3d *cub3d, char *line, int i_line)
 {
 	size_t	i;
 
@@ -72,7 +72,7 @@ static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 		{
 			if (cub3d->player.x != -1)
 				cub3d->map.error = MULTIPLE_PLAYER;
-			parse_player(cub3d, x, i + 1, line[i]);
+			parse_player(cub3d, i + 1, i_line, line[i]);
 			line[i] = '0';
 		}
 		if (line[i] == ' ')
@@ -83,9 +83,9 @@ static char	*replace_spaces(char *line, t_cub3d *cub3d, int x)
 	return (line);
 }
 
-int	parse_map(char *line, int fd, t_cub3d *cub3d)
+int	parse_map(t_cub3d *cub3d, int fd, char *line)
 {
-	size_t		i;
+	size_t		i_line;
 	static bool	map = false;
 
 	if (map == true)
@@ -93,18 +93,18 @@ int	parse_map(char *line, int fd, t_cub3d *cub3d)
 	map = true;
 	if (allocate_map(cub3d) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	i = 1;
-	while (i <= cub3d->map.height && line)
+	i_line = 1;
+	while (i_line <= cub3d->map.height && line)
 	{
-		line = replace_spaces(line, cub3d, i);
+		line = replace_spaces(cub3d, line, i_line);
 		if (cub3d->map.error == MULTIPLE_PLAYER)
 			return (ft_dprintf(2, "error: multiple player\n"), EXIT_FAILURE);
 		if (cub3d->map.error == INVALID_CHAR)
 			return (ft_dprintf(2, "error: invalid char\n"), EXIT_FAILURE);
-		ft_memcpy(&cub3d->map.m[i][1], line, ft_strlen(line));
+		ft_memcpy(&cub3d->map.m[i_line][1], line, ft_strlen(line));
 		free(line);
 		line = get_next_line(fd);
-		i++;
+		i_line++;
 	}
 	free(line);
 	return (EXIT_SUCCESS);

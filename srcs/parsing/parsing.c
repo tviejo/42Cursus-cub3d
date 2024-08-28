@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:15:05 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:09:36 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	parse_file(char *file, t_cub3d *cub3d)
 	{
 		if (is_map(line) == true)
 		{
-			if (parse_map(line, fd, cub3d) == EXIT_FAILURE)
+			if (parse_map(cub3d, fd, line) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		else if (is_texture(line) == true)
