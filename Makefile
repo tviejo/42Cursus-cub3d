@@ -1,4 +1,4 @@
-NAME		=	cube3d
+NAME		=	cub3D
 
 SRC_DIR		=	srcs/
 
@@ -30,11 +30,12 @@ SRCS		+= landing_page/landing_page.c
 SRCS		+= exit_page/exit_page.c
 
 SRCS		+= keys/keys.c
+SRCS		+= keys/keys_utils.c
 SRCS		+= keys/mouse.c
 
 SRCS		+= minimap/minimap.c
 
-SRCS		+= player/moove.c
+SRCS		+= player/move.c
 
 SRCS		+= main.c
 
@@ -44,7 +45,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-g3 -Wall -Wextra -Werror -MMD -MP -O2
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -O2
 
 LIBFT 		= 	libft/libft.a
 

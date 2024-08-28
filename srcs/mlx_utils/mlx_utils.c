@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 18:05:39 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:30:29 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	mlx_close(t_cub3d *cub3d)
 		free(cub3d->mlx.mlx_ptr);
 	return (EXIT_SUCCESS);
 }
+
 void	img_pix_put(t_cub3d *cub3d, int x, int y, int color)
 {
 	char	*pixel;
@@ -46,8 +47,8 @@ void	img_pix_put(t_cub3d *cub3d, int x, int y, int color)
 	if (x < WINDOW_WIDTH && y < WINDOW_HEIGHT)
 	{
 		i = cub3d->mlx.bpp - 8;
-		pixel = cub3d->mlx.addr + (y * cub3d->mlx.line_len + x * (cub3d->mlx.bpp
-					/ 8));
+		pixel = cub3d->mlx.pixels
+			+ y * cub3d->mlx.line_size + x * (cub3d->mlx.bpp / 8);
 		while (i >= 0)
 		{
 			if (cub3d->mlx.endian != 0)
@@ -59,6 +60,7 @@ void	img_pix_put(t_cub3d *cub3d, int x, int y, int color)
 	}
 }
 
+/*
 void	render_background(t_cub3d *cub3d, int color)
 {
 	int	i;
@@ -76,6 +78,7 @@ void	render_background(t_cub3d *cub3d, int color)
 		}
 		++i;
 	}
-    mlx_put_image_to_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
-            cub3d->mlx.mlx_img, 0, 0);
+	mlx_put_image_to_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
+		cub3d->mlx.mlx_img, 0, 0);
 }
+*/

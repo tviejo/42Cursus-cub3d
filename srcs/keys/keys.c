@@ -3,29 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 18:39:53 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 01:08:52 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-
-int init_keys(t_cub3d *cub3d)
+void	update_player_inputs(t_player_inputs *in)
 {
-	cub3d->keys.open = false;
-	cub3d->keys.up = false;
-	cub3d->keys.down = false;
-	cub3d->keys.left = false;
-	cub3d->keys.right = false;
-	cub3d->keys.turn_left = false;
-	cub3d->keys.turn_right = false;
-	cub3d->keys.mouse_x = 0;
-	cub3d->keys.mouse_y = 0;
-	return (0);
+	const bool	strafe = in->strafe_mode ^ in->strafe_alt;
+
+	in->mv_forward = in->k_up_1 || in->k_up_2;
+	in->mv_backward = in->k_down_1 || in->k_down_2;
+	in->mv_left = strafe && (in->k_left_1 || in->k_left_2);
+	in->mv_right = strafe && (in->k_right_1 || in->k_right_2);
+	in->turn_left = !strafe && (in->k_left_1 || in->k_left_2);
+	in->turn_right = !strafe && (in->k_right_1 || in->k_right_2);
+	in->open = in->k_open_1 || in->k_open_2;
 }
+
+void	key_press_player(int keycode, t_player_inputs *in)
+{
+	if (keycode == k_up_1)
+		in->k_up_1 = true;
+	if (keycode == k_up_2)
+		in->k_up_2 = true;
+	if (keycode == k_down_1)
+		in->k_down_1 = true;
+	if (keycode == k_down_2)
+		in->k_down_2 = true;
+	if (keycode == k_left_1)
+		in->k_left_1 = true;
+	if (keycode == k_left_2)
+		in->k_left_2 = true;
+	if (keycode == k_right_1)
+		in->k_right_1 = true;
+	if (keycode == k_right_2)
+		in->k_right_2 = true;
+	if (keycode == k_open_1)
+		in->k_open_1 = true;
+	if (keycode == k_open_2)
+		in->k_open_2 = true;
+	if (keycode == k_fire_1)
+		in->k_fire_1 = true;
+	if (keycode == k_fire_2)
+		in->k_fire_2 = true;
+}
+
 int	key_press(int keycode, t_cub3d *cub3d)
 {
 	if ((keycode == XK_Escape || keycode == XK_y)
@@ -33,42 +60,52 @@ int	key_press(int keycode, t_cub3d *cub3d)
 		ft_close(cub3d);
 	if (keycode == XK_Escape)
 		cub3d->game.page = EXIT_PAGE;
-	if (keycode == XK_w)
-		cub3d->keys.up = true;
-	if (keycode == XK_s)
-		cub3d->keys.down = true;
-	if (keycode == XK_a)
-		cub3d->keys.left = true;
-	if (keycode == XK_d)
-		cub3d->keys.right = true;
-	if (keycode == XK_Left)
-		cub3d->keys.turn_left = true;
-	if (keycode == XK_Right)
-		cub3d->keys.turn_right = true;
 	if (keycode == XK_space && cub3d->game.page == LANDING_PAGE)
 		cub3d->game.page = GAME_PAGE;
 	if (keycode == XK_n && cub3d->game.page == EXIT_PAGE)
 		cub3d->game.page = GAME_PAGE;
-	if (keycode == XK_q)
-		cub3d->keys.open = true;
+	if (keycode == k_strafe_alt)
+		cub3d->inputs.strafe_alt = true;
+	key_press_player(keycode, &cub3d->inputs);
+	update_player_inputs(&cub3d->inputs);
 	return (0);
+}
+
+void	key_release_player(int keycode, t_player_inputs *in)
+{
+	if (keycode == k_up_1)
+		in->k_up_1 = false;
+	if (keycode == k_up_2)
+		in->k_up_2 = false;
+	if (keycode == k_down_1)
+		in->k_down_1 = false;
+	if (keycode == k_down_2)
+		in->k_down_2 = false;
+	if (keycode == k_left_1)
+		in->k_left_1 = false;
+	if (keycode == k_left_2)
+		in->k_left_2 = false;
+	if (keycode == k_right_1)
+		in->k_right_1 = false;
+	if (keycode == k_right_2)
+		in->k_right_2 = false;
+	if (keycode == k_open_1)
+		in->k_open_1 = false;
+	if (keycode == k_open_2)
+		in->k_open_2 = false;
+	if (keycode == k_fire_1)
+		in->k_fire_1 = false;
+	if (keycode == k_fire_2)
+		in->k_fire_2 = false;
 }
 
 int	key_release(int keycode, t_cub3d *cub3d)
 {
-	if (keycode == XK_w)
-		cub3d->keys.up = false;
-	if (keycode == XK_s)
-		cub3d->keys.down = false;
-	if (keycode == XK_a)
-		cub3d->keys.left = false;
-	if (keycode == XK_d)
-		cub3d->keys.right = false;
-	if (keycode == XK_Left)
-		cub3d->keys.turn_left = false;
-	if (keycode == XK_Right)
-		cub3d->keys.turn_right = false;
-	if (keycode == XK_q)
-		cub3d->keys.open = false;
+	if (keycode == k_strafe_switch)
+		cub3d->inputs.strafe_mode = !cub3d->inputs.strafe_mode;
+	if (keycode == k_strafe_alt)
+		cub3d->inputs.strafe_alt = false;
+	key_release_player(keycode, &cub3d->inputs);
+	update_player_inputs(&cub3d->inputs);
 	return (0);
 }

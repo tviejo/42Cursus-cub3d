@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:25:40 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/25 16:18:21 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:21:39 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int init_data_mlx(t_cub3d *cub3d)
+int	init_data_mlx(t_cub3d *cub3d)
 {
-    cub3d->mlx.pixel = NULL;
-    return (0);
+	cub3d->mlx.pixel = NULL;
+	return (0);
 }

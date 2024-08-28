@@ -3,16 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 14:58:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 15:15:05 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int open_and_size(char *file, t_cub3d *cub3d)
+bool	is_map(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line && line[i] == ' ')
+		i++;
+	if (line && (line[i] == '1' || line[i] == '0'))
+		return (true);
+	return (false);
+}
+
+int	find_map_size(int fd, t_cub3d *cub3d)
+{
+	char	*line;
+	size_t	i;
+
+	i = 0;
+	line = get_next_line(fd);
+	while (line && is_map(line) != true)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	while (line && is_map(line) == true)
+	{
+		i++;
+		if (ft_strlen(line) > cub3d->map.width)
+			cub3d->map.width = ft_strlen(line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	if (line)
+		free(line);
+	cub3d->map.height = i;
+	return (EXIT_SUCCESS);
+}
+
+static int	open_and_size(char *file, t_cub3d *cub3d)
 {
 	int		fd;
 
@@ -23,6 +61,7 @@ static int open_and_size(char *file, t_cub3d *cub3d)
 	close(fd);
 	return (EXIT_SUCCESS);
 }
+
 static int	parse_file(char *file, t_cub3d *cub3d)
 {
 	char	*line;

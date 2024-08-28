@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 15:46:57 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 17:18:51 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int init(t_cub3d *cub3d)
+static int	init(t_cub3d *cub3d)
 {
 	init_keys(cub3d);
 	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_cub3d cub3d;
+	t_cub3d	cub3d;
 
 	if (argc != 2)
 		return (0);

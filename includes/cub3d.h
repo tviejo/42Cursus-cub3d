@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/26 19:49:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/08/28 17:34:09 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 # include "parsing.h"
+# include "ads_gfx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>
@@ -24,27 +25,45 @@
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 
-# define PI 3.1416
+# define PI 3.14159265359
 # define TRANS_SPEED 0.005
 # define ROT_SPEED 0.005
+
+typedef enum e_keys
+{
+	k_fire_1 = XK_Control_L,
+	k_fire_2 = XK_Control_R,
+	k_open_1 = XK_space,
+	k_open_2 = XK_q,
+	k_up_1 = XK_Up,
+	k_up_2 = XK_w,
+	k_down_1 = XK_Down,
+	k_down_2 = XK_s,
+	k_left_1 = XK_Left,
+	k_left_2 = XK_a,
+	k_right_1 = XK_Right,
+	k_right_2 = XK_d,
+	k_strafe_alt = XK_Alt_L,
+	k_strafe_switch = XK_F10
+}	t_keys;
 
 typedef enum e_page
 {
 	LANDING_PAGE,
 	GAME_PAGE,
 	EXIT_PAGE
-}				t_page;
+}	t_page;
 
 typedef enum e_error
 {
 	NO_ERROR,
-	MULTPLE_PLAYER,
+	MULTIPLE_PLAYER,
 	NO_PLAYER,
 	NO_MAP,
 	NO_TEXTURE,
 	NO_COLOR,
 	INVALID_CHAR,
-}			t_error;
+}	t_error;
 
 typedef struct s_mlx
 {
@@ -53,68 +72,83 @@ typedef struct s_mlx
 	void		*img_south;
 	void		*img_west;
 	void		*img_east;
-	char		*addr;
+	char		*pixels;
 	int			bpp;
-	int			line_len;
+	int			line_size;
 	int			endian;
 	void		*mlx_ptr;
 	void		*win_ptr;
+	// pixel array is useless (to remove), we can use pixels (old name was addr)
 	int			**pixel;
-}				t_mlx;
+}	t_mlx;
 
 typedef struct s_color
 {
 	int			r;
 	int			g;
 	int			b;
-}				t_color;
+}	t_color;
 
 typedef struct s_player
 {
 	double		x;
 	double		y;
 	double		dir;
-}				t_player;
+}	t_player;
 
-typedef struct s_keys
+typedef struct s_player_inputs
 {
 	bool		open;
-    bool		up;
-    bool		down;
-    bool		left;
-    bool		right;
-    bool		turn_left;
-    bool		turn_right;
+	bool		mv_forward;
+	bool		mv_backward;
+	bool		mv_left;
+	bool		mv_right;
+	bool		turn_left;
+	bool		turn_right;
 	int			mouse_x;
 	int			mouse_y;
-}				t_keys;
+	bool		strafe_mode;
+	bool		strafe_alt;
+	bool		k_fire_1;
+	bool		k_fire_2;
+	bool		k_open_1;
+	bool		k_open_2;
+	bool		k_up_1;
+	bool		k_up_2;
+	bool		k_down_1;
+	bool		k_down_2;
+	bool		k_left_1;
+	bool		k_left_2;
+	bool		k_right_1;
+	bool		k_right_2;
+}	t_player_inputs;
 
-typedef struct s_parsing
+typedef struct s_map
 {
-	char		**map;
-	size_t		map_height;
-	size_t		map_with;
+	char		**m;
+	size_t		height;
+	size_t		width;
 	char		*no;
 	char		*so;
 	char		*we;
 	char		*ea;
-	t_color		floor;
-	t_color		cei;
+	t_color		col_floor;
+	t_color		col_ceil;
 	t_error		error;
-}				t_parsing;
+}	t_map;
 
 typedef struct s_game
 {
 	t_page		page;
-}				t_game;
+}	t_game;
 typedef struct s_cub3d
 {
-	t_player	player;
-	t_mlx		mlx;
-	t_parsing	parsing;
-	t_game		game;
-    t_keys		keys;
-}				t_cub3d;
+	t_player		player;
+	t_mlx			mlx;
+	t_map			map;
+	t_game			game;
+	t_player_inputs	inputs;
+}	t_cub3d;
 
 int				parse_cub(char *file, t_cub3d *cub3d);
 bool			is_map(char *line);
@@ -137,7 +171,7 @@ int				ft_reset_img(t_cub3d *cub3d);
 int				ft_free_img(t_cub3d *cub3d);
 int				ft_init_img(t_cub3d *cub3d);
 int				init_data_mlx(t_cub3d *cub3d);
-void 			img_pix_put(t_cub3d *cub3d, int x, int y, int color);
+void			img_pix_put(t_cub3d *cub3d, int x, int y, int color);
 
 int				render(t_cub3d *cub3d);
 
@@ -145,19 +179,18 @@ int				ft_close(t_cub3d *cub3d);
 
 int				render_landing_page(t_cub3d *cub3d);
 int				render_game_page(t_cub3d *cub3d);
-void			fps_counter(t_cub3d *cub3d);
+void			update_n_draw_fps(t_cub3d *cub3d);
 int				render_exit_page(t_cub3d *cub3d);
 
 void			render_background(t_cub3d *cub3d, int color);
 
-int             key_press(int keycode, t_cub3d *cub3d);
-int             key_release(int keycode, t_cub3d *cub3d);
-int 		    init_keys(t_cub3d *cub3d);
-int	mouse_move(int button, int x, int y, t_cub3d *cub3d);
+int				key_press(int keycode, t_cub3d *cub3d);
+int				key_release(int keycode, t_cub3d *cub3d);
+int				init_keys(t_cub3d *cub3d);
+int				mouse_move(int button, int x, int y, t_cub3d *cub3d);
 
-int 		    minimap(t_cub3d *cub3d);
+int				draw_minimap(t_cub3d *cub3d);
 
 int				update_player_pos(t_cub3d *cub3d);
-
 
 #endif
