@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:53:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 17:34:09 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:00:27 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 static void	print(t_cub3d *cub3d, char *str, int fps, t_point pos)
 {

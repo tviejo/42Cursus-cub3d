@@ -6,16 +6,16 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/29 01:22:07 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:09 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-static void	print_player(t_cub3d *cub3d)
+static void	print_player(t_cub3d *cub)
 {
-	const t_pt2d	p0 = (t_pt2d){.x = 10 * cub3d->player.x,
-		.y = 10 * cub3d->player.y, .color = COL_RED};
+	const t_pt2d	p0 = (t_pt2d){.x = 10 * cub->player.x,
+		.y = 10 * cub->player.y, .color = COL_RED};
 	t_pt2d			p1;
 	int				x;
 	int				y;
@@ -26,58 +26,60 @@ static void	print_player(t_cub3d *cub3d)
 		y = -3;
 		while (y < 3)
 		{
-			img_pix_put(cub3d, p0.x + x, p0.y + y, COL_RED);
+			img_put_pix32_safe(&cub->mlx.mlx_img, p0.x + x, p0.y + y, COL_RED);
 			y++;
 		}
 		x++;
 	}
-	p1 = (t_pt2d){.x = p0.x + 16 * cos(cub3d->player.dir - M_PI_2),
-		.y = p0.y + 16 * sin(cub3d->player.dir - M_PI_2)};
-	draw_line(&cub3d->mlx, p0, p1);
+	p1 = (t_pt2d){.x = p0.x + 16 * cos(cub->player.dir - M_PI_2),
+		.y = p0.y + 16 * sin(cub->player.dir - M_PI_2)};
+	draw_line(&cub->mlx.mlx_img, p0, p1);
 }
 
-static int	print_square(size_t x, size_t y, t_cub3d *cub3d, int color)
+static int	print_square(t_image *img, t_point pos, int color)
 {
-	size_t	xadd;
-	size_t	yadd;
+	int	x;
+	int	y;
 
-	xadd = 0;
-	while (xadd < 10)
+	x = 0;
+	while (x < 10)
 	{
-		yadd = 0;
-		while (yadd < 10)
+		y = 0;
+		while (y < 10)
 		{
-			img_pix_put(cub3d, x * 10 + xadd, y * 10 + yadd, color);
-			yadd++;
+			img_put_pix32_safe(img, pos.x * 10 + x, pos.y * 10 + y, color);
+			y++;
 		}
-		xadd++;
+		x++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	draw_minimap(t_cub3d *cub3d)
+int	draw_minimap(t_cub3d *cub)
 {
-	size_t	y;
-	size_t	x;
+	t_image *const	img = &cub->mlx.mlx_img;
+	t_point			pos;
+	int				item;
 
-	y = 0;
-	while (y < cub3d->map.height + 1)
+	pos.y = 0;
+	while (pos.y < cub->map.height + 1)
 	{
-		x = 0;
-		while (x < cub3d->map.width)
+		pos.x = 0;
+		while (pos.x < cub->map.width)
 		{
-			if (cub3d->map.m[y][x] == '1')
-				print_square(x, y, cub3d, COL_BLUE);
-			else if (cub3d->map.m[y][x] == '0')
-				print_square(x, y, cub3d, COL_WHITE);
-			else if (cub3d->map.m[y][x] == 'C')
-				print_square(x, y, cub3d, COL_MAGENTA);
-			else if (cub3d->map.m[y][x] == 'O')
-				print_square(x, y, cub3d, COL_GREEN);
-			x++;
+			item = cub->map.m[pos.y][pos.x];
+			if (item == '1')
+				print_square(img, pos, COL_BLUE);
+			else if (item == '0')
+				print_square(img, pos, COL_WHITE);
+			else if (item == 'C')
+				print_square(img, pos, COL_MAGENTA);
+			else if (item == 'O')
+				print_square(img, pos, COL_GREEN);
+			pos.x++;
 		}
-		y++;
+		pos.y++;
 	}
-	print_player(cub3d);
+	print_player(cub);
 	return (EXIT_SUCCESS);
 }

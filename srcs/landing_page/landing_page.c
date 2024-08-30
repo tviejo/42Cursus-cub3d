@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:21:37 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:17:52 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:02:20 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 int	render_landing_page(t_cub3d *cub3d)
 {

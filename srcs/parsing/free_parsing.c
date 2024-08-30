@@ -6,29 +6,32 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:22:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:02:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:54 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-void	free_parsing(t_cub3d *cub3d)
+void	free_parsing(t_map *map)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (cub3d->map.no)
-		free(cub3d->map.no);
-	if (cub3d->map.so)
-		free(cub3d->map.so);
-	if (cub3d->map.we)
-		free(cub3d->map.we);
-	if (cub3d->map.ea)
-		free(cub3d->map.ea);
-	while (i < cub3d->map.height + 2)
+	if (map->north_tfname)
+		free(map->north_tfname);
+	if (map->south_tfname)
+		free(map->south_tfname);
+	if (map->west_tfname)
+		free(map->west_tfname);
+	if (map->east_tfname)
+		free(map->east_tfname);
+	if (map->m)
 	{
-		free(cub3d->map.m[i]);
-		i++;
+		while (i < map->height + 2 && map->m[i])
+		{
+			free(map->m[i]);
+			i++;
+		}
+		free(map->m);
 	}
-	free(cub3d->map.m);
 }

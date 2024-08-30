@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/29 01:18:18 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:00:38 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <math.h>
 # include <sys/time.h>
 
+# define DEFAULT_MAP_FNAME "assets/maps/map_subject.cub"
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 
@@ -69,18 +70,22 @@ typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*mlx_img;
+	t_image		mlx_img;
+	/*void		*mlx_img;
 	int			width;
 	int			height;
 	char		*pixels;
 	int			bpp;
 	int			line_size;
-	int			endian;
-	void		*text_north;
-	void		*text_south;
-	void		*text_west;
-	void		*text_east;
-	// 'pixel' array is useless, we can use 'pixels' from mlx_get_data_addr()
+	int			endian;*/
+	t_image		text_north;
+	t_image		text_south;
+	t_image		text_west;
+	t_image		text_east;
+	int			color_floor;
+	int			color_ceil;
+	// 'pixel' array is useless, we can use 'mlx_img.pixels'
+	// from mlx_get_data_addr()
 	int			**pixel;
 }	t_mlx;
 
@@ -128,12 +133,12 @@ typedef struct s_player_inputs
 typedef struct s_map
 {
 	char		**m;
-	size_t		height;
-	size_t		width;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
+	int			height;
+	int			width;
+	char		*north_tfname;
+	char		*south_tfname;
+	char		*west_tfname;
+	char		*east_tfname;
 	t_color		col_floor;
 	t_color		col_ceil;
 	t_error		error;
@@ -152,28 +157,28 @@ typedef struct s_cub3d
 	t_player_inputs	inputs;
 }	t_cub3d;
 
-int				parse_cub(char *file, t_cub3d *cub3d);
+int				parse_cub3d(char *filename, t_cub3d *cub);
 bool			is_map(char *line);
 int				parse_map(t_cub3d *cub3d, int fd, char *line);
 int				find_map_size(int fd, t_cub3d *cub3d);
-void			parse_texture(char *line, t_cub3d *cub3d);
+int				parse_texture(char *line, t_cub3d *cub3d);
 void			parse_color(char *line, t_cub3d *cub3d);
 void			init_parsing(t_cub3d *cub3d);
-void			free_parsing(t_cub3d *cub3d);
+void			free_parsing(t_map *map);
 void			print_parsing(t_cub3d *cub3d);
 bool			is_texture(char *line);
 bool			is_color(char *line);
 int				check_parsing(t_cub3d *cub3d);
 
+int				mlx_init_data(t_cub3d *cub3d);
 int				mlx_start(t_cub3d *cub3d);
-int				mlx_close(t_cub3d *cub3d);
+int				mlx_close(t_mlx *mlx);
 int				mlx_create_img(t_cub3d *cub3d);
 int				mlx_looping(t_cub3d *cub3d);
 int				ft_reset_img(t_cub3d *cub3d);
-int				ft_free_img(t_cub3d *cub3d);
+int				ft_free_img(t_mlx *mlx);
 int				ft_init_img(t_cub3d *cub3d);
-int				init_data_mlx(t_cub3d *cub3d);
-void			img_pix_put(t_cub3d *cub3d, t_uint x, t_uint y, int color);
+void			img_pix_put(t_image *img, t_uint x, t_uint y, int color);
 
 int				render(t_cub3d *cub3d);
 
@@ -194,8 +199,5 @@ int				mouse_move(int button, int x, int y, t_cub3d *cub3d);
 int				draw_minimap(t_cub3d *cub3d);
 
 int				update_player_pos(t_cub3d *cub3d);
-
-void			draw_line(t_mlx *mlx, t_pt2d p0, t_pt2d p1);
-void			draw_line_fast(t_mlx *mlx, t_pt2d *p0, t_pt2d *p1);
 
 #endif

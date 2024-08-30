@@ -1,7 +1,13 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+#==================================================================
+# map_subject.cub : fichier de map par défaut pour Cub3D
+# Cub3D par Aurélien de Sarrau & Thomas Viejo
+#                                               Aout-septembre 2024
+#==================================================================
+
+NO ./assets/textures/_2001VIGNETTE.xpm
+SO  ./assets/textures/2001 l'Odyssee de l'espace - Credit MGM - DR - TCD.xpm
+WE     ./assets/textures/2001-l-odyssee-de-l-espace-stanley-kubrick.xpm
+EA./assets/textures/EGS_AlienIsolation_CreativeAssembly_S5-1920x1080.xpm   
 
 
 F 220,100,0

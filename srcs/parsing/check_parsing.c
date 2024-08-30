@@ -6,47 +6,40 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 17:19:54 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:48 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-static bool	value(t_cub3d *cub3d, size_t i, size_t j)
+static bool	is_unwanted_item(t_cub3d *cub3d, int x, int y)
 {
-	if (cub3d->map.m[i][j] == '0')
-		return (true);
-	if (cub3d->map.m[i][j] == 'N')
-		return (true);
-	if (cub3d->map.m[i][j] == 'S')
-		return (true);
-	if (cub3d->map.m[i][j] == 'E')
-		return (true);
-	if (cub3d->map.m[i][j] == 'W')
-		return (true);
-	return (false);
+	const int	item = cub3d->map.m[y][x];
+
+	return (item == '0' || item == 'N' || item == 'S'
+		|| item == 'E' || item == 'W');
 }
 
-static bool	check(t_cub3d *cub3d, size_t i, size_t j)
+static int	check_pos(t_cub3d *cub3d, int x, int y)
 {
-	if (i > 0 && value(cub3d, i - 1, j) == true)
+	if (y > 0 && is_unwanted_item(cub3d, x, y - 1))
 	{
-		ft_dprintf(2, "error: map invalid at %d,%d\n", i - 1, j);
+		ft_dprintf(2, "error: map invalid at %d,%d\n", x, y - 1);
 		return (EXIT_FAILURE);
 	}
-	if (j > 0 && value(cub3d, i, j - 1) == true)
+	if (x > 0 && is_unwanted_item(cub3d, x - 1, y))
 	{
-		ft_dprintf(2, "error: map invalid at %d,%d\n", i, j - 1);
+		ft_dprintf(2, "error: map invalid at %d,%d\n", x - 1, y);
 		return (EXIT_FAILURE);
 	}
-	if (cub3d->map.m[i + 1] && value(cub3d, i + 1, j) == true)
+	if (cub3d->map.m[y + 1] && is_unwanted_item(cub3d, x, y + 1))
 	{
-		ft_dprintf(2, "error: map invalid at %d,%d\n", i + 1, j);
+		ft_dprintf(2, "error: map invalid at %d,%d\n", x, y + 1);
 		return (EXIT_FAILURE);
 	}
-	if (cub3d->map.m[i][j + 1] && value(cub3d, i, j + 1) == true)
+	if (cub3d->map.m[y][x + 1] && is_unwanted_item(cub3d, x + 1, y))
 	{
-		ft_dprintf(2, "error: map invalid at %d,%d\n", i, j + 1);
+		ft_dprintf(2, "error: map invalid at %d,%d\n", x + 1, y);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -54,21 +47,21 @@ static bool	check(t_cub3d *cub3d, size_t i, size_t j)
 
 int	check_parsing_map(t_cub3d *cub3d)
 {
-	size_t	i;
-	size_t	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < cub3d->map.height + 2)
+	y = 0;
+	while (y < cub3d->map.height + 2)
 	{
-		j = 0;
-		while (cub3d->map.m[i][j])
+		x = 0;
+		while (cub3d->map.m[y][x])
 		{
-			if (cub3d->map.m[i][j] == '9')
-				if (check(cub3d, i, j) == EXIT_FAILURE)
+			if (cub3d->map.m[y][x] == '9')
+				if (check_pos(cub3d, x, y) == EXIT_FAILURE)
 					return (EXIT_FAILURE);
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -77,8 +70,8 @@ int	check_parsing(t_cub3d *cub3d)
 {
 	if (cub3d->map.height == 0 || cub3d->map.width == 0)
 		return (ft_dprintf(2, "error: missing map\n"), EXIT_FAILURE);
-	if (cub3d->map.no == NULL || cub3d->map.so == NULL || cub3d->map.we == NULL
-		|| cub3d->map.ea == NULL)
+	if (cub3d->map.north_tfname == NULL || cub3d->map.south_tfname == NULL
+		|| cub3d->map.west_tfname == NULL || cub3d->map.east_tfname == NULL)
 		return (ft_dprintf(2, "error: missing texture\n"), EXIT_FAILURE);
 	if (cub3d->map.col_floor.r == -1 || cub3d->map.col_floor.g == -1
 		|| cub3d->map.col_floor.b == -1)

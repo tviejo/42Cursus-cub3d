@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 18:54:14 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:38 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	mlx_start(t_cub3d *cub3d)
 {
@@ -24,37 +24,50 @@ int	mlx_start(t_cub3d *cub3d)
 	return (EXIT_SUCCESS);
 }
 
-int	mlx_close(t_cub3d *cub3d)
+void	mlx_free_textures(t_mlx *mlx)
 {
-	if (cub3d->mlx.pixel != NULL)
-		ft_free_img(cub3d);
-	if (cub3d->mlx.mlx_img != NULL)
-		mlx_destroy_image(cub3d->mlx.mlx_ptr, cub3d->mlx.mlx_img);
-	if (cub3d->mlx.win_ptr != NULL)
-		mlx_destroy_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
-	if (cub3d->mlx.mlx_ptr != NULL)
-		mlx_destroy_display(cub3d->mlx.mlx_ptr);
-	if (cub3d->mlx.mlx_ptr != NULL)
-		free(cub3d->mlx.mlx_ptr);
+	if (mlx->text_north.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->text_north.ptr);
+	if (mlx->text_south.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->text_south.ptr);
+	if (mlx->text_west.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->text_west.ptr);
+	if (mlx->text_east.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->text_east.ptr);
+}
+
+int	mlx_close(t_mlx *mlx)
+{
+	mlx_free_textures(mlx);
+	if (mlx->pixel != NULL)
+		ft_free_img(mlx);
+	if (mlx->mlx_img.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->mlx_img.ptr);
+	if (mlx->win_ptr != NULL)
+		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	if (mlx->mlx_ptr != NULL)
+		mlx_destroy_display(mlx->mlx_ptr);
+	if (mlx->mlx_ptr != NULL)
+		free(mlx->mlx_ptr);
 	return (EXIT_SUCCESS);
 }
 
-void	img_pix_put(t_cub3d *cub3d, t_uint x, t_uint y, int color)
+void	img_pix_put(t_image *img, t_uint x, t_uint y, int color)
 {
 	char	*pixel;
 	int		i;
 
-	if (x < (t_uint)cub3d->mlx.width && y < (t_uint)cub3d->mlx.height)
+	if (x < (t_uint)img->dim.width && y < (t_uint)img->dim.height)
 	{
-		i = cub3d->mlx.bpp - 8;
-		pixel = cub3d->mlx.pixels
-			+ y * cub3d->mlx.line_size + x * (cub3d->mlx.bpp / 8);
+		i = img->bpp - 8;
+		pixel = img->pixels
+			+ y * img->line_size + x * (img->bpp / 8);
 		while (i >= 0)
 		{
-			if (cub3d->mlx.endian != 0)
+			if (img->endian != 0)
 				*pixel++ = (color >> i) & 0xFF;
 			else
-				*pixel++ = (color >> (cub3d->mlx.bpp - 8 - i)) & 0xFF;
+				*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 			i -= 8;
 		}
 	}

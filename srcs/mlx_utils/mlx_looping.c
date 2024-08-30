@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:57:20 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 15:23:45 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:31 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	mlx_looping(t_cub3d *cub3d)
 {

@@ -6,15 +6,15 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/29 00:16:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:22:14 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 static int	allocate_map(t_cub3d *cub3d)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	cub3d->map.m = malloc(sizeof(char *) * (cub3d->map.height + 3));
@@ -33,21 +33,21 @@ static int	allocate_map(t_cub3d *cub3d)
 	return (EXIT_SUCCESS);
 }
 
-static void	parse_player(t_cub3d *cub3d, int x, int y, char dir)
+static void	parse_player(t_cub3d *cub3d, int x, int y, int cdir)
 {
 	cub3d->player.x = x;
 	cub3d->player.y = y;
-	if (dir == 'N')
+	if (cdir == 'N')
 		cub3d->player.dir = 0;
-	else if (dir == 'E')
+	else if (cdir == 'E')
 		cub3d->player.dir = 90;
-	else if (dir == 'S')
+	else if (cdir == 'S')
 		cub3d->player.dir = 180;
-	else if (dir == 'W')
+	else if (cdir == 'W')
 		cub3d->player.dir = 270;
 }
 
-static bool	is_valid(char c)
+static bool	is_valid(int c)
 {
 	if (c == '0' || c == '1' || c == ' ')
 		return (true);
@@ -65,7 +65,7 @@ static char	*replace_spaces(t_cub3d *cub3d, char *line, int i_line)
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 	{
-		if (is_valid(line[i]) == false)
+		if (!is_valid(line[i]))
 			cub3d->map.error = INVALID_CHAR;
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
@@ -85,7 +85,7 @@ static char	*replace_spaces(t_cub3d *cub3d, char *line, int i_line)
 
 int	parse_map(t_cub3d *cub3d, int fd, char *line)
 {
-	size_t		i_line;
+	int			i_line;
 	static bool	map = false;
 
 	if (map == true)

@@ -6,55 +6,17 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/29 00:09:36 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:11:15 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-bool	is_map(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line && line[i] == ' ')
-		i++;
-	if (line && (line[i] == '1' || line[i] == '0'))
-		return (true);
-	return (false);
-}
-
-int	find_map_size(int fd, t_cub3d *cub3d)
-{
-	char	*line;
-	size_t	i;
-
-	i = 0;
-	line = get_next_line(fd);
-	while (line && is_map(line) != true)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	while (line && is_map(line) == true)
-	{
-		i++;
-		if (ft_strlen(line) > cub3d->map.width)
-			cub3d->map.width = ft_strlen(line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	if (line)
-		free(line);
-	cub3d->map.height = i;
-	return (EXIT_SUCCESS);
-}
-
-static int	open_and_size(char *file, t_cub3d *cub3d)
+static int	open_and_size(char *filename, t_cub3d *cub3d)
 {
 	int		fd;
 
-	fd = open(file, O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (EXIT_FAILURE);
 	find_map_size(fd, cub3d);
@@ -62,47 +24,50 @@ static int	open_and_size(char *file, t_cub3d *cub3d)
 	return (EXIT_SUCCESS);
 }
 
-static int	parse_file(char *file, t_cub3d *cub3d)
+static int	parse_file_core(int fd, char *line, t_cub3d *cub3d)
 {
-	char	*line;
-	int		fd;
-
-	if (open_and_size(file, cub3d) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
 	while (line)
 	{
-		if (is_map(line) == true)
+		if (is_map(line))
 		{
 			if (parse_map(cub3d, fd, line) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
-		else if (is_texture(line) == true)
-			parse_texture(line, cub3d);
-		else if (is_color(line) == true)
+		else if (is_texture(line))
+		{
+			if (parse_texture(line, cub3d) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
+		else if (is_color(line))
 			parse_color(line, cub3d);
 		else
 			free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
+	return (EXIT_SUCCESS);
+}
+
+static int	parse_file(char *filename, t_cub3d *cub3d)
+{
+	char	*line;
+	int		fd;
+
+	if (open_and_size(filename, cub3d) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	if (parse_file_core(fd, line, cub3d) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
 
-int	parse_cub(char *file, t_cub3d *cub3d)
+int	parse_cub3d(char *filename, t_cub3d *cub)
 {
-	init_parsing(cub3d);
-	if (parse_file(file, cub3d) == EXIT_FAILURE)
-	{
-		free_parsing(cub3d);
+	init_parsing(cub);
+	if (parse_file(filename, cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	}
-	if (check_parsing(cub3d) == EXIT_FAILURE)
-	{
-		free_parsing(cub3d);
+	if (check_parsing(cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

@@ -6,13 +6,13 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:51:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 18:39:08 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-int	ft_free_img(t_cub3d *cub3d)
+int	ft_free_img(t_mlx *mlx)
 {
 	int	i;
 	int	size;
@@ -20,12 +20,12 @@ int	ft_free_img(t_cub3d *cub3d)
 	size = WINDOW_WIDTH;
 	if (WINDOW_HEIGHT > size)
 		size = WINDOW_HEIGHT;
-	if (cub3d->mlx.pixel != NULL)
+	if (mlx->pixel != NULL)
 	{
 		i = -1;
 		while (++i < size)
-			free(cub3d->mlx.pixel[i]);
-		free(cub3d->mlx.pixel);
+			free(mlx->pixel[i]);
+		free(mlx->pixel);
 	}
 	return (0);
 }
@@ -76,19 +76,19 @@ int	ft_init_img(t_cub3d *cub3d)
 
 int	mlx_create_img(t_cub3d *cub3d)
 {
-	t_mlx *const	m = &cub3d->mlx;
+	t_image *const	img = &cub3d->mlx.mlx_img;
 
-	m->mlx_img = mlx_new_image(m->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (m->mlx_img == NULL)
+	img->ptr = mlx_new_image(cub3d->mlx.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (img->ptr == NULL)
 		return (EXIT_FAILURE);
-	m->pixels = mlx_get_data_addr(m->mlx_img, &m->bpp, &m->line_size,
-			&m->endian);
-	if (m->pixels == NULL)
+	img->pixels = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_size,
+			&img->endian);
+	if (img->pixels == NULL)
 		return (EXIT_FAILURE);
-	m->width = WINDOW_WIDTH;
-	m->height = WINDOW_HEIGHT;
-	m->pixel = NULL;
-	init_data_mlx(cub3d);
+	img->dim.width = WINDOW_WIDTH;
+	img->dim.height = WINDOW_HEIGHT;
+	cub3d->mlx.pixel = NULL;
+	//init_data_mlx(cub3d);
 	ft_init_img(cub3d);
 	return (EXIT_SUCCESS);
 }

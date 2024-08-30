@@ -9,7 +9,10 @@ SRCS		+= draw/draw_line_fast.c
 SRCS		+= draw/image_fill.c
 SRCS		+= draw/put_pixel.c
 
+SRCS		+= ray_caster/render_frame.c
+
 SRCS		+= parsing/parsing.c
+SRCS		+= parsing/parsing_utils.c
 SRCS		+= parsing/init_parsing.c
 SRCS		+= parsing/parse_map.c
 SRCS		+= parsing/parse_colors.c
@@ -112,7 +115,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
