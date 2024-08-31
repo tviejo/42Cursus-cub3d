@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 12:00:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:47:26 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,35 @@ typedef enum e_error
 	INVALID_CHAR,
 }	t_error;
 
+/* type t_image is defined in ads_gfx.h
+typedef struct s_image
+{
+	union
+	{
+		void	*ptr;
+		t_img	*_img;
+	};
+	char		*pixels;
+	int			bpp;
+	int			line_size;
+	int			endian;
+	t_point		pos;
+	t_size2i	dim;
+}	t_image;
+*/
+
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_image		mlx_img;
-	/*void		*mlx_img;
-	int			width;
-	int			height;
-	char		*pixels;
-	int			bpp;
-	int			line_size;
-	int			endian;*/
 	t_image		text_north;
 	t_image		text_south;
 	t_image		text_west;
 	t_image		text_east;
 	int			color_floor;
 	int			color_ceil;
-	// 'pixel' array is useless, we can use 'mlx_img.pixels'
+	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
 	// from mlx_get_data_addr()
 	int			**pixel;
 }	t_mlx;
@@ -100,7 +110,10 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
+	// direction (angle)
 	double		dir;
+	// field of view (radians)
+	double		fov;
 }	t_player;
 
 typedef struct s_player_inputs

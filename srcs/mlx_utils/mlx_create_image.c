@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:51:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:03:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:53:34 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	mlx_create_img(t_cub3d *cub3d)
 	img->dim.width = WINDOW_WIDTH;
 	img->dim.height = WINDOW_HEIGHT;
 	cub3d->mlx.pixel = NULL;
-	//init_data_mlx(cub3d);
 	ft_init_img(cub3d);
 	return (EXIT_SUCCESS);
 }
