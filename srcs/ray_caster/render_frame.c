@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:55:40 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/08/31 11:52:34 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:02:18 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,27 @@
 //m = x - (float)(int)x;
 //m += (float)(m<0.f);
 // branchless form to add one if m is negative but not zero
-
-/*void	render_column(t_cub3d *c, int x, double angle)
+/*
+void	render_column(t_cub3d *c, t_raycast *r)
 {
-	t_pointd	target;
-
 	if (angle <)
 	target.x = (int)(c->player.x);
-}*/
+}
 
-void	render_frame(t_cub3d *c)
+void	render_frame(t_cub3d *cub)
 {
-	int		x;
-	double	angle;
-	double	angle_inc;
+	t_raycast	ray;
+	double		angle_inc;
 
-	angle = c->player.dir - 0.5 * c->player.fov;
-	angle_inc = c->player.fov / c->mlx.mlx_img.dim.width;
-	x = 0;
-	while (x < c->mlx.mlx_img.dim.width)
+	ray.angle = cub->player.dir - 0.5 * cub->player.fov;
+	angle_inc = cub->player.fov / cub->mlx.mlx_img.dim.width;
+	ray.column = 0;
+	while (ray.column < cub->mlx.mlx_img.dim.width)
 	{
-		//render_column(c, x, angle);
-		x++;
-		angle += angle_inc;
+		if (angle )
+		render_column(cub, &ray);
+		ray.column++;
+		ray.angle += angle_inc;
 	}
 }
+*/

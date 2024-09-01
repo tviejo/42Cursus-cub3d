@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/31 11:47:26 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:03:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,16 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define DEFAULT_MAP_FNAME "assets/maps/map_subject.cub"
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
+
+# define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
+# define MAP_TAG_NORTH_TEXTURE "NO"
+# define MAP_TAG_SOUTH_TEXTURE "SO"
+# define MAP_TAG_WEST_TEXTURE "WE"
+# define MAP_TAG_EAST_TEXTURE "EA"
+# define MAP_TAG_CEIL_COLOR "C"
+# define MAP_TAG_FLOOR_COLOR "F"
 
 # define PI 3.14159265359
 # define TRANS_SPEED 0.008
@@ -65,6 +72,33 @@ typedef enum e_error
 	NO_COLOR,
 	INVALID_CHAR,
 }	t_error;
+
+typedef struct s_player_inputs
+{
+	bool		open;
+	bool		mv_forward;
+	bool		mv_backward;
+	bool		mv_left;
+	bool		mv_right;
+	bool		turn_left;
+	bool		turn_right;
+	int			mouse_x;
+	int			mouse_y;
+	bool		strafe_mode;
+	bool		strafe_alt;
+	bool		k_fire_1;
+	bool		k_fire_2;
+	bool		k_open_1;
+	bool		k_open_2;
+	bool		k_up_1;
+	bool		k_up_2;
+	bool		k_down_1;
+	bool		k_down_2;
+	bool		k_left_1;
+	bool		k_left_2;
+	bool		k_right_1;
+	bool		k_right_2;
+}	t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
 typedef struct s_image
@@ -116,33 +150,6 @@ typedef struct s_player
 	double		fov;
 }	t_player;
 
-typedef struct s_player_inputs
-{
-	bool		open;
-	bool		mv_forward;
-	bool		mv_backward;
-	bool		mv_left;
-	bool		mv_right;
-	bool		turn_left;
-	bool		turn_right;
-	int			mouse_x;
-	int			mouse_y;
-	bool		strafe_mode;
-	bool		strafe_alt;
-	bool		k_fire_1;
-	bool		k_fire_2;
-	bool		k_open_1;
-	bool		k_open_2;
-	bool		k_up_1;
-	bool		k_up_2;
-	bool		k_down_1;
-	bool		k_down_2;
-	bool		k_left_1;
-	bool		k_left_2;
-	bool		k_right_1;
-	bool		k_right_2;
-}	t_player_inputs;
-
 typedef struct s_map
 {
 	char		**m;
@@ -161,6 +168,7 @@ typedef struct s_game
 {
 	t_page		page;
 }	t_game;
+
 typedef struct s_cub3d
 {
 	t_player		player;
@@ -170,7 +178,41 @@ typedef struct s_cub3d
 	t_player_inputs	inputs;
 }	t_cub3d;
 
+/*typedef enum e_looking_dir
+{
+	look_up,
+	look_down,
+	look_left,
+	look_right,
+}	t_looking_dir*/
+
+typedef struct s_raycast
+{
+	// image column to render
+	int			column;
+	// ray angle
+	double		angle;
+	// distance entre deux instersections horizontales ou verticales
+	double		delta_inc;
+
+	// point d'intersection avec la prochaine verticale
+	t_pointd	v_inter;
+	// distance à la prochaine intersection verticale
+	double		v_dist;
+	// incrément vertical (-1, 0, +1)
+	double		v_unit_inc;
+
+	// point d'intersection avec la prochaine horizontale
+	t_pointd	h_inter;
+	// distance à la prochaine intersection horizontale
+	double		h_dist;
+	// incrément horizontal (-1, 0, +1)
+	double		h_unit_inc;
+}	t_raycast;
+
 int				parse_cub3d(char *filename, t_cub3d *cub);
+bool			begin_with_tag(char *line, char *tag);
+bool			get_tag_value(char *line, char *tag, char **value);
 bool			is_map(char *line);
 int				parse_map(t_cub3d *cub3d, int fd, char *line);
 int				find_map_size(int fd, t_cub3d *cub3d);

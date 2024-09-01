@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:11:33 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:40:18 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ static void	translation(t_cub3d *cub3d)
 {
 	if (cub3d->inputs.mv_left)
 	{
-		cub3d->player.x -= cos(cub3d->player.dir) * TRANS_SPEED;
-		cub3d->player.y -= sin(cub3d->player.dir) * TRANS_SPEED;
+		cub3d->player.x += cos(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
+		cub3d->player.y -= sin(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
 	}
 	if (cub3d->inputs.mv_right)
 	{
-		cub3d->player.x += cos(cub3d->player.dir) * TRANS_SPEED;
-		cub3d->player.y += sin(cub3d->player.dir) * TRANS_SPEED;
+		cub3d->player.x += cos(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
+		cub3d->player.y -= sin(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
 	}
 	if (cub3d->inputs.mv_forward)
 	{
-		cub3d->player.x += cos(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
-		cub3d->player.y += sin(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
+		cub3d->player.x += cos(cub3d->player.dir) * TRANS_SPEED;
+		cub3d->player.y -= sin(cub3d->player.dir) * TRANS_SPEED;
 	}
 	if (cub3d->inputs.mv_backward)
 	{
-		cub3d->player.x += cos(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
-		cub3d->player.y += sin(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
+		cub3d->player.x -= cos(cub3d->player.dir) * TRANS_SPEED;
+		cub3d->player.y += sin(cub3d->player.dir) * TRANS_SPEED;
 	}
 }
 
@@ -77,9 +77,9 @@ static void	translation(t_cub3d *cub3d)
 static void	rotation(t_cub3d *cub3d)
 {
 	if (cub3d->inputs.turn_left)
-		cub3d->player.dir -= ROT_SPEED;
-	if (cub3d->inputs.turn_right)
 		cub3d->player.dir += ROT_SPEED;
+	if (cub3d->inputs.turn_right)
+		cub3d->player.dir -= ROT_SPEED;
 }
 
 int	update_player_pos(t_cub3d *cub3d)

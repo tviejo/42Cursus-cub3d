@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:03:09 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:38:36 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	print_player(t_cub3d *cub)
 		}
 		x++;
 	}
-	p1 = (t_pt2d){.x = p0.x + 16 * cos(cub->player.dir - M_PI_2),
-		.y = p0.y + 16 * sin(cub->player.dir - M_PI_2)};
+	p1 = (t_pt2d){.x = p0.x + 16 * cos(cub->player.dir),
+		.y = p0.y - 16 * sin(cub->player.dir)};
 	draw_line(&cub->mlx.mlx_img, p0, p1);
 }
 

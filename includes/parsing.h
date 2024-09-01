@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:21 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/28 21:41:35 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 03:39:52 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CEIL 0
-# define FLOOR 1
+# define CT_CEIL 0
+# define CT_FLOOR 1
 
 #endif

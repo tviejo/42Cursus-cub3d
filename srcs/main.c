@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:11:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:02:53 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 		return (ft_dprintf(2, "Error: please, provide zero (for default map) \
 or one argument: <map filename>\n"), 0);
-	map_fname = DEFAULT_MAP_FNAME;
+	map_fname = MAP_DEFAULT_FNAME;
 	if (argc == 2)
 		map_fname = argv[1];
 	mlx_init_data(&cub3d);
