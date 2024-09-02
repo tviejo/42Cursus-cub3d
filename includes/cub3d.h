@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 00:03:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 00:26:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,24 @@
 # define MAP_TAG_CEIL_COLOR "C"
 # define MAP_TAG_FLOOR_COLOR "F"
 
-# define PI 3.14159265359
-# define TRANS_SPEED 0.008
-# define ROT_SPEED 0.009
+# define TRANS_SPEED 0.01
+# define ROT_SPEED 0.01125
+
+//# define NORTH_ANGLE M_PI_2
+# define NORTH_ANGLE 1.57079632679489661923
+//# define SOUTH_ANGLE (3.0 * M_PI_2)
+# define SOUTH_ANGLE 4.71238898038468985769
+//# define WEST_ANGLE M_PI
+# define WEST_ANGLE 3.14159265358979323846
+# define EAST_ANGLE 0.0
+
+typedef enum e_directions
+{
+	East,
+	North,
+	West,
+	South
+}	t_directions;
 
 typedef enum e_keys
 {
@@ -142,9 +157,10 @@ typedef struct s_color
 
 typedef struct s_player
 {
-	double		x;
-	double		y;
-	// direction (angle)
+	// position
+	t_pointd	pos;
+	// direction: angle in radians
+	// East: 0, North: pi/2, West: pi, South: 3pi/2 (-> trigo circle logic)
 	double		dir;
 	// field of view (radians)
 	double		fov;
@@ -161,6 +177,7 @@ typedef struct s_map
 	char		*east_tfname;
 	t_color		col_floor;
 	t_color		col_ceil;
+	double		wall_heightscale;
 	t_error		error;
 }	t_map;
 
@@ -192,22 +209,24 @@ typedef struct s_raycast
 	int			column;
 	// ray angle
 	double		angle;
-	// distance entre deux instersections horizontales ou verticales
-	double		delta_inc;
 
 	// point d'intersection avec la prochaine verticale
 	t_pointd	v_inter;
+	// incréments sur les axes x et y entre 2 intersections verticales
+	t_size2d	v_inc;
 	// distance à la prochaine intersection verticale
 	double		v_dist;
-	// incrément vertical (-1, 0, +1)
-	double		v_unit_inc;
+	// distance entre deux intersections verticales
+	double		v_dist_inc;
 
 	// point d'intersection avec la prochaine horizontale
 	t_pointd	h_inter;
+	// incréments sur les axes x et y entre 2 intersections horizontales
+	t_size2d	h_inc;
 	// distance à la prochaine intersection horizontale
 	double		h_dist;
-	// incrément horizontal (-1, 0, +1)
-	double		h_unit_inc;
+	// distance entre deux intersections horizontales
+	double		h_dist_inc;
 }	t_raycast;
 
 int				parse_cub3d(char *filename, t_cub3d *cub);
@@ -234,11 +253,11 @@ int				ft_reset_img(t_cub3d *cub3d);
 int				ft_free_img(t_mlx *mlx);
 int				ft_init_img(t_cub3d *cub3d);
 void			img_pix_put(t_image *img, t_uint x, t_uint y, int color);
+int				ft_close(t_cub3d *cub3d, char *errmsg);
+
+void			render_frame(t_cub3d *cub);
 
 int				render(t_cub3d *cub3d);
-
-int				ft_close(t_cub3d *cub3d);
-
 int				render_landing_page(t_cub3d *cub3d);
 int				render_game_page(t_cub3d *cub3d);
 void			update_n_draw_fps(t_cub3d *cub3d);
@@ -254,5 +273,11 @@ int				mouse_move(int button, int x, int y, t_cub3d *cub3d);
 int				draw_minimap(t_cub3d *cub3d);
 
 int				update_player_pos(t_cub3d *cub3d);
+void			rotate_player(t_player *p, double angle);
+double			angles_add(double alpha, double beta);
+
+t_directions	get_wall_orientation(double ray_angle, bool vertical_wall);
+int				get_wall_color(t_directions orientation, double distance,
+					int wallitem);
 
 #endif

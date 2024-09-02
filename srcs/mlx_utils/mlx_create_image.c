@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:51:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/31 11:53:34 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:57:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ int	ft_init_img(t_cub3d *cub3d)
 	{
 		cub3d->mlx.pixel = (int **)malloc((size + 1) * sizeof(int *));
 		if (cub3d->mlx.pixel == NULL)
-			return (ft_close(cub3d));
+			return (EXIT_FAILURE);
 		i = -1;
 		while (++i < size)
 		{
 			cub3d->mlx.pixel[i] = (int *)malloc((size + 1) * sizeof(int));
 			if (cub3d->mlx.pixel[i] == NULL)
-				return (ft_close(cub3d));
+				return (EXIT_FAILURE);
 		}
 	}
 	ft_reset_img(cub3d);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	mlx_create_img(t_cub3d *cub3d)

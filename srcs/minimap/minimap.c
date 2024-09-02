@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 02:38:36 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:26:10 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	print_player(t_cub3d *cub)
 {
-	const t_pt2d	p0 = (t_pt2d){.x = 10 * cub->player.x,
-		.y = 10 * cub->player.y, .color = COL_RED};
+	const t_pt2d	p0 = (t_pt2d){.x = 10 * cub->player.pos.x,
+		.y = 10 * cub->player.pos.y, .color = COL_RED};
 	t_pt2d			p1;
 	int				x;
 	int				y;

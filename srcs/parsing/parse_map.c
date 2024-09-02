@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 03:06:57 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:32:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,19 @@ static int	allocate_map(t_cub3d *cub3d)
 	return (EXIT_SUCCESS);
 }
 
-static void	parse_player(t_cub3d *cub3d, int x, int y, int cdir)
+static void	parse_player(t_player *pl, int x, int y, int cdir)
 {
-	cub3d->player.x = x + 0.5;
-	cub3d->player.y = y + 0.5;
+	pl->pos.x = x + 0.5;
+	pl->pos.y = y + 0.5;
+	pl->dir = 0.0;
 	if (cdir == 'N')
-		cub3d->player.dir = M_PI_2;
+		rotate_player(pl, NORTH_ANGLE);
 	else if (cdir == 'E')
-		cub3d->player.dir = 0;
+		rotate_player(pl, EAST_ANGLE);
 	else if (cdir == 'S')
-		cub3d->player.dir = -M_PI_2;
+		rotate_player(pl, SOUTH_ANGLE);
 	else if (cdir == 'W')
-		cub3d->player.dir = M_PI;
+		rotate_player(pl, WEST_ANGLE);
 }
 
 static bool	is_valid(int c)
@@ -70,9 +71,9 @@ static char	*replace_spaces(t_cub3d *cub3d, char *line, int i_line)
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
 		{
-			if (cub3d->player.x != -1)
+			if (cub3d->player.pos.x != -1)
 				cub3d->map.error = MULTIPLE_PLAYER;
-			parse_player(cub3d, i + 1, i_line, line[i]);
+			parse_player(&cub3d->player, i + 1, i_line, line[i]);
 			line[i] = '0';
 		}
 		if (line[i] == ' ')
@@ -97,10 +98,10 @@ int	parse_map(t_cub3d *cub3d, int fd, char *line)
 	{
 		line = replace_spaces(cub3d, line, i_line);
 		if (cub3d->map.error == MULTIPLE_PLAYER)
-			return (ft_dprintf(2, "error: multiple player\n"),
+			return (ft_dprintf(2, "Error: multiple player\n"),
 				free(line), EXIT_FAILURE);
 		if (cub3d->map.error == INVALID_CHAR)
-			return (ft_dprintf(2, "error: invalid char\n"),
+			return (ft_dprintf(2, "Error: invalid char\n"),
 				free(line), EXIT_FAILURE);
 		ft_memcpy(&cub3d->map.m[i_line][1], line, ft_strlen(line));
 		free(line);

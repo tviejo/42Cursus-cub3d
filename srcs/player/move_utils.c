@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 11:55:43 by ade-sarr         ###   ########.fr       */
+/*   Created: 2024/09/01 12:39:20 by ade-sarr          #+#    #+#             */
+/*   Updated: 2024/09/02 18:23:35 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_close(t_cub3d *cub3d, char *errmsg)
+void	rotate_player(t_player *p, double angle)
 {
-	if (errmsg)
-		ft_dprintf(2, errmsg);
-	free_parsing(&cub3d->map);
-	mlx_close(&cub3d->mlx);
-	exit(EXIT_SUCCESS);
-	return (EXIT_SUCCESS);
+	p->dir += angle;
+	while (p->dir < 0.0)
+		p->dir += 2.0 * M_PI;
+	while (p->dir >= 2.0 * M_PI)
+		p->dir -= 2.0 * M_PI;
+}
+
+double	angles_add(double alpha, double beta)
+{
+	double	gamma;
+
+	gamma = alpha + beta;
+	while (gamma < 0.0)
+		gamma += 2.0 * M_PI;
+	while (gamma >= 2.0 * M_PI)
+		gamma -= 2.0 * M_PI;
+	return (gamma);
 }

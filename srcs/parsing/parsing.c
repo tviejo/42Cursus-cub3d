@@ -6,18 +6,25 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:11:15 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:26:27 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	error_open_map_file(char *filename)
+{
+	ft_dprintf(2, "Echec sur ouverture du fichier de map [%s]: ", filename);
+	perror(NULL);
+	return (EXIT_FAILURE);
+}
 
 static int	open_and_size(char *filename, t_cub3d *cub3d)
 {
 	int		fd;
 
 	fd = open(filename, O_RDONLY);
-	if (fd == -1)
+	if (fd < 0)
 		return (EXIT_FAILURE);
 	find_map_size(fd, cub3d);
 	close(fd);
@@ -53,11 +60,13 @@ static int	parse_file(char *filename, t_cub3d *cub3d)
 	int		fd;
 
 	if (open_and_size(filename, cub3d) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (error_open_map_file(filename));
 	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (error_open_map_file(filename));
 	line = get_next_line(fd);
 	if (parse_file_core(fd, line, cub3d) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (close(fd), EXIT_FAILURE);
 	close(fd);
 	return (EXIT_SUCCESS);
 }

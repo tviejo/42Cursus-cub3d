@@ -6,95 +6,92 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 02:40:18 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:31:49 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	open_door(t_cub3d *cub3d, int x, int y)
+static int	open_door(t_cub3d *cub, int x, int y)
 {
-	cub3d->map.m[y][x] = 'O';
+	cub->map.m[y][x] = 'O';
 	return (0);
 }
 
-static bool	wall(t_cub3d *cub3d)
+static bool	collides_wall(t_cub3d *cub)
 {
-	const int	x = (int)cub3d->player.x;
-	const int	y = (int)cub3d->player.y;
-	const int	item = cub3d->map.m[y][x];
+	const int	x = (int)cub->player.pos.x;
+	const int	y = (int)cub->player.pos.y;
+	const int	item = cub->map.m[y][x];
 
 	if (item == '1' || item == 'C')
 	{
-		if (item == 'C' && cub3d->inputs.open)
-			open_door(cub3d, x, y);
+		if (item == 'C' && cub->inputs.open)
+			open_door(cub, x, y);
 		else
 			return (true);
 	}
 	return (false);
 }
 
-static void	translation(t_cub3d *cub3d)
+static void	translation(t_cub3d *cub)
 {
-	if (cub3d->inputs.mv_left)
+	t_player *const	pl = &cub->player;
+
+	if (cub->inputs.mv_left)
 	{
-		cub3d->player.x += cos(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
-		cub3d->player.y -= sin(cub3d->player.dir + M_PI_2) * TRANS_SPEED;
+		pl->pos.x += cos(pl->dir + M_PI_2) * TRANS_SPEED;
+		pl->pos.y -= sin(pl->dir + M_PI_2) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_right)
+	if (cub->inputs.mv_right)
 	{
-		cub3d->player.x += cos(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
-		cub3d->player.y -= sin(cub3d->player.dir - M_PI_2) * TRANS_SPEED;
+		pl->pos.x += cos(pl->dir - M_PI_2) * TRANS_SPEED;
+		pl->pos.y -= sin(pl->dir - M_PI_2) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_forward)
+	if (cub->inputs.mv_forward)
 	{
-		cub3d->player.x += cos(cub3d->player.dir) * TRANS_SPEED;
-		cub3d->player.y -= sin(cub3d->player.dir) * TRANS_SPEED;
+		pl->pos.x += cos(pl->dir) * TRANS_SPEED;
+		pl->pos.y -= sin(pl->dir) * TRANS_SPEED;
 	}
-	if (cub3d->inputs.mv_backward)
+	if (cub->inputs.mv_backward)
 	{
-		cub3d->player.x -= cos(cub3d->player.dir) * TRANS_SPEED;
-		cub3d->player.y += sin(cub3d->player.dir) * TRANS_SPEED;
+		pl->pos.x -= cos(pl->dir) * TRANS_SPEED;
+		pl->pos.y += sin(pl->dir) * TRANS_SPEED;
 	}
 }
 
-/*static void	rotation(t_cub3d *cub3d)
+/*static void	rotation(t_cub3d *cub)
 {
 	int	x;
 	int	y;
 
-	mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, &x, &y);
-	if (y - cub3d->inputs.mouse_y < 10)
-		cub3d->player.dir -= (y - cub3d->inputs.mouse_y) * 0.05;
-	cub3d->inputs.mouse_x = x;
-	cub3d->inputs.mouse_y = y;
-	if (cub3d->inputs.turn_left)
-		cub3d->player.dir += ROT_SPEED;
-	if (cub3d->inputs.turn_right)
-		cub3d->player.dir -= ROT_SPEED;
+	mlx_mouse_get_pos(cub->mlx.mlx_ptr, cub->mlx.win_ptr, &x, &y);
+	if (y - cub->inputs.mouse_y < 10)
+		rotate_player(&cub->player, (y - cub->inputs.mouse_y) * 0.05);
+	cub->inputs.mouse_x = x;
+	cub->inputs.mouse_y = y;
+	if (cub->inputs.turn_left)
+		rotate_player(&cub->player, ROT_SPEED);
+	if (cub->inputs.turn_right)
+		rotate_player(&cub->player, -ROT_SPEED);
 }*/
 
-static void	rotation(t_cub3d *cub3d)
+static void	rotation(t_cub3d *cub)
 {
-	if (cub3d->inputs.turn_left)
-		cub3d->player.dir += ROT_SPEED;
-	if (cub3d->inputs.turn_right)
-		cub3d->player.dir -= ROT_SPEED;
+	if (cub->inputs.turn_left)
+		rotate_player(&cub->player, ROT_SPEED);
+	if (cub->inputs.turn_right)
+		rotate_player(&cub->player, -ROT_SPEED);
 }
 
-int	update_player_pos(t_cub3d *cub3d)
+int	update_player_pos(t_cub3d *cub)
 {
-	double	old_pos_x;
-	double	old_pos_y;
+	t_pointd	old_pos;
 
-	old_pos_x = cub3d->player.x;
-	old_pos_y = cub3d->player.y;
-	rotation(cub3d);
-	translation(cub3d);
-	if (wall(cub3d))
-	{
-		cub3d->player.x = old_pos_x;
-		cub3d->player.y = old_pos_y;
-	}
+	old_pos = cub->player.pos;
+	rotation(cub);
+	translation(cub);
+	if (collides_wall(cub))
+		cub->player.pos = old_pos;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:01:02 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:56:14 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	key_press(int keycode, t_cub3d *cub3d)
 {
 	if ((keycode == XK_Escape || keycode == XK_y)
 		&& cub3d->game.page == EXIT_PAGE)
-		ft_close(cub3d);
+		ft_close(cub3d, NULL);
 	if (keycode == XK_Escape)
 		cub3d->game.page = EXIT_PAGE;
 	if (keycode == XK_space && cub3d->game.page == LANDING_PAGE)
