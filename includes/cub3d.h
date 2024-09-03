@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 00:26:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 05:00:43 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
+# define DEG_VERTICAL_FOV 86.3
+
+# define TRANS_SPEED 0.01
+# define ROT_SPEED 0.01125
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -32,9 +36,6 @@
 # define MAP_TAG_EAST_TEXTURE "EA"
 # define MAP_TAG_CEIL_COLOR "C"
 # define MAP_TAG_FLOOR_COLOR "F"
-
-# define TRANS_SPEED 0.01
-# define ROT_SPEED 0.01125
 
 //# define NORTH_ANGLE M_PI_2
 # define NORTH_ANGLE 1.57079632679489661923
@@ -162,8 +163,8 @@ typedef struct s_player
 	// direction: angle in radians
 	// East: 0, North: pi/2, West: pi, South: 3pi/2 (-> trigo circle logic)
 	double		dir;
-	// field of view (radians)
-	double		fov;
+	// vertical field of view (radians)
+	double		vertical_fov;
 }	t_player;
 
 typedef struct s_map

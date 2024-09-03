@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:55:40 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/03 01:05:08 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 04:48:48 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	init_ray_h_inter(t_raycast *r, double angle, t_pointd pl_pos)
 	r->h_dist_inc = sqrt(r->h_inc.x * r->h_inc.x + r->h_inc.y * r->h_inc.y);
 }
 
+/*
 void	render_frame(t_cub3d *c)
 {
 	t_raycast	ray;
@@ -134,5 +135,28 @@ void	render_frame(t_cub3d *c)
 			(t_point){.x = c->player.pos.x, .y = c->player.pos.y});
 		ray.column++;
 		ray.angle = angles_add(ray.angle, angle_inc);
+	}
+}
+*/
+
+void	render_frame(t_cub3d *c)
+{
+	t_raycast	ray;
+	double		dist_to_plane;
+
+	dist_to_plane = c->mlx.mlx_img.dim.height
+		/ tan(0.5 * c->player.vertical_fov);
+	ray.column = 0;
+	ray.angle = angles_add(atan2(0.5 * c->mlx.mlx_img.dim.width
+				- (ray.column - 0.5), dist_to_plane), c->player.dir);
+	while (ray.column < c->mlx.mlx_img.dim.width)
+	{
+		init_ray_h_inter(&ray, ray.angle, c->player.pos);
+		init_ray_v_inter(&ray, ray.angle, c->player.pos);
+		cast_ray(c, &ray,
+			(t_point){.x = c->player.pos.x, .y = c->player.pos.y});
+		ray.column++;
+		ray.angle = angles_add(atan2(0.5 * c->mlx.mlx_img.dim.width
+					- (ray.column - 0.5), dist_to_plane), c->player.dir);
 	}
 }
