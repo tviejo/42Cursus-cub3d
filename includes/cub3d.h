@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 05:00:43 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 06:48:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 # define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
 
-# define TRANS_SPEED 0.01
-# define ROT_SPEED 0.01125
+// unités de distance par sec
+# define TRANS_SPEED 1.0
+// radians par seconde
+# define ROT_SPEED 1.125
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -68,7 +70,8 @@ typedef enum e_keys
 	k_right_1 = XK_Right,
 	k_right_2 = XK_d,
 	k_strafe_alt = XK_Alt_L,
-	k_strafe_switch = XK_F10
+	k_strafe_switch = XK_F10,
+	k_run = XK_Shift_L
 }	t_keys;
 
 typedef enum e_page
@@ -92,6 +95,7 @@ typedef enum e_error
 typedef struct s_player_inputs
 {
 	bool		open;
+	bool		run;
 	bool		mv_forward;
 	bool		mv_backward;
 	bool		mv_left;
@@ -114,6 +118,7 @@ typedef struct s_player_inputs
 	bool		k_left_2;
 	bool		k_right_1;
 	bool		k_right_2;
+	bool		k_run;
 }	t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
@@ -184,7 +189,10 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	t_page		page;
+	// temps de calcul de la dernière frame en seconde
+	double			frame_time;
+	struct timeval	last_time;
+	t_page			page;
 }	t_game;
 
 typedef struct s_cub3d

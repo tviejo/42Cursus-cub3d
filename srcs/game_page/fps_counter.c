@@ -6,11 +6,18 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:53:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:00:27 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 06:39:38 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	update_frame_time(t_game *g, struct timeval time)
+{
+	g->frame_time = time.tv_sec - g->last_time.tv_sec
+		+ 1e-6 * (time.tv_usec - g->last_time.tv_usec);
+	g->last_time = time;
+}
 
 static void	print(t_cub3d *cub3d, char *str, int fps, t_point pos)
 {
@@ -58,6 +65,7 @@ void	update_n_draw_fps(t_cub3d *cub3d)
 	static int		last_sec = 0;
 
 	gettimeofday(&current_time, NULL);
+	update_frame_time(&cub3d->game, current_time);
 	if (current_time.tv_sec != last_sec)
 	{
 		last_fps = frame;

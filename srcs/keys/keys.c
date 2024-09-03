@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 11:56:14 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 05:19:52 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	update_player_inputs(t_player_inputs *in)
 	in->turn_left = !strafe && (in->k_left_1 || in->k_left_2);
 	in->turn_right = !strafe && (in->k_right_1 || in->k_right_2);
 	in->open = in->k_open_1 || in->k_open_2;
+	in->run = in->k_run;
 }
 
 void	key_press_player(int keycode, t_player_inputs *in)
@@ -66,6 +67,8 @@ int	key_press(int keycode, t_cub3d *cub3d)
 		cub3d->game.page = GAME_PAGE;
 	if (keycode == k_strafe_alt)
 		cub3d->inputs.strafe_alt = true;
+	if (keycode == k_run)
+		cub3d->inputs.k_run = true;
 	key_press_player(keycode, &cub3d->inputs);
 	update_player_inputs(&cub3d->inputs);
 	return (0);
@@ -105,6 +108,8 @@ int	key_release(int keycode, t_cub3d *cub3d)
 		cub3d->inputs.strafe_mode = !cub3d->inputs.strafe_mode;
 	if (keycode == k_strafe_alt)
 		cub3d->inputs.strafe_alt = false;
+	if (keycode == k_run)
+		cub3d->inputs.k_run = false;
 	key_release_player(keycode, &cub3d->inputs);
 	update_player_inputs(&cub3d->inputs);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 21:31:49 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 05:53:24 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,28 @@ static bool	collides_wall(t_cub3d *cub)
 static void	translation(t_cub3d *cub)
 {
 	t_player *const	pl = &cub->player;
+	double			dist;
 
+	dist = cub->game.frame_time * TRANS_SPEED * (1.0 + (int)cub->inputs.run);
 	if (cub->inputs.mv_left)
 	{
-		pl->pos.x += cos(pl->dir + M_PI_2) * TRANS_SPEED;
-		pl->pos.y -= sin(pl->dir + M_PI_2) * TRANS_SPEED;
+		pl->pos.x += dist * cos(pl->dir + M_PI_2);
+		pl->pos.y -= dist * sin(pl->dir + M_PI_2);
 	}
 	if (cub->inputs.mv_right)
 	{
-		pl->pos.x += cos(pl->dir - M_PI_2) * TRANS_SPEED;
-		pl->pos.y -= sin(pl->dir - M_PI_2) * TRANS_SPEED;
+		pl->pos.x += dist * cos(pl->dir - M_PI_2);
+		pl->pos.y -= dist * sin(pl->dir - M_PI_2);
 	}
 	if (cub->inputs.mv_forward)
 	{
-		pl->pos.x += cos(pl->dir) * TRANS_SPEED;
-		pl->pos.y -= sin(pl->dir) * TRANS_SPEED;
+		pl->pos.x += dist * cos(pl->dir);
+		pl->pos.y -= dist * sin(pl->dir);
 	}
 	if (cub->inputs.mv_backward)
 	{
-		pl->pos.x -= cos(pl->dir) * TRANS_SPEED;
-		pl->pos.y += sin(pl->dir) * TRANS_SPEED;
+		pl->pos.x -= dist * cos(pl->dir);
+		pl->pos.y += dist * sin(pl->dir);
 	}
 }
 
@@ -78,10 +80,13 @@ static void	translation(t_cub3d *cub)
 
 static void	rotation(t_cub3d *cub)
 {
+	double	rot_angle;
+
+	rot_angle = cub->game.frame_time * ROT_SPEED * (1.0 + (int)cub->inputs.run);
 	if (cub->inputs.turn_left)
-		rotate_player(&cub->player, ROT_SPEED);
+		rotate_player(&cub->player, rot_angle);
 	if (cub->inputs.turn_right)
-		rotate_player(&cub->player, -ROT_SPEED);
+		rotate_player(&cub->player, -rot_angle);
 }
 
 int	update_player_pos(t_cub3d *cub)
