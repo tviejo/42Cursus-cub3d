@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 15:27:15 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/03 17:18:01 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ int    interact_door(t_cub3d *cub, t_pointd pos)
     else if (door_present(cub, pos) != NO_DOOR)
      {
         if (door_present(cub, pos) == DOOR_CLOSED)
-            mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 980, 1000, COL_WHITE, "Press Q to open the door");
+            mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 880,
+                1000, COL_WHITE, "Press Q to open the door");
         else
-            mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 980, 1000, COL_WHITE, "Press Q to close the door");
+            mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr,
+                880, 1000, COL_WHITE, "Press Q to close the door");
      }
     return (EXIT_FAILURE);
 }
