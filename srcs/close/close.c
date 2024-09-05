@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 11:55:43 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:01:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	ft_close_cr(t_cub3d *cub3d)
+{
+	ft_close(cub3d, NULL);
+	return (EXIT_SUCCESS);
+}
 
 int	ft_close(t_cub3d *cub3d, char *errmsg)
 {

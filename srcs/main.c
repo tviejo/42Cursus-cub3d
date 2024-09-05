@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 11:54:26 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:46:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ or one argument: <map filename>\n"), 0);
 		ft_close(&cub3d, "mlx_start() fails !\n");
 	if (parse_cub3d(map_fname, &cub3d) == EXIT_FAILURE)
 		ft_close(&cub3d, "parse_cub3d() fails !\n");
-	print_parsing(&cub3d);
 	if (mlx_create_img(&cub3d) == EXIT_FAILURE)
 		ft_close(&cub3d, "mlx_create_img() fails !");
 	init(&cub3d);
