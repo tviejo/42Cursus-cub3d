@@ -83,6 +83,10 @@ ifeq ($(debug), true)
 	CFLAGS += -g3 -fsanitize=address,undefined
 endif
 
+ifeq ($(optimax), true)
+	CFLAGS += -O3 -Ofast -ffast-math
+endif
+
 define PRINT_LOADING
 	@printf "$(GREEN)Compiling libft["
 	@for i in $(shell seq 0 10 100); do \

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:55:40 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/03 04:48:48 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/04 00:00:38 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	cast_ray(t_cub3d *c, t_raycast *r, t_point mapc)
 			vertical_wall = false;
 		}
 		mapitem = c->map.m[mapc.y][mapc.x];
-		if (mapitem != '0' && mapitem != 'O')
+		if (mapitem != '0' && mapitem != 'O' && mapitem != '9')
 			hits_wall = true;
 	}
 	render_ray(c, r, vertical_wall, mapitem);
@@ -136,8 +136,8 @@ void	render_frame(t_cub3d *c)
 		ray.column++;
 		ray.angle = angles_add(ray.angle, angle_inc);
 	}
-}
-*/
+}*/
+
 
 void	render_frame(t_cub3d *c)
 {
