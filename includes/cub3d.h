@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 06:48:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:38:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ typedef enum e_error
 	NO_COLOR,
 	INVALID_CHAR,
 }	t_error;
+
+typedef enum e_door_state
+{
+	NO_DOOR,
+	DOOR_CLOSED,
+	DOOR_OPENED,
+}	t_door_state;
 
 typedef struct s_player_inputs
 {
@@ -284,9 +291,12 @@ int				draw_minimap(t_cub3d *cub3d);
 int				update_player_pos(t_cub3d *cub3d);
 void			rotate_player(t_player *p, double angle);
 double			angles_add(double alpha, double beta);
+t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos);
 
 t_directions	get_wall_orientation(double ray_angle, bool vertical_wall);
 int				get_wall_color(t_directions orientation, double distance,
 					int wallitem);
+
+int    interact_door(t_cub3d *cub, t_pointd pos);
 
 #endif
