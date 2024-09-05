@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 16:30:42 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:54:21 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define DEG_VERTICAL_FOV 86.3
 
 // unités de distance par sec
-# define TRANS_SPEED 1.5
+# define TRANS_SPEED 1.4
 // radians par seconde
-# define ROT_SPEED 1.5
+# define ROT_SPEED 1.4
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"

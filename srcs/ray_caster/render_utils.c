@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:57:27 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/05 14:06:15 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:21:48 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,41 @@ int	get_wall_color(t_directions orientation, double distance, int wallitem)
 //m += (float)(m<0.f);
 // branchless form to add one if m is negative but not zero
 
+int	get_faded_color(t_cub3d *c, int color, int line_height)
+{
+	double	distance;
+	double	fade;
+
+	distance = c->map.wall_heightscale * c->mlx.mlx_img.dim.height
+		/ (c->mlx.mlx_img.dim.height - 2 * line_height);
+	fade = 40.0 / (40.0 + distance * distance);
+	return (((int)(((color >> 16) & 255) * fade) << 16)
+		+ ((int)(((color >> 8) & 255) * fade) << 8)
+		+ (int)((color & 255) * fade));
+}
+
 void	draw_floor_n_ceil(t_cub3d *c)
 {
 	t_pt2d	p0;
 	t_pt2d	p1;
 	int		ymax;
 
-	p0 = (t_pt2d){.x = 0, .y = 0, .color = c->mlx.color_ceil};
+	p0 = (t_pt2d){.x = 0, .y = 0, /*.color = c->mlx.color_ceil*/};
 	p1 = (t_pt2d){.x = c->mlx.mlx_img.dim.width - 1, .y = 0};
 	ymax = (c->mlx.mlx_img.dim.height >> 1) - 1;
 	while (p0.y < ymax)
 	{
-		//p0.color = ;
+		p0.color = get_faded_color(c, c->mlx.color_ceil, p0.y);
 		draw_line(&c->mlx.mlx_img, p0, p1);
 		p0.y++;
 		p1.y++;
 	}
-	p0 = (t_pt2d){.x = 0, .y = ymax + 1, .color = c->mlx.color_floor};
+	p0 = (t_pt2d){.x = 0, .y = ymax + 1, /*.color = c->mlx.color_floor*/};
 	p1.y = ymax + 1;
 	ymax = c->mlx.mlx_img.dim.height - 1;
 	while (p0.y < ymax)
 	{
-		//p0.color = ;
+		p0.color = get_faded_color(c, c->mlx.color_floor, p0.y);
 		draw_line(&c->mlx.mlx_img, p0, p1);
 		p0.y++;
 		p1.y++;
