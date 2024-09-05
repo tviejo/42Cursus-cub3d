@@ -62,7 +62,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -O2
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
 
 LIBFT 		= 	libft/libft.a
 
@@ -88,6 +88,12 @@ BOLD_END=\e[0m
 
 ifeq ($(debug), true)
 	CFLAGS += -g3 -fsanitize=address,undefined
+endif
+
+ifeq ($(optimax), true)
+	CFLAGS += -O3 -Ofast -ffast-math
+else
+	CFLAGS += -O2
 endif
 
 define PRINT_LOADING
