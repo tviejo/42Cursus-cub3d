@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ads_gfx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/08/30 00:47:31 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:16:12 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define COL_DK_BROWN 0xFF7f7f00
 # define COL_MAGENTA  0xFFff00ff
 # define COL_ORANGE   0xFFff7f00
+# define TRANSPARENT	0x50000000
 
 # define NUMBER_OF_COMMAND 14
 # define NUM_OF_KEY_MOD 6

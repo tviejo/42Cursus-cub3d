@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 16:54:21 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:41:58 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ typedef enum e_keys
 	k_right_2 = XK_d,
 	k_strafe_alt = XK_Alt_L,
 	k_strafe_switch = XK_F10,
-	k_run = XK_Shift_L
+	k_run = XK_Shift_L,
+	k_zoom_in = 65451,
+	k_zoom_out = 65453,
 }					t_keys;
 
 typedef enum e_page
@@ -198,6 +200,7 @@ typedef struct s_game
 {
 	// temps de calcul de la dernière frame en seconde
 	double			frame_time;
+	int				minimap_size;
 	struct timeval	last_time;
 	t_page			page;
 }					t_game;
@@ -284,10 +287,15 @@ int					render_exit_page(t_cub3d *cub3d);
 
 int					key_press(int keycode, t_cub3d *cub3d);
 int					key_release(int keycode, t_cub3d *cub3d);
+void				minimap_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
 void				mouse_move(t_cub3d *cub3d);
 
 int					draw_minimap(t_cub3d *cub3d);
+void				print_wall(t_cub3d *cub, t_point pos);
+void				print_player(t_cub3d *cub);
+void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
+						int color);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);

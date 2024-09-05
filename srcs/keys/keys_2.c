@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys_utils.c                                       :+:      :+:    :+:   */
+/*   keys_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 18:17:43 by tviejo           ###   ########.fr       */
+/*   Created: 2024/09/05 18:27:13 by tviejo            #+#    #+#             */
+/*   Updated: 2024/09/05 18:44:01 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_keys(t_cub3d *cub3d)
+void	minimap_keys(t_cub3d *cub3d, int keycode)
 {
-	ft_memset(&cub3d->inputs, 0, sizeof(t_player_inputs));
-	mlx_mouse_move(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
-		WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	cub3d->inputs.mouse_x = WINDOW_WIDTH / 2;
-	cub3d->inputs.mouse_y = WINDOW_HEIGHT / 2;
-	cub3d->game.minimap_size = 20;
-	return (0);
+	if (keycode == k_zoom_out)
+	{
+		if (cub3d->game.minimap_size > 60)
+			cub3d->game.minimap_size = 60;
+		else
+			cub3d->game.minimap_size++;
+	}
+	if (keycode == k_zoom_in)
+	{
+		if (cub3d->game.minimap_size < 2)
+			cub3d->game.minimap_size = 2;
+		cub3d->game.minimap_size--;
+	}
 }

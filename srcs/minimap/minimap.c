@@ -6,76 +6,28 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 17:04:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/05 18:41:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	print_player(t_cub3d *cub)
-{
-	const t_pt2d	p0 = (t_pt2d){.x = 10 * cub->player.pos.x,
-		.y = 10 * cub->player.pos.y, .color = COL_RED};
-	t_pt2d			p1;
-	int				x;
-	int				y;
-
-	x = -3;
-	while (x < 3)
-	{
-		y = -3;
-		while (y < 3)
-		{
-			img_put_pix32_safe(&cub->mlx.mlx_img, p0.x + x, p0.y + y, COL_RED);
-			y++;
-		}
-		x++;
-	}
-	p1 = (t_pt2d){.x = p0.x + 16 * cos(cub->player.dir),
-		.y = p0.y - 16 * sin(cub->player.dir)};
-	draw_line(&cub->mlx.mlx_img, p0, p1);
-}
-
-static int	print_square(t_image *img, t_point pos, int color)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < 10)
-	{
-		y = 0;
-		while (y < 10)
-		{
-			img_put_pix32_safe(img, pos.x * 10 + x, pos.y * 10 + y, color);
-			y++;
-		}
-		x++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	draw_minimap(t_cub3d *cub)
 {
-	t_image *const	img = &cub->mlx.mlx_img;
-	t_point			pos;
-	int				item;
+	t_point	pos;
 
-	pos.y = 0;
-	while (pos.y < cub->map.height + 1)
+	print_map_border(cub, (t_point){{150}, {150}}, 100, COL_BLACK);
+	pos.y = cub->player.pos.y - 10;
+	if (pos.y < 0)
+		pos.y = 0;
+	while (pos.y < cub->map.height + 1 && pos.y < cub->player.pos.y + 10)
 	{
-		pos.x = 0;
-		while (pos.x < cub->map.width)
+		pos.x = cub->player.pos.x - 10;
+		if (pos.x < 0)
+			pos.x = 0;
+		while (pos.x < cub->map.width && pos.x < cub->player.pos.x + 10)
 		{
-			item = cub->map.m[pos.y][pos.x];
-			if (item == '1')
-				print_square(img, pos, COL_BLUE);
-			else if (item == '0')
-				print_square(img, pos, COL_WHITE);
-			else if (item == 'C')
-				print_square(img, pos, COL_MAGENTA);
-			else if (item == 'O')
-				print_square(img, pos, COL_GREEN);
+			print_wall(cub, pos);
 			pos.x++;
 		}
 		pos.y++;
