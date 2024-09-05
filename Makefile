@@ -40,7 +40,6 @@ SRCS		+= exit_page/exit_page.c
 
 SRCS		+= keys/keys.c
 SRCS		+= keys/keys_utils.c
-SRCS		+= keys/mouse.c
 
 SRCS		+= minimap/minimap.c
 

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 13:32:38 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/05 13:52:46 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_keys(t_cub3d *cub3d)
 	ft_memset(&cub3d->inputs, 0, sizeof(t_player_inputs));
 	mlx_mouse_move(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
 		WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
-		&cub3d->inputs.mouse_x, &cub3d->inputs.mouse_y);
+	cub3d->inputs.mouse_x = WINDOW_WIDTH / 2;
+	cub3d->inputs.mouse_y = WINDOW_HEIGHT / 2;
 	return (0);
 }
