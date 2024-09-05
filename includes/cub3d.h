@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 14:38:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/05 15:28:27 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define DEG_VERTICAL_FOV 86.3
 
 // unités de distance par sec
-# define TRANS_SPEED 1.0
+# define TRANS_SPEED 1.5
 // radians par seconde
-# define ROT_SPEED 1.125
+# define ROT_SPEED 1.5
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -291,12 +291,13 @@ int				draw_minimap(t_cub3d *cub3d);
 int				update_player_pos(t_cub3d *cub3d);
 void			rotate_player(t_player *p, double angle);
 double			angles_add(double alpha, double beta);
-t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos);
+
+t_pointd		collides_wall(t_cub3d *cub, t_pointd old_pos);
+int				interact_door(t_cub3d *cub, t_pointd pos);
 
 t_directions	get_wall_orientation(double ray_angle, bool vertical_wall);
 int				get_wall_color(t_directions orientation, double distance,
 					int wallitem);
-
-int    interact_door(t_cub3d *cub, t_pointd pos);
+void			draw_floor_n_ceil(t_cub3d *c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:55:40 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/04 00:00:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:42:56 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	render_ray(t_cub3d *c, t_raycast *r, bool vertical_wall, int wallitem)
 			p_wall_dist, wallitem)};
 	p1 = (t_pt2d){.x = p0.x, .y = y0 + height, .color = c->mlx.color_floor};
 	draw_line(&c->mlx.mlx_img, p0, p1);
-	if (y0 > 0)
+	/*if (y0 > 0)
 		draw_line(&c->mlx.mlx_img,
 			(t_pt2d){.x = p0.x, .y = 0, .color = c->mlx.color_ceil}, p0);
 	if (y0 + height < c->mlx.mlx_img.dim.height - 1)
 		draw_line(&c->mlx.mlx_img, p1,
-			(t_pt2d){.x = p0.x, .y = c->mlx.mlx_img.dim.height - 1});
+			(t_pt2d){.x = p0.x, .y = c->mlx.mlx_img.dim.height - 1});*/
 }
 
 void	cast_ray(t_cub3d *c, t_raycast *r, t_point mapc)
@@ -144,6 +144,7 @@ void	render_frame(t_cub3d *c)
 	t_raycast	ray;
 	double		dist_to_plane;
 
+	draw_floor_n_ceil(c);
 	dist_to_plane = c->mlx.mlx_img.dim.height
 		/ tan(0.5 * c->player.vertical_fov);
 	ray.column = 0;

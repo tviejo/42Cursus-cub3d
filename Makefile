@@ -58,7 +58,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -O3 -Ofast -ffast-math
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
 
 LIBFT 		= 	libft/libft.a
 
@@ -88,6 +88,8 @@ endif
 
 ifeq ($(optimax), true)
 	CFLAGS += -O3 -Ofast -ffast-math
+else
+	CFLAGS += -O2
 endif
 
 define PRINT_LOADING

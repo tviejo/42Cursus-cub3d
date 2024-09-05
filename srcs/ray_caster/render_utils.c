@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:57:27 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/03 07:00:57 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:06:15 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_wall_color(t_directions orientation, double distance, int wallitem)
 	c = colors[orientation];
 	if (wallitem == 'C')
 		c = COL_MAGENTA;
-	fade = 6.0 / (6.0 + distance);
+	fade = 40.0 / (40.0 + distance * distance);
 	c = ((int)(((c >> 16) & 255) * fade) << 16)
 		+ ((int)(((c >> 8) & 255) * fade) << 8)
 		+ (int)((c & 255) * fade);
@@ -49,3 +49,31 @@ int	get_wall_color(t_directions orientation, double distance, int wallitem)
 //m = x - (float)(int)x;
 //m += (float)(m<0.f);
 // branchless form to add one if m is negative but not zero
+
+void	draw_floor_n_ceil(t_cub3d *c)
+{
+	t_pt2d	p0;
+	t_pt2d	p1;
+	int		ymax;
+
+	p0 = (t_pt2d){.x = 0, .y = 0, .color = c->mlx.color_ceil};
+	p1 = (t_pt2d){.x = c->mlx.mlx_img.dim.width - 1, .y = 0};
+	ymax = (c->mlx.mlx_img.dim.height >> 1) - 1;
+	while (p0.y < ymax)
+	{
+		//p0.color = ;
+		draw_line(&c->mlx.mlx_img, p0, p1);
+		p0.y++;
+		p1.y++;
+	}
+	p0 = (t_pt2d){.x = 0, .y = ymax + 1, .color = c->mlx.color_floor};
+	p1.y = ymax + 1;
+	ymax = c->mlx.mlx_img.dim.height - 1;
+	while (p0.y < ymax)
+	{
+		//p0.color = ;
+		draw_line(&c->mlx.mlx_img, p0, p1);
+		p0.y++;
+		p1.y++;
+	}
+}
