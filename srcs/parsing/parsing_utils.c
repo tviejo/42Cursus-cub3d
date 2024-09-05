@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 04:28:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:43:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ bool	begin_with_tag(char *line, char *tag)
 
 	while (line && *line == ' ')
 		line++;
-	return (
-		line
-		&& ft_strncmp(line, tag, tag_len) == 0
-		&& line[tag_len] == ' '
-	);
+	return (line && ft_strncmp(line, tag, tag_len) == 0
+		&& line[tag_len] == ' ');
 }
 
 /* En sortie, si value <> NULL :
  *     *value = pointeur sur valeur du tag ou NULL si tag non trouvé
- * renvoie true si tag trouvé, sinon false (idem begin_with_tag()) 
-*/
+ * renvoie true si tag trouvé, sinon false (idem begin_with_tag())
+ */
 bool	get_tag_value(char *line, char *tag, char **value)
 {
 	const int	tag_len = ft_strlen(tag);
@@ -36,9 +33,9 @@ bool	get_tag_value(char *line, char *tag, char **value)
 
 	while (line && *line == ' ')
 		line++;
-	tag_exists = line
-		&& ft_strncmp(line, tag, tag_len) == 0
-		&& line[tag_len] == ' ';
+	tag_exists = line;
+	tag_exists &= ft_strncmp(line, tag, tag_len) == 0;
+	tag_exists &= line[tag_len] == ' ';
 	if (value)
 	{
 		if (tag_exists)

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 14:40:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/05 14:54:15 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	update_player_pos(t_cub3d *cub)
 	t_pointd	old_pos;
 
 	old_pos = cub->player.pos;
+	mouse_move(cub);
 	rotation(cub);
 	translation(cub);
 	collides_wall(cub, old_pos);
