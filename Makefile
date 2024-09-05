@@ -41,8 +41,12 @@ SRCS		+= exit_page/exit_page.c
 SRCS		+= keys/keys.c
 SRCS		+= keys/keys_utils.c
 SRCS		+= keys/mouse.c
+SRCS		+= keys/keys_2.c
 
 SRCS		+= minimap/minimap.c
+SRCS		+= minimap/print_player.c
+SRCS		+= minimap/print_walls.c
+SRCS		+= minimap/print_map_border.c
 
 SRCS		+= player/move.c
 SRCS		+= player/move_utils.c

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 16:23:21 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/05 18:43:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_pos(t_cub3d *cub3d, int x, int y)
 	return (EXIT_SUCCESS);
 }
 
-static int check_door(t_cub3d *cub3d, int x, int y)
+static int	check_door(t_cub3d *cub3d, int x, int y)
 {
 	if (cub3d->map.m[y - 1][x] == '1' && cub3d->map.m[y + 1][x] == '1')
 		return (EXIT_SUCCESS);
