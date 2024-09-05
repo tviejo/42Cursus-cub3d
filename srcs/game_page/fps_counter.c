@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fps_counter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:53:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/03 06:39:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:57:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print(t_cub3d *cub3d, char *str, int fps, t_point pos)
 	fps_value = ft_itoa(fps);
 	fps_str = ft_strjoin(str, fps_value);
 	mlx_string_put(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, pos.x, pos.y,
-		COL_WHITE, fps_str);
+		COL_BLACK, fps_str);
 	free(fps_str);
 	free(fps_value);
 }
