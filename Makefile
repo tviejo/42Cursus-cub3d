@@ -58,7 +58,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -O3 -Ofast -ffast-math
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -O2
 
 LIBFT 		= 	libft/libft.a
 

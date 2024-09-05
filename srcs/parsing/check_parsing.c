@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 20:44:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:23:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	is_unwanted_item(t_cub3d *cub3d, int x, int y)
 	const int	item = cub3d->map.m[y][x];
 
 	return (item == '0' || item == 'N' || item == 'S'
-		|| item == 'E' || item == 'W');
+		|| item == 'E' || item == 'W' || item == 'C' || item == 'O');
 }
 
 static int	check_pos(t_cub3d *cub3d, int x, int y)
@@ -45,6 +45,19 @@ static int	check_pos(t_cub3d *cub3d, int x, int y)
 	return (EXIT_SUCCESS);
 }
 
+static int check_door(t_cub3d *cub3d, int x, int y)
+{
+	if (cub3d->map.m[y - 1][x] == '1' && cub3d->map.m[y + 1][x] == '1')
+		return (EXIT_SUCCESS);
+	else if (cub3d->map.m[y][x - 1] == '1' && cub3d->map.m[y][x + 1] == '1')
+		return (EXIT_SUCCESS);
+	else
+	{
+		ft_dprintf(2, "invalid door at %d,%d\n", x, y);
+		return (EXIT_FAILURE);
+	}
+}
+
 int	check_parsing_map(t_cub3d *cub3d)
 {
 	int	y;
@@ -58,6 +71,9 @@ int	check_parsing_map(t_cub3d *cub3d)
 		{
 			if (cub3d->map.m[y][x] == '9')
 				if (check_pos(cub3d, x, y) == EXIT_FAILURE)
+					return (EXIT_FAILURE);
+			if (cub3d->map.m[y][x] == 'C' || cub3d->map.m[y][x] == 'C')
+				if (check_door(cub3d, x, y) == EXIT_FAILURE)
 					return (EXIT_FAILURE);
 			x++;
 		}
