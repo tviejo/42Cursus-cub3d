@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 17:45:12 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 22:25:10 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static bool	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
 	else
 		return (false);
 }
-
 t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
 {
 	const int	x = (int)cub->player.pos.x;
