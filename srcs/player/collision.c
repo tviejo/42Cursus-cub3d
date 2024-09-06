@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 13:52:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 17:45:12 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ static bool	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
 {
 	if (is_wall(cub, x, y) == true)
 	{
+		cub->player.pos = old_pos;
 		if (is_wall(cub, x, (int)old_pos.y) == false)
 			cub->player.pos.y = old_pos.y;
-		else if (is_wall(cub, (int)old_pos.x, y) == false)
+		if (is_wall(cub, (int)old_pos.x, y) == false)
 			cub->player.pos.x = old_pos.x;
-		else
-			cub->player.pos = old_pos;
 		return (true);
 	}
 	else

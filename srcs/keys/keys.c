@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 14:53:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 17:58:11 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,17 @@ int	key_press(int keycode, t_cub3d *cub3d)
 	if (keycode == XK_Escape)
 		cub3d->game.page = EXIT_PAGE;
 	if (keycode == XK_space && cub3d->game.page == LANDING_PAGE)
+	{
+		if (MOUSE == 1)
+			mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 		cub3d->game.page = GAME_PAGE;
+	}
 	if (keycode == XK_n && cub3d->game.page == EXIT_PAGE)
+	{
+		if (MOUSE == 1)
+			mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 		cub3d->game.page = GAME_PAGE;
+	}
 	if (keycode == k_strafe_alt)
 		cub3d->inputs.strafe_alt = true;
 	if (keycode == k_run)
