@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 15:01:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 15:09:49 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,13 @@ static int	moove_door(t_cub3d *cub, t_pointd pos)
 
 int	interact_door(t_cub3d *cub, t_pointd pos)
 {
-	static struct timeval	last_open = {0, 0};
-	struct timeval			current_time;
 
 	if (cub->inputs.open && door_present(cub, pos) != NO_DOOR)
 	{
-		gettimeofday(&current_time, NULL);
-		if ((int)current_time.tv_sec - (int)last_open.tv_sec > 1)
-		{
-			moove_door(cub, pos);
-			last_open = current_time;
-		}
-		return (EXIT_SUCCESS);
+		moove_door(cub, pos);
+		cub->inputs.open = false;
+		cub->inputs.k_open_1 = false;
+		cub->inputs.k_open_2 = false;
 	}
 	else if (door_present(cub, pos) != NO_DOOR)
 	{
