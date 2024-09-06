@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:41:19 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:11:48 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:15:38 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void reset_keys(t_cub3d * cub3d)
+{
+	cub3d->inputs.open = false;
+	cub3d->inputs.k_open_1 = false;
+	cub3d->inputs.k_open_2 = false;
+}
 int	render(t_cub3d *cub3d)
 {
 	if (cub3d->game.page == LANDING_PAGE)
@@ -20,5 +26,6 @@ int	render(t_cub3d *cub3d)
 		render_game_page(cub3d);
 	else
 		render_exit_page(cub3d);
+	reset_keys(cub3d);
 	return (EXIT_SUCCESS);
 }

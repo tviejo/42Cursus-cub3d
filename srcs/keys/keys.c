@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 02:16:10 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:53:02 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	key_press_player(int keycode, t_player_inputs *in)
 	if (keycode == k_right_2)
 		in->k_right_2 = true;
 	if (keycode == k_open_1)
-		in->k_open_1 = true;
+		in->k_open_1 = false;
 	if (keycode == k_open_2)
-		in->k_open_2 = true;
+		in->k_open_2 = false;
 	if (keycode == k_fire_1)
 		in->k_fire_1 = true;
 	if (keycode == k_fire_2)
@@ -94,9 +94,9 @@ void	key_release_player(int keycode, t_player_inputs *in)
 	if (keycode == k_right_2)
 		in->k_right_2 = false;
 	if (keycode == k_open_1)
-		in->k_open_1 = false;
+		in->k_open_1 = true;
 	if (keycode == k_open_2)
-		in->k_open_2 = false;
+		in->k_open_2 = true;
 	if (keycode == k_fire_1)
 		in->k_fire_1 = false;
 	if (keycode == k_fire_2)
