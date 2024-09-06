@@ -16,13 +16,15 @@ SO  ./assets/textures/2001 l'Odyssee de l'espace - Credit MGM - DR - TCD.xpm
 # Colors: Floor and Ceil colors (r,g,b) [0-255]:
 #C 122, 92, 131
 #F  55, 00, 40  # aubergine
-C 255,255,255
-F 122,92,131
+#F 122,92,131
+C 200,152,182
+F 71,16,56
+
 
 # Map
 # Items: 
-#     ' ': empty (outside) space
-#      0 : empty (inside) space
+#     ' ': empty outside space
+#      0 : empty inside space
 #      1 : wall
 #      C : Closed door
 #      O : Open door

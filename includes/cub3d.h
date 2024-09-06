@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 18:41:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 13:12:21 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
+# define LUM_FADE_DIST 55.0
 
 // unités de distance par sec
-# define TRANS_SPEED 1.4
+# define TRANS_SPEED 1.6
 // radians par seconde
-# define ROT_SPEED 1.4
+# define ROT_SPEED 1.6
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -46,6 +47,8 @@
 //# define WEST_ANGLE M_PI
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
+
+#define _2PI_DIV_1024 6.13592315154256491887e-3
 
 typedef enum e_directions
 {
@@ -179,6 +182,13 @@ typedef struct s_player
 	double			dir;
 	// vertical field of view (radians)
 	double			vertical_fov;
+	// cumul de la distance parcourue (attention pas la vraie distance !)
+	// -> utilisé pour le calcul de walk_height_shift
+	double			walk_distance;
+	// modification de la hauteur de vue pandant la marche
+	double			walk_height_shift;
+	// hauteur des yeux
+	double			view_height;
 }					t_player;
 
 typedef struct s_map
@@ -306,7 +316,7 @@ int					interact_door(t_cub3d *cub, t_pointd pos);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
 int					get_wall_color(t_directions orientation, double distance,
-					int wallitem);
+						int wallitem);
 void				draw_floor_n_ceil(t_cub3d *c);
 
 #endif

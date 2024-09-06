@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 18:29:04 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 02:16:10 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update_player_inputs(t_player_inputs *in)
 {
-	const bool	strafe = !(in->strafe_mode ^ in->strafe_alt);
+	const bool	strafe = (in->strafe_mode ^ in->strafe_alt);
 
 	in->mv_forward = in->k_up_1 || in->k_up_2;
 	in->mv_backward = in->k_down_1 || in->k_down_2;
