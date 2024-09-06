@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 19:33:54 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 13:52:41 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	is_wall(t_cub3d *cub, int x, int y)
 	return (false);
 }
 
-static void	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
+static bool	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
 {
 	if (is_wall(cub, x, y) == true)
 	{
@@ -31,7 +31,10 @@ static void	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
 			cub->player.pos.x = old_pos.x;
 		else
 			cub->player.pos = old_pos;
+		return (true);
 	}
+	else
+		return (false);
 }
 
 t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
@@ -40,13 +43,13 @@ t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
 	const int	y = (int)cub->player.pos.y;
 
 	check_wall(cub, old_pos, x, y);
-	if ((int)(cub->player.pos.x + 0.1) != x)
+	if ((int)(cub->player.pos.x + 0.05) != x)
 		check_wall(cub, old_pos, x + 1, y);
-	if ((int)(cub->player.pos.y + 0.1) != y)
+	if ((int)(cub->player.pos.y + 0.05) != y)
 		check_wall(cub, old_pos, x, y + 1);
-	if ((int)(cub->player.pos.x - 0.1) != x)
+	if ((int)(cub->player.pos.x - 0.05) != x)
 		check_wall(cub, old_pos, x - 1, y);
-	if ((int)(cub->player.pos.y - 0.1) != y)
+	if ((int)(cub->player.pos.y - 0.05) != y)
 		check_wall(cub, old_pos, x, y - 1);
 	return (cub->player.pos);
 }
