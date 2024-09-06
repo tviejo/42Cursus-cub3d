@@ -10,6 +10,7 @@ SRCS		+= draw/image_fill.c
 SRCS		+= draw/put_pixel.c
 
 SRCS		+= ray_caster/render_frame.c
+SRCS		+= ray_caster/render_textured.c
 SRCS		+= ray_caster/render_utils.c
 
 SRCS		+= parsing/parsing.c

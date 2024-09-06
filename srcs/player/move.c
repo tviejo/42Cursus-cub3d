@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 14:54:15 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 12:55:44 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	translate_player(t_cub3d *cub, double x, double y)
+{
+	t_player *const	pl = &cub->player;
+	const double	speed_mul = 1.0 + (int)cub->inputs.run;
+	double			dist;
+
+	dist = cub->game.frame_time * TRANS_SPEED;
+	pl->walk_distance += dist;
+	pl->walk_height_shift = speed_mul * 20.0 * sin(pl->walk_distance * 7.0);
+	dist *= speed_mul;
+	pl->pos.x += dist * x;
+	pl->pos.y -= dist * y;
+}
+
 static void	translation(t_cub3d *cub)
 {
 	t_player *const	pl = &cub->player;
-	double			dist;
 
-	dist = cub->game.frame_time * TRANS_SPEED * (1.0 + (int)cub->inputs.run);
 	if (cub->inputs.mv_left)
-	{
-		pl->pos.x += dist * cos(pl->dir + M_PI_2);
-		pl->pos.y -= dist * sin(pl->dir + M_PI_2);
-	}
+		translate_player(cub, cos(pl->dir + M_PI_2), sin(pl->dir + M_PI_2));
 	if (cub->inputs.mv_right)
-	{
-		pl->pos.x += dist * cos(pl->dir - M_PI_2);
-		pl->pos.y -= dist * sin(pl->dir - M_PI_2);
-	}
+		translate_player(cub, cos(pl->dir - M_PI_2), sin(pl->dir - M_PI_2));
 	if (cub->inputs.mv_forward)
-	{
-		pl->pos.x += dist * cos(pl->dir);
-		pl->pos.y -= dist * sin(pl->dir);
-	}
+		translate_player(cub, cos(pl->dir), sin(pl->dir));
 	if (cub->inputs.mv_backward)
-	{
-		pl->pos.x -= dist * cos(pl->dir);
-		pl->pos.y += dist * sin(pl->dir);
-	}
+		translate_player(cub, -cos(pl->dir), -sin(pl->dir));
 }
 
 static void	rotation(t_cub3d *cub)

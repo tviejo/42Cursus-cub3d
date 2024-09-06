@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
 /*   Updated: 2024/09/06 15:22:49 by tviejo           ###   ########.fr       */
@@ -12,12 +12,15 @@
 
 #include "cub3d.h"
 
+/* pourquoi mlx_mouse_hide() dans mouse_move() ?
+*/
+
 void	mouse_move(t_cub3d *cub3d)
 {
-	static int x = WINDOW_WIDTH / 2;
-	static int y = WINDOW_HEIGHT / 2;
-	int x1;
-	int y1;
+	static int	x = WINDOW_WIDTH / 2;
+	static int	y = WINDOW_HEIGHT / 2;
+	int			x1;
+	int			y1;
 
 	if (MOUSE == 1)
 		mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
