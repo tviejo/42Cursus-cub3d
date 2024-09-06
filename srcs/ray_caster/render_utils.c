@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:57:27 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/06 13:10:26 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:44:57 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int	get_faded_color(t_cub3d *c, int color, int line_height)
 	/*(void)img_h2;
 	distance = c->map.wall_heightscale * c->mlx.mlx_img.dim.height
 		/ (c->mlx.mlx_img.dim.height - 2 * line_height);*/
-	distance = (c->player.view_height + c->player.walk_height_shift - img_h2
-			* c->map.wall_heightscale) / (line_height - img_h2);
-	//if (line_height )
+	distance = (c->player.view_height + 0.5 * c->player.walk_height_shift
+			- img_h2 * c->map.wall_heightscale) / (line_height - img_h2);
+	/*if (line_height == 450)
+		printf("[get_faded_color()] line: %i  distance: %f\n", line_height, distance);*/
 	fade = LUM_FADE_DIST / (LUM_FADE_DIST + distance * distance);
 	return (((int)(((color >> 16) & 255) * fade) << 16)
 		+ ((int)(((color >> 8) & 255) * fade) << 8)

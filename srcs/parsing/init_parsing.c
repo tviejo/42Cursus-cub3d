@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:08:35 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 12:53:41 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:58:10 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_parsing(t_cub3d *cub3d)
 	cub3d->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub3d->player.pos.x = -1;
 	cub3d->player.pos.y = -1;
-	cub3d->player.view_height = 1.0;
+	cub3d->player.view_height = 0.0;
 	cub3d->player.walk_distance = 0.0;
 	cub3d->player.walk_height_shift = 0.0;
 	cub3d->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
