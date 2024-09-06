@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/05 17:16:12 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 11:46:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,13 @@ typedef struct s_pt2d
 	int		color;
 }	t_pt2d;
 
+typedef struct s_triangle
+{
+	t_pt2d 	p0;
+	t_pt2d 	p1;
+	t_pt2d 	p2;
+	int		color;
+}	t_triangle;
 typedef struct s_draw_line_vars
 {
 	int			error;
