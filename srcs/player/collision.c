@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 13:52:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/06 23:12:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,53 @@ static bool	is_wall(t_cub3d *cub, int x, int y)
 	return (false);
 }
 
-static bool	check_wall(t_cub3d *cub, t_pointd old_pos, int x, int y)
+static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
+		t_pointd old_pos)
 {
-	if (is_wall(cub, x, y) == true)
+	double	i;
+
+	i = -0.01;
+	while (i <= 0.01)
 	{
-		if (is_wall(cub, x, (int)old_pos.y) == false)
-			cub->player.pos.y = old_pos.y;
-		else if (is_wall(cub, (int)old_pos.x, y) == false)
-			cub->player.pos.x = old_pos.x;
-		else
-			cub->player.pos = old_pos;
-		return (true);
+		if (is_wall(cub, (int)(pos.x + i), (int)(pos.y + i)) == true)
+		{
+			if (is_wall(cub, new_pos.x, (int)old_pos.y) == false)
+				cub->player.pos.y = old_pos.y;
+			else if (is_wall(cub, (int)old_pos.x, new_pos.y) == false)
+				cub->player.pos.x = old_pos.x;
+			else
+				cub->player.pos = old_pos;
+			return (true);
+		}
+		i += 0.01;
 	}
-	else
-		return (false);
+	return (false);
+}
+
+static int	find_wall_between_two_pos(t_cub3d *cub, t_pointd old_pos,
+		t_pointd new_pos)
+{
+	t_pointd	inc;
+	t_pointd	pos;
+	int			i;
+
+	inc.x = (new_pos.x - old_pos.x) / 100;
+	inc.y = (new_pos.y - old_pos.y) / 100;
+	pos = old_pos;
+	i = 0;
+	while (i < 100)
+	{
+		pos.x += inc.x;
+		pos.y += inc.y;
+		if (find_wall(cub, pos, new_pos, old_pos) == true)
+			return (i);
+		i++;
+	}
+	return (i);
 }
 
 t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
 {
-	const int	x = (int)cub->player.pos.x;
-	const int	y = (int)cub->player.pos.y;
-
-	check_wall(cub, old_pos, x, y);
-	if ((int)(cub->player.pos.x + 0.05) != x)
-		check_wall(cub, old_pos, x + 1, y);
-	if ((int)(cub->player.pos.y + 0.05) != y)
-		check_wall(cub, old_pos, x, y + 1);
-	if ((int)(cub->player.pos.x - 0.05) != x)
-		check_wall(cub, old_pos, x - 1, y);
-	if ((int)(cub->player.pos.y - 0.05) != y)
-		check_wall(cub, old_pos, x, y - 1);
+	find_wall_between_two_pos(cub, old_pos, cub->player.pos);
 	return (cub->player.pos);
 }
