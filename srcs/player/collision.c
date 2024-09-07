@@ -6,13 +6,13 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 23:12:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 11:28:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	is_wall(t_cub3d *cub, int x, int y)
+bool	is_wall(t_cub3d *cub, int x, int y)
 {
 	const int	item = cub->map.m[y][x];
 

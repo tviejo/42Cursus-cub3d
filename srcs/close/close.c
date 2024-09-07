@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 15:01:22 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 11:04:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_close(t_cub3d *cub3d, char *errmsg)
 {
 	if (errmsg)
 		ft_dprintf(2, errmsg);
+	clear_monsters(cub3d);
 	free_parsing(&cub3d->map);
 	mlx_close(&cub3d->mlx);
 	exit(EXIT_SUCCESS);

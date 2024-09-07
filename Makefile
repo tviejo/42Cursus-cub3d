@@ -24,6 +24,7 @@ SRCS		+= parsing/parse_textures.c
 SRCS		+= parsing/free_parsing.c
 SRCS		+= parsing/print_parsing.c
 SRCS		+= parsing/check_parsing.c
+SRCS		+= parsing/chained_list_utils.c
 
 SRCS		+= mlx_utils/mlx_utils.c
 SRCS		+= mlx_utils/mlx_create_image.c
@@ -50,12 +51,14 @@ SRCS		+= minimap/minimap.c
 SRCS		+= minimap/print_player.c
 SRCS		+= minimap/print_walls.c
 SRCS		+= minimap/print_map_border.c
+SRCS		+= minimap/print_monster.c
 
 SRCS		+= player/move.c
 SRCS		+= player/move_utils.c
 SRCS		+= player/collision.c
 
 SRCS		+= interaction/door.c
+SRCS		+= interaction/monster.c
 
 SRCS		+= main.c
 

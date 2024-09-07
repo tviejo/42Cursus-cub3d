@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 12:43:02 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:10:06 by tviejo           ###   ########.fr       *
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define MOUSE 1
+# define MOUSE 0
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
@@ -105,6 +105,13 @@ typedef enum e_door_state
 	DOOR_OPENED,
 }					t_door_state;
 
+typedef struct s_monsters
+{
+	int				id;
+	t_pointd		pos;
+	int				hp;
+	struct s_monsters	*next;
+}					t_monsters;
 typedef struct s_player_inputs
 {
 	bool			open;
@@ -219,6 +226,7 @@ typedef struct s_game
 typedef struct s_cub3d
 {
 	t_player		player;
+	t_monsters		*monsters;
 	t_mlx			mlx;
 	t_map			map;
 	t_game			game;
@@ -284,6 +292,9 @@ void				print_parsing(t_cub3d *cub3d);
 bool				is_texture(char *line);
 bool				is_color(char *line);
 int					check_parsing(t_cub3d *cub3d);
+void				add_back_monster(t_cub3d *cub, t_monsters *new);
+void				clear_monsters(t_cub3d *cub);
+t_monsters			*new_monster(t_pointd pos, int hp);
 
 int					mlx_init_data(t_cub3d *cub3d);
 int					mlx_start(t_cub3d *cub3d);
@@ -319,8 +330,10 @@ void				mouse_move(t_cub3d *cub3d);
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
+void				print_monster(t_cub3d *cub);
 void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
 						int color);
+bool				is_inside_circle(int x, int y, t_cub3d *cub);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);
@@ -328,6 +341,8 @@ double				angles_add(double alpha, double beta);
 
 t_pointd			collides_wall(t_cub3d *cub, t_pointd old_pos);
 int					interact_door(t_cub3d *cub, t_pointd pos);
+void				move_monster(t_cub3d *cub);
+bool				is_wall(t_cub3d *cub, int x, int y);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
 int					get_wall_color(t_directions orientation, double distance,
