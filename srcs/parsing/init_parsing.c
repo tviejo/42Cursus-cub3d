@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:08:35 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:28:35 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:36:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	init_parsing(t_cub3d *cub3d)
 	cub3d->monsters = NULL;
 	cub3d->game.last_time = (struct timeval){.tv_sec = 0, .tv_usec = 0};
 	cub3d->player.health = 100;
+	cub3d->game.dificulty = 0;
 }

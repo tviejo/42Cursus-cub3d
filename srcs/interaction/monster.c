@@ -6,11 +6,34 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 13:19:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:36:18 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	add_monster_time(t_cub3d *cub)
+{
+	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
+	int						x;
+	int						y;
+	int						i;
+
+	if (cub->game.last_time.tv_sec != old_time.tv_sec)
+	{
+		old_time = cub->game.last_time;
+		i = 0;
+		while (i < cub->game.dificulty)
+		{
+			x = rand() % cub->map.width;
+			y = rand() % cub->map.height;
+			if (cub->map.m[y][x] == '0')
+				add_back_monster(cub, new_monster((t_pointd){.x = x + 0.5,
+						.y = y + 0.5}, 10));
+			i++;
+		}
+	}
+}
 
 static void	movement_monster(t_cub3d *cub, t_monsters *tmp)
 {
@@ -42,4 +65,5 @@ void	move_monster(t_cub3d *cub)
 			tmp = tmp->next;
 		}
 	}
+	add_monster_time(cub);
 }

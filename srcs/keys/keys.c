@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:53:28 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:43:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	key_press_player(int keycode, t_player_inputs *in)
 int	key_press(int keycode, t_cub3d *cub3d)
 {
 	minimap_keys(cub3d, keycode);
+	difficulty_keys(cub3d, keycode);
 	if ((keycode == XK_Escape || keycode == XK_y)
 		&& cub3d->game.page == EXIT_PAGE)
 		ft_close(cub3d, NULL);
