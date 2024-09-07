@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 11:28:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 15:59:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
 {
 	double	i;
 
-	i = -0.01;
-	while (i <= 0.01)
+	i = -0.02;
+	while (i <= 0.02)
 	{
-		if (is_wall(cub, (int)(pos.x + i), (int)(pos.y + i)) == true)
+		if (is_wall(cub, (int)(pos.x + i), (int)(pos.y - i)) == true)
 		{
 			if (is_wall(cub, new_pos.x, (int)old_pos.y) == false)
 				cub->player.pos.y = old_pos.y;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 13:10:06 by tviejo           ###   ########.fr       *
+/*   Updated: 2024/09/07 16:11:24 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define MOUSE 0
+# define MOUSE 1
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
@@ -84,6 +84,7 @@ typedef enum e_page
 {
 	LANDING_PAGE,
 	GAME_PAGE,
+	GAME_OVER_PAGE,
 	EXIT_PAGE
 }					t_page;
 
@@ -197,6 +198,7 @@ typedef struct s_player
 	double			walk_height_shift;
 	// hauteur des yeux
 	double			view_height;
+	int				health;
 }					t_player;
 
 typedef struct s_map
@@ -289,6 +291,7 @@ void				parse_color(char *line, t_cub3d *cub3d);
 void				init_parsing(t_cub3d *cub3d);
 void				free_parsing(t_map *map);
 void				print_parsing(t_cub3d *cub3d);
+char				parse_char(t_cub3d *cub3d, char c, int x, int y);
 bool				is_texture(char *line);
 bool				is_color(char *line);
 int					check_parsing(t_cub3d *cub3d);
@@ -348,5 +351,12 @@ t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
 int					get_wall_color(t_directions orientation, double distance,
 						int wallitem);
 void				draw_floor_n_ceil(t_cub3d *c);
+
+void				print_hud(t_cub3d *cub);
+void				print_health_bar(t_cub3d *cub);
+
+void				update_health(t_cub3d *cub);
+
+int					render_game_over_page(t_cub3d *cub3d);
 
 #endif
