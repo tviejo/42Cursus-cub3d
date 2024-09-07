@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:15:24 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/07 11:25:00 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:34:58 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ static void	cast_ray(t_cub3d *c, t_raycast *r, t_point mpos, t_scaninfo *si)
 
 /* Scanne la map depuis la vue du joueur et renseingne 'si' avec l'element
  * trouvé (mur, porte, ...), ses coordonnées de map et sa distance au joueur.
+ * 'angle' permet de scanner dans la direction du joueur + 'angle'
  * Renvoie l'element trouvé.
 */
-int	scan_in_front(t_cub3d *c, t_scaninfo *si)
+int	scan_in_front(t_cub3d *c, t_scaninfo *si, double angle)
 {
 	t_raycast	ray;
 
-	ray.angle = c->player.dir;
+	ray.angle = angles_add(c->player.dir, angle);
 	init_ray_h_inter(&ray, ray.angle, c->player.pos);
 	init_ray_v_inter(&ray, ray.angle, c->player.pos);
 	cast_ray(c, &ray,

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 11:18:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 12:43:02 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
 
-#define _2PI_DIV_1024 6.13592315154256491887e-3
+//#define _2PI_DIV_1024 6.13592315154256491887e-3
 
 typedef enum e_directions
 {
@@ -300,7 +300,7 @@ int					ft_close_cr(t_cub3d *cub3d);
 void				render_frame(t_cub3d *cub);
 void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
 void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
-int					scan_in_front(t_cub3d *c, t_scaninfo *si);
+int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
 
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
