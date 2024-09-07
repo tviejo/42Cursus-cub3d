@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 15:25:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 11:18:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,17 @@ typedef struct s_raycast
 	double			h_dist_inc;
 }					t_raycast;
 
+typedef struct s_scaninfo
+{
+	// coordonnées de map de l'element trouvé
+	t_point	mpos;
+	// element trouvé
+	int		item;
+	// distance précise du joueur à l'élément trouvé
+	double	distance;
+}					t_scaninfo;
+
+
 int					parse_cub3d(char *filename, t_cub3d *cub);
 bool				begin_with_tag(char *line, char *tag);
 bool				get_tag_value(char *line, char *tag, char **value);
@@ -287,6 +298,9 @@ int					ft_close(t_cub3d *cub3d, char *errmsg);
 int					ft_close_cr(t_cub3d *cub3d);
 
 void				render_frame(t_cub3d *cub);
+void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
+void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
+int					scan_in_front(t_cub3d *c, t_scaninfo *si);
 
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
