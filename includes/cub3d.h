@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:52:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:24:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_player_inputs
 	bool			k_right_1;
 	bool			k_right_2;
 	bool			k_run;
+	bool			shoot;
 }					t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
@@ -299,6 +300,7 @@ int					check_parsing(t_cub3d *cub3d);
 void				add_back_monster(t_cub3d *cub, t_monsters *new);
 void				clear_monsters(t_cub3d *cub);
 t_monsters			*new_monster(t_pointd pos, int hp);
+void				delete_monster(t_cub3d *cub, int id);
 
 int					mlx_init_data(t_cub3d *cub3d);
 int					mlx_start(t_cub3d *cub3d);
@@ -347,6 +349,7 @@ double				angles_add(double alpha, double beta);
 t_pointd			collides_wall(t_cub3d *cub, t_pointd old_pos);
 int					interact_door(t_cub3d *cub, t_pointd pos);
 void				move_monster(t_cub3d *cub);
+void				shoot_monster(t_cub3d *cub);
 bool				is_wall(t_cub3d *cub, int x, int y);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
@@ -360,5 +363,9 @@ void				print_health_bar(t_cub3d *cub);
 void				update_health(t_cub3d *cub);
 
 int					render_game_over_page(t_cub3d *cub3d);
+
+bool				monster_is_present(t_cub3d *cub, t_pointd pos);
+
+int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
 
 #endif

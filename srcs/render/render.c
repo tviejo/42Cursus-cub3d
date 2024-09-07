@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:41:19 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:58:12 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:25:11 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	reset_keys(t_cub3d *cub3d)
 	cub3d->inputs.open = false;
 	cub3d->inputs.k_open_1 = false;
 	cub3d->inputs.k_open_2 = false;
+	cub3d->inputs.shoot = false;
 }
 
 int	render(t_cub3d *cub3d)

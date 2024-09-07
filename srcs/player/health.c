@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:13:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 17:57:23 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	update_health(t_cub3d *cub)
 		old_time = cub->game.last_time;
 		if (is_close_to_enemy(cub))
 			cub->player.health -= 10;
+		else if (cub->player.health < 100)
+			cub->player.health++;
 	}
 	if (cub->player.health <= 0)
 		cub->game.page = GAME_OVER_PAGE;

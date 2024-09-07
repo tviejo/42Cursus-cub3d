@@ -6,11 +6,25 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:36:18 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:37:01 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool	monster_is_present(t_cub3d *cub, t_pointd pos)
+{
+	t_monsters	*tmp;
+
+	tmp = cub->monsters;
+	while (tmp)
+	{
+		if ((int)tmp->pos.x == (int)pos.x && (int)tmp->pos.y == (int)pos.y)
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
 
 static void	add_monster_time(t_cub3d *cub)
 {
@@ -29,7 +43,7 @@ static void	add_monster_time(t_cub3d *cub)
 			y = rand() % cub->map.height;
 			if (cub->map.m[y][x] == '0')
 				add_back_monster(cub, new_monster((t_pointd){.x = x + 0.5,
-						.y = y + 0.5}, 10));
+						.y = y + 0.5}, 100));
 			i++;
 		}
 	}

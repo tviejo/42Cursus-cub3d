@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:14:11 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:10:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,28 @@ void	clear_monsters(t_cub3d *cub)
 		tmp = cub->monsters;
 		cub->monsters = cub->monsters->next;
 		free(tmp);
+	}
+}
+
+void	delete_monster(t_cub3d *cub, int id)
+{
+	t_monsters	*tmp;
+	t_monsters	*prev;
+
+	tmp = cub->monsters;
+	prev = NULL;
+	while (tmp)
+	{
+		if (tmp->id == id)
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				cub->monsters = tmp->next;
+			free(tmp);
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
 	}
 }

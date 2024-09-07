@@ -61,6 +61,7 @@ SRCS		+= player/health.c
 
 SRCS		+= interaction/door.c
 SRCS		+= interaction/monster.c
+SRCS		+= interaction/monster_utils.c
 
 SRCS		+= hud/hud.c
 SRCS		+= hud/health_bar.c
