@@ -6,11 +6,21 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:08:35 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:36:32 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 21:55:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	init_game(t_cub3d *cub3d)
+{
+	cub3d->game.page = LANDING_PAGE;
+	cub3d->game.m_speed = M_SPEED;
+	cub3d->game.last_time = (struct timeval){.tv_sec = 0, .tv_usec = 0};
+	cub3d->game.dificulty = 0;
+	cub3d->monsters = NULL;
+	cub3d->nb_monsters = 0;
+}
 
 void	init_parsing(t_cub3d *cub3d)
 {
@@ -35,8 +45,6 @@ void	init_parsing(t_cub3d *cub3d)
 	cub3d->map.col_ceil.g = -1;
 	cub3d->map.col_ceil.b = -1;
 	cub3d->map.error = NO_ERROR;
-	cub3d->monsters = NULL;
-	cub3d->game.last_time = (struct timeval){.tv_sec = 0, .tv_usec = 0};
 	cub3d->player.health = 100;
-	cub3d->game.dificulty = 0;
+	init_game(cub3d);
 }

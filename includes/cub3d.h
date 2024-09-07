@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 18:24:54 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 22:01:07 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
+
+# define M_SPEED 0.05
 // unités de distance par sec
 # define TRANS_SPEED 1.6
 // radians par seconde
@@ -48,6 +50,8 @@
 //# define WEST_ANGLE M_PI
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
+
+# define MAX_MONSTERS 50
 
 //#define _2PI_DIV_1024 6.13592315154256491887e-3
 
@@ -111,6 +115,7 @@ typedef struct s_monsters
 	int				id;
 	t_pointd		pos;
 	int				hp;
+	int				random;
 	struct s_monsters	*next;
 }					t_monsters;
 typedef struct s_player_inputs
@@ -223,6 +228,7 @@ typedef struct s_game
 	double			frame_time;
 	int				minimap_size;
 	int				dificulty;
+	double				m_speed;
 	struct timeval	last_time;
 	t_page			page;
 }					t_game;
@@ -230,6 +236,7 @@ typedef struct s_game
 typedef struct s_cub3d
 {
 	t_player		player;
+	int				nb_monsters;
 	t_monsters		*monsters;
 	t_mlx			mlx;
 	t_map			map;
