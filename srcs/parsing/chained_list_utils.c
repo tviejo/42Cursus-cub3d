@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 18:10:27 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 22:03:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_monsters	*new_monster(t_pointd pos, int hp)
 	new->pos = pos;
 	new->hp = hp;
 	new->next = NULL;
+	new->random = rand() % 8;
 	id++;
 	return (new);
 }
@@ -32,6 +33,9 @@ void	add_back_monster(t_cub3d *cub, t_monsters *new)
 {
 	t_monsters	*tmp;
 
+	cub->nb_monsters++;
+	if (cub->nb_monsters >= MAX_MONSTERS)
+		return ;
 	if (!cub->monsters)
 	{
 		cub->monsters = new;
@@ -60,6 +64,7 @@ void	delete_monster(t_cub3d *cub, int id)
 	t_monsters	*tmp;
 	t_monsters	*prev;
 
+	cub->nb_monsters--;
 	tmp = cub->monsters;
 	prev = NULL;
 	while (tmp)
