@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/02 17:32:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 11:18:56 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static bool	is_valid(int c)
 		return (true);
 	if (c == 'C' || c == 'O')
 		return (true);
+	if (c == 'A')
+		return (true);
 	return (false);
 }
 
@@ -78,6 +80,11 @@ static char	*replace_spaces(t_cub3d *cub3d, char *line, int i_line)
 		}
 		if (line[i] == ' ')
 			line[i] = '9';
+		if (line[i] == 'A')
+		{
+			add_back_monster(cub3d, new_monster((t_pointd){ .x = i + 1 + 0.5, .y = i_line + 0.5}, 10));
+			line[i] = '0';
+		}
 		i++;
 	}
 	line[i] = '\0';
