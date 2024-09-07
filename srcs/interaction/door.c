@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 15:09:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:14:57 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	moove_door(t_cub3d *cub, t_pointd pos)
 
 int	interact_door(t_cub3d *cub, t_pointd pos)
 {
-
 	if (cub->inputs.open && door_present(cub, pos) != NO_DOOR)
 	{
 		moove_door(cub, pos);

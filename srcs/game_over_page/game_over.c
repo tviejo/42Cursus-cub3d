@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_page.c                                        :+:      :+:    :+:   */
+/*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:43:30 by tviejo           ###   ########.fr       */
+/*   Created: 2024/09/07 15:49:29 by tviejo            #+#    #+#             */
+/*   Updated: 2024/09/07 15:57:53 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	render_game_page(t_cub3d *cub3d)
+int	render_game_over_page(t_cub3d *cub3d)
 {
-	update_player_pos(cub3d);
-	update_health(cub3d);
-	render_frame(cub3d);
-	draw_minimap(cub3d);
-	mlx_put_image_to_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
-		cub3d->mlx.mlx_img.ptr, 0, 0);
-	interact_door(cub3d, cub3d->player.pos);
-	move_monster(cub3d);
-	update_n_draw_fps(cub3d);
-	print_hud(cub3d);
+	if (MOUSE == 1)
+		mlx_mouse_show(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
+	mlx_clear_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
+	mlx_string_put(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, 950, 500, 0xFF0000,
+		"Game Over: y to exit, n to start again");
 	return (0);
 }
