@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scanner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:15:24 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/07 12:34:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:15:45 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	cast_ray(t_cub3d *c, t_raycast *r, t_point mpos, t_scaninfo *si)
 			vertical = false;
 		}
 		si->item = c->map.m[mpos.y][mpos.x];
-		if (si->item != '0')
+		if (si->item != '0' || monster_is_present(c, (t_pointd){.x = mpos.x,
+				.y = mpos.y}))
 			hits = true;
 	}
 	set_scaninfo(r, vertical, mpos, si);

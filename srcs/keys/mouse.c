@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 15:22:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:24:23 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,15 @@ void	mouse_move(t_cub3d *cub3d)
 		x = x1;
 		y = y1;
 	}
+}
+
+int	mouse_hook(int button, int x, int y, t_cub3d *cub3d)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+	{
+		cub3d->inputs.shoot = true;
+	}
+	return (EXIT_SUCCESS);
 }

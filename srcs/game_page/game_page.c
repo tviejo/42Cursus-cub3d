@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:43:30 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:12:41 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	render_game_page(t_cub3d *cub3d)
 		cub3d->mlx.mlx_img.ptr, 0, 0);
 	interact_door(cub3d, cub3d->player.pos);
 	move_monster(cub3d);
+	shoot_monster(cub3d);
 	update_n_draw_fps(cub3d);
 	print_hud(cub3d);
 	return (0);

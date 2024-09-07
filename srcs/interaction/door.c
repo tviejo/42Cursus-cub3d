@@ -6,72 +6,59 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:14:57 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 17:55:51 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_door_state	door_present(t_cub3d *cub, t_pointd pos)
+static t_door_state	door_present(t_cub3d *cub)
 {
-	const int	x = (int)pos.x;
-	const int	y = (int)pos.y;
-	int			i;
-	int			j;
+	t_scaninfo	info;
 
-	i = -1;
-	while (i < 2)
+	scan_in_front(cub, &info, 0);
+	if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'C')
 	{
-		j = -1;
-		while (j < 2)
-		{
-			if (cub->map.m[y + i][x + j] == 'C' && (i != 0 || j != 0))
-				return (DOOR_CLOSED);
-			if (cub->map.m[y + i][x + j] == 'O' && (i != 0 || j != 0))
-				return (DOOR_OPENED);
-			j++;
-		}
-		i++;
+		if (info.distance < 1.5)
+			return (DOOR_CLOSED);
+	}
+	else if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'O')
+	{
+		if (info.distance < 1.5)
+			return (DOOR_OPENED);
 	}
 	return (NO_DOOR);
 }
 
 static int	moove_door(t_cub3d *cub, t_pointd pos)
 {
-	const int	x = (int)pos.x;
-	const int	y = (int)pos.y;
-	int			i;
-	int			j;
+	t_scaninfo	info;
 
-	i = -1;
-	while (i < 2)
+	(void)pos;
+	scan_in_front(cub, &info, 0);
+	if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'C')
 	{
-		j = -1;
-		while (j < 2)
-		{
-			if (cub->map.m[y + i][x + j] == 'C' && (i != 0 || j != 0))
-				cub->map.m[y + i][x + j] = 'O';
-			else if (cub->map.m[y + i][x + j] == 'O' && (i != 0 || j != 0))
-				cub->map.m[y + i][x + j] = 'C';
-			j++;
-		}
-		i++;
+		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'O';
+	}
+	else if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'O')
+	{
+		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'C';
 	}
 	return (EXIT_FAILURE);
 }
 
 int	interact_door(t_cub3d *cub, t_pointd pos)
 {
-	if (cub->inputs.open && door_present(cub, pos) != NO_DOOR)
+	if (cub->inputs.open && door_present(cub) != NO_DOOR)
 	{
 		moove_door(cub, pos);
 		cub->inputs.open = false;
 		cub->inputs.k_open_1 = false;
 		cub->inputs.k_open_2 = false;
 	}
-	else if (door_present(cub, pos) != NO_DOOR)
+	else if (door_present(cub) != NO_DOOR)
 	{
-		if (door_present(cub, pos) == DOOR_CLOSED)
+		if (door_present(cub) == DOOR_CLOSED)
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 880, 1000,
 				COL_WHITE, "Press Q to open the door");
 		else
