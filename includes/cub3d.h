@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 14:02:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 18:22:58 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <X11/keysym.h>
 # include <math.h>
 # include <sys/time.h>
+# include <pthread.h>
 
 # define MOUSE 1
 # define WINDOW_WIDTH 1920
@@ -37,6 +38,16 @@
 
 # define B_SOUND "ffplay -nodisp -autoexit"
 # define MUSIC " assets/sounds/ambiance.mp3"
+# define SHOOT " assets/sounds/shoot.mp3"
+# define STEP " assets/sounds/step.mp3"
+# define DAMAGE " assets/sounds/damage.mp3"
+# define MONSTER_DEATH " assets/sounds/monster_death.mp3"
+# define MONSTER_DAMAGE " assets/sounds/monster_damage.mp3"
+# define MONSTER_CLOSE " assets/sounds/monster_close.mp3"
+# define MONSTER_CLOSE_2 " assets/sounds/monster_close_2.mp3"
+# define MONSTER_FAR " assets/sounds/monster_far.mp3"
+# define DOOR_OPEN " assets/sounds/door_open.mp3"
+# define DOOR_CLOSE " assets/sounds/door_close.mp3"
 # define E_SOUND " > /dev/null 2>&1 &"
 
 
@@ -123,6 +134,7 @@ typedef struct s_monsters
 	int				random;
 	struct s_monsters	*next;
 }					t_monsters;
+
 typedef struct s_player_inputs
 {
 	bool			open;
@@ -350,6 +362,7 @@ int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
 void				print_monster(t_cub3d *cub);
+void				print_smart_monster(t_cub3d *cub);
 void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
 						int color);
 bool				is_inside_circle(int x, int y, t_cub3d *cub);
@@ -382,5 +395,6 @@ int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
 
 void				play_sound(char *sound);
 void				kill_sound(void);
+void				sound_close_monster(t_cub3d *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 21:54:03 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 18:35:43 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 	t_monsters				*tmp;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 
-	printf("distance: %i\n", distance);
 	if (old_time.tv_sec != cub->game.last_time.tv_sec)
 	{
 		old_time = cub->game.last_time;
@@ -48,6 +47,8 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 		{
 			if ((int)tmp->pos.x == pos.x && (int)tmp->pos.y == pos.y)
 			{
+				usleep(100000);
+				play_sound(MONSTER_DAMAGE);
 				if (distance == 0)
 					tmp->hp -= 5;
 				else
@@ -72,4 +73,23 @@ void	shoot_monster(t_cub3d *cub)
 		remove_monster_hp(cub, info.mpos, info.distance);
 	scan_in_front(cub, &info, 0);
 	print_monster_health(cub, info.mpos);
+}
+
+void	sound_close_monster(t_cub3d *cub)
+{
+	t_monsters	*tmp;
+	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
+
+	if (labs(old_time.tv_sec - cub->game.last_time.tv_sec) > 3)
+	{
+		old_time = cub->game.last_time;
+		tmp = cub->monsters;
+		while (tmp)
+		{
+			if (labs((int)tmp->pos.x - (int)cub->player.pos.x) < 3
+				&& labs((int)tmp->pos.y - (int)cub->player.pos.y) < 3)
+				play_sound(MONSTER_CLOSE_2);
+			tmp = tmp->next;
+		}
+	}
 }
