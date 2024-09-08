@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:35:15 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:28:57 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:35:10 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	play_sound(char *sound, t_cub3d *cub)
 	int status;
 
 	(void)cub;
+	if (NO_SOUND == 0)
+		return ;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -38,6 +40,8 @@ void	kill_sound(void)
 {
 	int status;
 
+	if (NO_SOUND == 0)
+		return ;
 	status = system("killall ffplay");
 	if (status == -1)
 		ft_putstr_fd("Error: killing sound failed\n", 2);

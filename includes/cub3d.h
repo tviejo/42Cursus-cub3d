@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:26:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:36:23 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define MOUSE 1
+# define MOUSE 1 // 1 pour activer la gestion de la souris
+# define NO_SOUND 1 // 1 pour activer le son
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
