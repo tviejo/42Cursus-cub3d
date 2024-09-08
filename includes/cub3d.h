@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 18:22:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 15:19:26 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <X11/keysym.h>
 # include <math.h>
 # include <sys/time.h>
-# include <pthread.h>
 
 # define MOUSE 1
 //# define WINDOW_WIDTH 1920
@@ -37,21 +36,6 @@
 # define TRANS_SPEED 1.6
 // radians par seconde
 # define ROT_SPEED 1.6
-
-# define B_SOUND "ffplay -nodisp -autoexit"
-# define MUSIC " assets/sounds/ambiance.mp3"
-# define SHOOT " assets/sounds/shoot.mp3"
-# define STEP " assets/sounds/step.mp3"
-# define DAMAGE " assets/sounds/damage.mp3"
-# define MONSTER_DEATH " assets/sounds/monster_death.mp3"
-# define MONSTER_DAMAGE " assets/sounds/monster_damage.mp3"
-# define MONSTER_CLOSE " assets/sounds/monster_close.mp3"
-# define MONSTER_CLOSE_2 " assets/sounds/monster_close_2.mp3"
-# define MONSTER_FAR " assets/sounds/monster_far.mp3"
-# define DOOR_OPEN " assets/sounds/door_open.mp3"
-# define DOOR_CLOSE " assets/sounds/door_close.mp3"
-# define E_SOUND " > /dev/null 2>&1 &"
-
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -136,7 +120,6 @@ typedef struct s_monsters
 	int				random;
 	struct s_monsters	*next;
 }					t_monsters;
-
 typedef struct s_player_inputs
 {
 	bool			open;
@@ -365,10 +348,8 @@ void				mouse_move(t_cub3d *cub3d);
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
-void				print_monster(t_cub3d *cub);
-void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
-						int color);
-bool				is_inside_circle(int x, int y, t_cub3d *cub);
+void				print_map_border(t_cub3d *cub, int r, int color);
+void				print_monsters(t_cub3d *cub);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);
@@ -395,9 +376,5 @@ int					render_game_over_page(t_cub3d *cub3d);
 bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
 int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
-
-void				play_sound(char *sound);
-void				kill_sound(void);
-void				sound_close_monster(t_cub3d *cub);
 
 #endif

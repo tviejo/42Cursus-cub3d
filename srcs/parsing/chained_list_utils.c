@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 16:30:10 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 22:03:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	delete_monster(t_cub3d *cub, int id)
 			else
 				cub->monsters = tmp->next;
 			free(tmp);
-			play_sound(MONSTER_DEATH);
 			return ;
 		}
 		prev = tmp;
