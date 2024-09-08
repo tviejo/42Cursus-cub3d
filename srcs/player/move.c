@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:25:52 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:54:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 	dist *= speed_mul;
 	pl->pos.x += dist * x;
 	pl->pos.y -= dist * y;
-	printf("player pos: [%f,%f]\n", pl->pos.x, pl->pos.y);
 }
 
 

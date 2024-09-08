@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 20:53:59 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:57:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static void	print_monster_health(t_cub3d *cub, t_point pos)
 {
 	t_monsters	*tmp;
+	char		*id;
+	char		*hp;
 
 	tmp = cub->monsters;
 	while (tmp)
@@ -23,12 +25,16 @@ static void	print_monster_health(t_cub3d *cub, t_point pos)
 		{
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
 				- 100, 20, COL_WHITE, "Monster id:");
+			id = ft_itoa(tmp->id);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 30, 20, COL_WHITE, ft_itoa(tmp->id));
+				- 30, 20, COL_WHITE, id);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
 				- 100, 35, COL_WHITE, "HP:");
+			hp = ft_itoa(tmp->hp);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 80, 35, COL_WHITE, ft_itoa(tmp->hp));
+				- 80, 35, COL_WHITE, hp);
+			free(id);
+			free(hp);
 		}
 		tmp = tmp->next;
 	}
