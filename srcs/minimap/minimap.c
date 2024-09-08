@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 01:19:49 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:37:40 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int	draw_minimap(t_cub3d *cub)
 	print_map_border(cub, 100, COL_BLACK);
 	print_map(cub);
 	print_player(cub);
+	print_monsters(cub);
 	return (EXIT_SUCCESS);
 }

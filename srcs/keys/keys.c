@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 14:53:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:43:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,17 @@ void	key_press_player(int keycode, t_player_inputs *in)
 int	key_press(int keycode, t_cub3d *cub3d)
 {
 	minimap_keys(cub3d, keycode);
+	difficulty_keys(cub3d, keycode);
 	if ((keycode == XK_Escape || keycode == XK_y)
 		&& cub3d->game.page == EXIT_PAGE)
 		ft_close(cub3d, NULL);
+	if (keycode == XK_y && cub3d->game.page == GAME_OVER_PAGE)
+		ft_close(cub3d, "you died\n");
+	if (keycode == XK_n && cub3d->game.page == GAME_OVER_PAGE)
+	{
+		cub3d->game.page = GAME_PAGE;
+		cub3d->player.health = 100;
+	}
 	if (keycode == XK_Escape)
 		cub3d->game.page = EXIT_PAGE;
 	if (keycode == XK_space && cub3d->game.page == LANDING_PAGE)

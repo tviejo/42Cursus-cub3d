@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 01:29:53 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:19:26 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
+
+# define M_SPEED 0.05
 // unités de distance par sec
 # define TRANS_SPEED 1.6
 // radians par seconde
@@ -50,6 +52,8 @@
 //# define WEST_ANGLE M_PI
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
+
+# define MAX_MONSTERS 50
 
 //#define _2PI_DIV_1024 6.13592315154256491887e-3
 
@@ -78,14 +82,15 @@ typedef enum e_keys
 	k_strafe_alt = XK_Alt_L,
 	k_strafe_switch = XK_F10,
 	k_run = XK_Shift_L,
-	k_zoom_in = 65451,
-	k_zoom_out = 65453,
+	k_zoom_in = 65453,
+	k_zoom_out = 65451,
 }					t_keys;
 
 typedef enum e_page
 {
 	LANDING_PAGE,
 	GAME_PAGE,
+	GAME_OVER_PAGE,
 	EXIT_PAGE
 }					t_page;
 
@@ -107,6 +112,14 @@ typedef enum e_door_state
 	DOOR_OPENED,
 }					t_door_state;
 
+typedef struct s_monsters
+{
+	int				id;
+	t_pointd		pos;
+	int				hp;
+	int				random;
+	struct s_monsters	*next;
+}					t_monsters;
 typedef struct s_player_inputs
 {
 	bool			open;
@@ -134,6 +147,7 @@ typedef struct s_player_inputs
 	bool			k_right_1;
 	bool			k_right_2;
 	bool			k_run;
+	bool			shoot;
 }					t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
@@ -192,6 +206,7 @@ typedef struct s_player
 	double			walk_height_shift;
 	// hauteur des yeux
 	double			view_height;
+	int				health;
 }					t_player;
 
 typedef struct s_map
@@ -217,11 +232,15 @@ typedef struct s_game
 	t_page			page;
 	int				minimap_size;
 	t_point			minimap_center;
+	int				dificulty;
+	double			m_speed;
 }					t_game;
 
 typedef struct s_cub3d
 {
 	t_player		player;
+	int				nb_monsters;
+	t_monsters		*monsters;
 	t_mlx			mlx;
 	t_map			map;
 	t_game			game;
@@ -273,6 +292,7 @@ typedef struct s_scaninfo
 }					t_scaninfo;
 
 
+void				init_game(t_cub3d *cub3d);
 int					parse_cub3d(char *filename, t_cub3d *cub);
 bool				begin_with_tag(char *line, char *tag);
 bool				get_tag_value(char *line, char *tag, char **value);
@@ -284,9 +304,14 @@ void				parse_color(char *line, t_cub3d *cub3d);
 void				init_parsing(t_cub3d *cub3d);
 void				free_parsing(t_map *map);
 void				print_parsing(t_cub3d *cub3d);
+char				parse_char(t_cub3d *cub3d, char c, int x, int y);
 bool				is_texture(char *line);
 bool				is_color(char *line);
 int					check_parsing(t_cub3d *cub3d);
+void				add_back_monster(t_cub3d *cub, t_monsters *new);
+void				clear_monsters(t_cub3d *cub);
+t_monsters			*new_monster(t_pointd pos, int hp);
+void				delete_monster(t_cub3d *cub, int id);
 
 int					mlx_init_data(t_cub3d *cub3d);
 int					mlx_start(t_cub3d *cub3d);
@@ -316,6 +341,7 @@ int					render_exit_page(t_cub3d *cub3d);
 int					key_press(int keycode, t_cub3d *cub3d);
 int					key_release(int keycode, t_cub3d *cub3d);
 void				minimap_keys(t_cub3d *cub3d, int keycode);
+void				difficulty_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
 void				mouse_move(t_cub3d *cub3d);
 
@@ -323,6 +349,7 @@ int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
 void				print_map_border(t_cub3d *cub, int r, int color);
+void				print_monsters(t_cub3d *cub);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);
@@ -330,10 +357,24 @@ double				angles_add(double alpha, double beta);
 
 t_pointd			collides_wall(t_cub3d *cub, t_pointd old_pos);
 int					interact_door(t_cub3d *cub, t_pointd pos);
+void				move_monsters(t_cub3d *cub);
+void				shoot_monsters(t_cub3d *cub);
+bool				is_wall(t_cub3d *cub, int x, int y);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
 int					get_wall_color(t_directions orientation, double distance,
 						int wallitem);
 void				draw_floor_n_ceil(t_cub3d *c);
+
+void				print_hud(t_cub3d *cub);
+void				print_health_bar(t_cub3d *cub);
+
+void				update_health(t_cub3d *cub);
+
+int					render_game_over_page(t_cub3d *cub3d);
+
+bool				monster_is_present(t_cub3d *cub, t_pointd pos);
+
+int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 18:43:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 15:59:41 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static bool	is_unwanted_item(t_cub3d *cub3d, int x, int y)
 {
 	const int	item = cub3d->map.m[y][x];
 
-	return (item == '0' || item == 'N' || item == 'S'
-		|| item == 'E' || item == 'W' || item == 'C' || item == 'O');
+	return (item == '0' || item == 'N' || item == 'S' || item == 'E'
+		|| item == 'W' || item == 'C' || item == 'O' || item == 'A');
 }
 
 static int	check_pos(t_cub3d *cub3d, int x, int y)
