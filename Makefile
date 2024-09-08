@@ -68,6 +68,8 @@ SRCS		+= hud/health_bar.c
 
 SRCS		+= game_over_page/game_over.c
 
+SRCS		+= sound/sound.c
+
 SRCS		+= main.c
 
 vpath %.c $(SRC_DIR)
@@ -144,7 +146,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/ $(OBJ_DIR)interaction/ $(OBJ_DIR)hud/ $(OBJ_DIR)game_over_page/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/ $(OBJ_DIR)interaction/ $(OBJ_DIR)hud/ $(OBJ_DIR)game_over_page/ $(OBJ_DIR)sound/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

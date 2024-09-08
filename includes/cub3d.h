@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 22:01:07 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 14:02:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 # define TRANS_SPEED 1.6
 // radians par seconde
 # define ROT_SPEED 1.6
+
+# define B_SOUND "ffplay -nodisp -autoexit"
+# define MUSIC " assets/sounds/ambiance.mp3"
+# define E_SOUND " > /dev/null 2>&1 &"
+
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -374,5 +379,8 @@ int					render_game_over_page(t_cub3d *cub3d);
 bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
 int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
+
+void				play_sound(char *sound);
+void				kill_sound(void);
 
 #endif
