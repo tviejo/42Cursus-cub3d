@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 15:30:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:25:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 	{
 		print_sound = false;
 		old_height = pl->walk_height_shift;
-		play_sound(STEP);
+		play_sound(STEP, cub);
 	}
 	else if (pl->walk_height_shift < old_height)
 		print_sound = true;
 	dist *= speed_mul;
 	pl->pos.x += dist * x;
 	pl->pos.y -= dist * y;
+	printf("player pos: [%f,%f]\n", pl->pos.x, pl->pos.y);
 }
+
 
 static void	translation(t_cub3d *cub)
 {

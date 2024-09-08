@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 18:35:43 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 20:53:59 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 			if ((int)tmp->pos.x == pos.x && (int)tmp->pos.y == pos.y)
 			{
 				usleep(100000);
-				play_sound(MONSTER_DAMAGE);
+				play_sound(MONSTER_DAMAGE, cub);
 				if (distance == 0)
 					tmp->hp -= 5;
 				else
@@ -88,7 +88,7 @@ void	sound_close_monster(t_cub3d *cub)
 		{
 			if (labs((int)tmp->pos.x - (int)cub->player.pos.x) < 3
 				&& labs((int)tmp->pos.y - (int)cub->player.pos.y) < 3)
-				play_sound(MONSTER_CLOSE_2);
+				play_sound(MONSTER_CLOSE_2, cub);
 			tmp = tmp->next;
 		}
 	}

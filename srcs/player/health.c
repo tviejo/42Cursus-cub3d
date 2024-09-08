@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 17:43:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 20:54:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	update_health(t_cub3d *cub)
 		if (is_close_to_enemy(cub))
 		{
 			cub->player.health -= 10;
-			play_sound(DAMAGE);
+			play_sound(DAMAGE, cub);
 		}
 		else if (cub->player.health < 100)
 			cub->player.health++;

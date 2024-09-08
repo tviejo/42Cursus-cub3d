@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 18:22:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:26:13 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@
 # include <pthread.h>
 
 # define MOUSE 1
-//# define WINDOW_WIDTH 1920
-//# define WINDOW_HEIGHT 1080
-# define WINDOW_WIDTH 1360
-# define WINDOW_HEIGHT 700
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
 
-# define M_SPEED 0.05
+# define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 1.6
 // radians par seconde
@@ -365,10 +363,8 @@ void				mouse_move(t_cub3d *cub3d);
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
-void				print_monster(t_cub3d *cub);
-void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
-						int color);
-bool				is_inside_circle(int x, int y, t_cub3d *cub);
+void				print_monsters(t_cub3d *cub);
+void				print_map_border(t_cub3d *cub, int r, int color);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);
@@ -396,7 +392,7 @@ bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
 int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
 
-void				play_sound(char *sound);
+void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);
 void				sound_close_monster(t_cub3d *cub);
 

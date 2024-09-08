@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 13:56:53 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:30:49 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
 
 void	init_game(t_cub3d *cub)
 {
@@ -37,20 +37,20 @@ int	main(int argc, char **argv)
 	char	*map_fname;
 
 	if (argc > 2)
-		return (ft_dprintf(2, "Error: please, provide zero (for default map) \
-or one argument: <map filename>\n"), 0);
+		ft_close(&cub, "Too many arguments !\n");
 	map_fname = MAP_DEFAULT_FNAME;
 	if (argc == 2)
 		map_fname = argv[1];
-	mlx_init_data(&cub3d);
-	if (mlx_start(&cub3d) == EXIT_FAILURE)
-		ft_close(&cub3d, "mlx_start() fails !\n");
-	if (parse_cub3d(map_fname, &cub3d) == EXIT_FAILURE)
-		ft_close(&cub3d, "parse_cub3d() fails !\n");
-	play_sound(MUSIC);
-	if (mlx_create_img(&cub3d) == EXIT_FAILURE)
-		ft_close(&cub3d, "mlx_create_img() fails !");
-	init(&cub3d);
-	mlx_looping(&cub3d);
+	init_game(&cub);
+	if (mlx_start(&cub) == EXIT_FAILURE)
+		ft_close(&cub, "mlx_start() fails !\n");
+	if (parse_cub3d(map_fname, &cub) == EXIT_FAILURE)
+		ft_close(&cub, "parse_cub3d() fails !\n");
+	if (mlx_create_img(&cub) == EXIT_FAILURE)
+		ft_close(&cub, "mlx_create_img() fails !\n");
+	init_keys(&cub);
+	gettimeofday(&cub.game.last_time, NULL);
+	play_sound(MUSIC, &cub);
+	mlx_looping(&cub);
 	return (0);
 }
