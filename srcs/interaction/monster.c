@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 22:08:40 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 15:42:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool	monster_is_present(t_cub3d *cub, t_pointd pos)
 {
-	t_monsters	*tmp;
+	t_monsters	*m;
 
-	tmp = cub->monsters;
-	while (tmp)
+	m = cub->monsters;
+	while (m)
 	{
-		if ((int)tmp->pos.x == (int)pos.x && (int)tmp->pos.y == (int)pos.y)
+		if ((int)m->pos.x == (int)pos.x && (int)m->pos.y == (int)pos.y)
 			return (true);
-		tmp = tmp->next;
+		m = m->next;
 	}
 	return (false);
 }
@@ -49,77 +49,77 @@ static void	add_monster_time(t_cub3d *cub)
 	}
 }
 
-static void lateral_move(t_cub3d *cub, t_monsters *tmp, int random)
+static void lateral_move(t_cub3d *cub, t_monsters *m, int random)
 {
-	if (is_wall(cub, tmp->pos.x + cub->game.m_speed, tmp->pos.y + cub->game.m_speed) == false && random == 4)
+	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y + cub->game.m_speed) == false && random == 4)
 	{
-		tmp->pos.x += cub->game.m_speed;
-		tmp->pos.y += cub->game.m_speed;
+		m->pos.x += cub->game.m_speed;
+		m->pos.y += cub->game.m_speed;
 	}
-	else if (is_wall(cub, tmp->pos.x - cub->game.m_speed, tmp->pos.y + cub->game.m_speed) == false && random == 5)
+	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y + cub->game.m_speed) == false && random == 5)
 	{
-		tmp->pos.x -= cub->game.m_speed;
-		tmp->pos.y += cub->game.m_speed;
+		m->pos.x -= cub->game.m_speed;
+		m->pos.y += cub->game.m_speed;
 	}
-	else if (is_wall(cub, tmp->pos.x + cub->game.m_speed, tmp->pos.y - cub->game.m_speed) == false && random == 6)
+	else if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y - cub->game.m_speed) == false && random == 6)
 	{
-		tmp->pos.x += cub->game.m_speed;
-		tmp->pos.y -= cub->game.m_speed;
+		m->pos.x += cub->game.m_speed;
+		m->pos.y -= cub->game.m_speed;
 	}
-	else if (is_wall(cub, tmp->pos.x - cub->game.m_speed, tmp->pos.y - cub->game.m_speed) == false && random == 7)
+	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y - cub->game.m_speed) == false && random == 7)
 	{
-		tmp->pos.x -= cub->game.m_speed;
-		tmp->pos.y -= cub->game.m_speed;
+		m->pos.x -= cub->game.m_speed;
+		m->pos.y -= cub->game.m_speed;
 	}
 }
 
-static void	movement_monster(t_cub3d *cub, t_monsters *tmp)
+static void	movement_monster(t_cub3d *cub, t_monsters *m)
 {
 	static int i = 0;
 
 	if (i > 50)
 	{
 		i = 0;
-		tmp->random = rand() % 8;
+		m->random = rand() % 8;
 	}
-	if (is_wall(cub, tmp->pos.x + cub->game.m_speed, tmp->pos.y) == false && tmp->random == 0)
-		tmp->pos.x += cub->game.m_speed;
-	else if (tmp->random == 0)
-		tmp->random = rand() % 3 + 1;
-	if (is_wall(cub, tmp->pos.x, tmp->pos.y + cub->game.m_speed) == false && tmp->random == 1)
-		tmp->pos.y += cub->game.m_speed;
-	else if (tmp->random == 1)
-		tmp->random = rand() % 2 + 2;
-	if (is_wall(cub, tmp->pos.x - cub->game.m_speed, tmp->pos.y) == false && tmp->random == 2)
-		tmp->pos.x -= cub->game.m_speed;
-	else if (tmp->random == 2)
-		tmp->random = rand() % 1 + 3;
-	if (is_wall(cub, tmp->pos.x, tmp->pos.y - cub->game.m_speed) == false && tmp->random == 3)
-		tmp->pos.y -= cub->game.m_speed;
-	else if (tmp->random == 3)
-		tmp->random = rand() % 4;
-	lateral_move(cub, tmp, tmp->random);
+	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y) == false && m->random == 0)
+		m->pos.x += cub->game.m_speed;
+	else if (m->random == 0)
+		m->random = rand() % 3 + 1;
+	if (is_wall(cub, m->pos.x, m->pos.y + cub->game.m_speed) == false && m->random == 1)
+		m->pos.y += cub->game.m_speed;
+	else if (m->random == 1)
+		m->random = rand() % 2 + 2;
+	if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y) == false && m->random == 2)
+		m->pos.x -= cub->game.m_speed;
+	else if (m->random == 2)
+		m->random = rand() % 1 + 3;
+	if (is_wall(cub, m->pos.x, m->pos.y - cub->game.m_speed) == false && m->random == 3)
+		m->pos.y -= cub->game.m_speed;
+	else if (m->random == 3)
+		m->random = rand() % 4;
+	lateral_move(cub, m, m->random);
 	i++;
 }
 
-void	move_monster(t_cub3d *cub)
+void	move_monsters(t_cub3d *cub)
 {
-	t_monsters				*tmp;
+	t_monsters				*m;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
-	struct timeval			tmp_time;
+	struct timeval			m_time;
 
 	if (old_time.tv_sec == 0)
 		gettimeofday(&old_time, NULL);
-	gettimeofday(&tmp_time, NULL);
-	if (labs(tmp_time.tv_usec - old_time.tv_usec) > 100000)
+	gettimeofday(&m_time, NULL);
+	if (labs(m_time.tv_usec - old_time.tv_usec) > 100000)
 	{
-		old_time = tmp_time;
-		tmp = cub->monsters;
-		while (tmp)
+		old_time = m_time;
+		m = cub->monsters;
+		while (m)
 		{
 			old_time = cub->game.last_time;
-			movement_monster(cub, tmp);
-			tmp = tmp->next;
+			movement_monster(cub, m);
+			m = m->next;
 		}
 	}
 	add_monster_time(cub);

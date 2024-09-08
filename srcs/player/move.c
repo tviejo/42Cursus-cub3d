@@ -63,18 +63,18 @@ static void	rotation(t_cub3d *cub)
 int	update_player_pos(t_cub3d *cub)
 {
 	t_pointd	old_pos;
-	t_scaninfo	si;
+	//t_scaninfo	si;
 
 	old_pos = cub->player.pos;
 	mouse_move(cub);
 	rotation(cub);
 	translation(cub);
 	collides_wall(cub, old_pos);
-	if (cub->inputs.turn_left || cub->inputs.turn_right)
+	/*if (cub->inputs.turn_left || cub->inputs.turn_right)
 	{
 		scan_in_front(cub, &si, 0.0);
-		printf("scan_in_front(): %c [%i,%i] dist: %f\n", si.item, si.mpos.x,
-			si.mpos.y, si.distance);
-	}
+		printf("scan_in_front(): %c [%i,%i] dist: %f\n",
+			si.item, si.mpos.x, si.mpos.y, si.distance);
+	}*/
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 02:41:50 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/08/30 13:59:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/08 00:50:52 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ads_gfx.h"
 
-bool	is_obviously_outside(t_image *img, t_pt2d *p0, t_pt2d *p1)
+static bool	is_obviously_outside(t_image *img, t_pt2d *p0, t_pt2d *p1)
 {
 	return ((p0->x >= img->dim.width && p1->x >= img->dim.width)
 		|| (p0->x < 0 && p1->x < 0)
@@ -21,7 +21,7 @@ bool	is_obviously_outside(t_image *img, t_pt2d *p0, t_pt2d *p1)
 	);
 }
 
-bool	clip_vertical(t_image *img, int x, t_pt2d *p0, t_pt2d *p1)
+static bool	clip_vertical(t_image *img, int x, t_pt2d *p0, t_pt2d *p1)
 {
 	double	a;
 	double	b;
@@ -41,7 +41,7 @@ bool	clip_vertical(t_image *img, int x, t_pt2d *p0, t_pt2d *p1)
 	return (false);
 }
 
-bool	clip_horizontal(t_image *img, int y, t_pt2d *p0, t_pt2d *p1)
+static bool	clip_horizontal(t_image *img, int y, t_pt2d *p0, t_pt2d *p1)
 {
 	double	a;
 	double	b;
@@ -66,7 +66,7 @@ bool	clip_horizontal(t_image *img, int y, t_pt2d *p0, t_pt2d *p1)
 	return (false);
 }
 
-bool	clip_seg_point(t_image *img, t_pt2d *p0, t_pt2d *p1)
+static bool	clip_seg_point(t_image *img, t_pt2d *p0, t_pt2d *p1)
 {
 	if (p0->x >= 0 && p0->x < img->dim.width
 		&& p0->y >= 0 && p0->y < img->dim.height)

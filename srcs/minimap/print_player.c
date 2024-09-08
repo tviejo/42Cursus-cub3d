@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:31:38 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 13:44:44 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 19:18:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static t_triangle	find_coordinate(t_cub3d *cub)
 {
-	const t_pt2d	p0 = (t_pt2d){.x = 150, .y = 150, .color = COL_RED};
+	const t_pt2d	p0 = (t_pt2d){.x = cub->game.minimap_center.x,
+		.y = cub->game.minimap_center.y, .color = COL_RED};
 	t_pt2d			p1;
 	t_pt2d			p2;
 	t_pt2d			p3;

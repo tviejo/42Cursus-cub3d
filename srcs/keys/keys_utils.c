@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 02:19:01 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:01:55 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ int	init_keys(t_cub3d *cub3d)
 		WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	cub3d->inputs.mouse_x = WINDOW_WIDTH / 2;
 	cub3d->inputs.mouse_y = WINDOW_HEIGHT / 2;
-	cub3d->game.minimap_size = 20;
 	return (0);
 }

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
 /*   Updated: 2024/09/08 13:56:53 by tviejo           ###   ########.fr       */
@@ -12,15 +12,28 @@
 
 #include "cub3d.h"
 
-static int	init(t_cub3d *cub3d)
+void	init_game(t_cub3d *cub)
 {
-	init_keys(cub3d);
-	return (EXIT_SUCCESS);
+	cub->game.minimap_size = 20;
+	cub->game.minimap_center = (t_point){{130}, {130}};
+	cub->game.page = LANDING_PAGE;
+	cub->game.m_speed = M_SPEED;
+	cub->game.last_time = (struct timeval){.tv_sec = 0, .tv_usec = 0};
+	cub->game.dificulty = 0;
+	cub->monsters = NULL;
+	cub->nb_monsters = 0;
+	cub->player.health = 100;
+	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
+	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
+	cub->player.walk_distance = 0.0;
+	cub->player.walk_height_shift = 0.0;
+	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
+	mlx_init_data(cub);
 }
 
 int	main(int argc, char **argv)
 {
-	t_cub3d	cub3d;
+	t_cub3d	cub;
 	char	*map_fname;
 
 	if (argc > 2)

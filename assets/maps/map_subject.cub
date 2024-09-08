@@ -17,8 +17,10 @@ SO  ./assets/textures/2001 l'Odyssee de l'espace - Credit MGM - DR - TCD.xpm
 #C 122, 92, 131
 #F  55, 00, 40  # aubergine
 #F 122,92,131
-C 200,152,182
-F 71,16,56
+#C 200,152,182
+#F 71,16,56
+C 255,220,255
+F 55,40,85
 
 
 # Map

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ads_gfx.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/06 11:46:17 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/07 19:33:33 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ typedef struct s_triangle
 	t_pt2d 	p2;
 	int		color;
 }	t_triangle;
+
 typedef struct s_draw_line_vars
 {
 	int			error;
@@ -384,6 +385,8 @@ void		img_clear(t_image *img);
 void		img_clear128(t_image *img);
 void		img_fill(t_image *img, int color);
 void		img_fill128(t_image *img, int color);
+
+void		fill_rectangle(t_image *img, t_rect rc, int color);
 
 void		mat_set_identity(t_matrix *mat);
 t_matrix	mat_mul(t_matrix a, t_matrix b);

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
 /*   Updated: 2024/09/08 18:35:43 by tviejo           ###   ########.fr       */
@@ -62,7 +62,7 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 	}
 }
 
-void	shoot_monster(t_cub3d *cub)
+void	shoot_monsters(t_cub3d *cub)
 {
 	t_scaninfo	info;
 	int			random_angle;

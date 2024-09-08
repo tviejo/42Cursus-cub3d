@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
 /*   Updated: 2024/09/08 18:22:58 by tviejo           ###   ########.fr       */
@@ -24,8 +24,10 @@
 # include <pthread.h>
 
 # define MOUSE 1
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+//# define WINDOW_WIDTH 1920
+//# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 1360
+# define WINDOW_HEIGHT 700
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
@@ -243,11 +245,12 @@ typedef struct s_game
 {
 	// temps de calcul de la dernière frame en seconde
 	double			frame_time;
-	int				minimap_size;
-	int				dificulty;
-	double				m_speed;
 	struct timeval	last_time;
 	t_page			page;
+	int				minimap_size;
+	t_point			minimap_center;
+	int				dificulty;
+	double			m_speed;
 }					t_game;
 
 typedef struct s_cub3d
@@ -306,6 +309,7 @@ typedef struct s_scaninfo
 }					t_scaninfo;
 
 
+void				init_game(t_cub3d *cub3d);
 int					parse_cub3d(char *filename, t_cub3d *cub);
 bool				begin_with_tag(char *line, char *tag);
 bool				get_tag_value(char *line, char *tag, char **value);
@@ -346,7 +350,7 @@ int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
 int					render_game_page(t_cub3d *cub3d);
-void				update_n_draw_fps(t_cub3d *cub3d);
+void				update_time_n_draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
 
 // void			render_background(t_cub3d *cub3d, int color);
@@ -362,7 +366,6 @@ int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
 void				print_monster(t_cub3d *cub);
-void				print_smart_monster(t_cub3d *cub);
 void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
 						int color);
 bool				is_inside_circle(int x, int y, t_cub3d *cub);
@@ -373,8 +376,8 @@ double				angles_add(double alpha, double beta);
 
 t_pointd			collides_wall(t_cub3d *cub, t_pointd old_pos);
 int					interact_door(t_cub3d *cub, t_pointd pos);
-void				move_monster(t_cub3d *cub);
-void				shoot_monster(t_cub3d *cub);
+void				move_monsters(t_cub3d *cub);
+void				shoot_monsters(t_cub3d *cub);
 bool				is_wall(t_cub3d *cub, int x, int y);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
