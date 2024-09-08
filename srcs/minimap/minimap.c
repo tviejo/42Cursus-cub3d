@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:07:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 15:17:34 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 01:19:49 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	print_map(t_cub3d *cub)
 
 int	draw_minimap(t_cub3d *cub)
 {
-	print_map_border(cub, (t_point){{150}, {150}}, 100, COL_BLACK);
+	print_map_border(cub, 100, COL_BLACK);
 	print_map(cub);
 	print_player(cub);
 	return (EXIT_SUCCESS);

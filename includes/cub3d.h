@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 12:43:02 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/08 01:29:53 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # include <sys/time.h>
 
 # define MOUSE 1
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+//# define WINDOW_WIDTH 1920
+//# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 1360
+# define WINDOW_HEIGHT 700
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
@@ -211,9 +213,10 @@ typedef struct s_game
 {
 	// temps de calcul de la dernière frame en seconde
 	double			frame_time;
-	int				minimap_size;
 	struct timeval	last_time;
 	t_page			page;
+	int				minimap_size;
+	t_point			minimap_center;
 }					t_game;
 
 typedef struct s_cub3d
@@ -305,7 +308,7 @@ int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
 int					render_game_page(t_cub3d *cub3d);
-void				update_n_draw_fps(t_cub3d *cub3d);
+void				update_time_n_draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
 
 // void			render_background(t_cub3d *cub3d, int color);
@@ -319,8 +322,7 @@ void				mouse_move(t_cub3d *cub3d);
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
-void				print_map_border(t_cub3d *cub, t_point pos_c, int r,
-						int color);
+void				print_map_border(t_cub3d *cub, int r, int color);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);

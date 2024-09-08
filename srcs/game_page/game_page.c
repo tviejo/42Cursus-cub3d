@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_page.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/06 15:20:36 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 01:29:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	render_game_page(t_cub3d *cub3d)
 	mlx_put_image_to_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
 		cub3d->mlx.mlx_img.ptr, 0, 0);
 	interact_door(cub3d, cub3d->player.pos);
-	update_n_draw_fps(cub3d);
+	update_time_n_draw_fps(cub3d);
 	return (0);
 }

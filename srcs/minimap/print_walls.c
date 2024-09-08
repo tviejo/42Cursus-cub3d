@@ -3,50 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   print_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:31:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/05 18:43:28 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 01:10:32 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	is_inside_circle(int x, int y, t_cub3d *cub)
+inline static void	put_pixel(t_image *img, int x, int y, int color)
 {
-	const int	x_s = (x - (cub->player.pos.x * cub->game.minimap_size)) * (x
-			- (cub->player.pos.x * cub->game.minimap_size));
-	const int	y_s = (y - (cub->player.pos.y * cub->game.minimap_size)) * (y
-			- (cub->player.pos.y * cub->game.minimap_size));
-
-	if (x_s + y_s < 10000)
-		return (true);
-	else
-		return (false);
+	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-static int	print_square(t_image *img, t_point pos, int color, t_cub3d *cub)
+inline static bool	is_inside_circle(int x, int y)
 {
-	int	x;
-	int	y;
+	return (x * x + y * y < 10000);
+}
 
+/*
+	t_rect	rc;
+
+	rc.p0 = p0c;
+	rc.p1.x = p0c.x + cub->game.minimap_size - 1;
+	rc.p1.y = p0c.y + cub->game.minimap_size - 1;
+	fill_rectangle(img, rc, color);
+*/
+
+static void	print_square(t_image *img, t_point pos, int color, t_cub3d *cub)
+{
+	int		x;
+	int		y;
+	t_point	p0;
+	t_point	p0c;
+
+	p0.x = pos.x * cub->game.minimap_size
+		- (cub->player.pos.x * cub->game.minimap_size);
+	p0.y = pos.y * cub->game.minimap_size
+		- (cub->player.pos.y * cub->game.minimap_size);
+	p0c.x = p0.x + cub->game.minimap_center.x;
+	p0c.y = p0.y + cub->game.minimap_center.y;
 	x = 0;
 	while (x < cub->game.minimap_size)
 	{
 		y = 0;
 		while (y < cub->game.minimap_size)
 		{
-			if (is_inside_circle(pos.x * cub->game.minimap_size + x, pos.y
-					* cub->game.minimap_size + y, cub) == true)
-				img_put_pix32_safe(img, 150 + pos.x * cub->game.minimap_size + x
-					- (cub->player.pos.x * cub->game.minimap_size), 150 + pos.y
-					* cub->game.minimap_size + y - (cub->player.pos.y
-						* cub->game.minimap_size), color);
+			if (is_inside_circle(p0.x + x, p0.y + y))
+				put_pixel(img, p0c.x + x, p0c.y + y, color);
 			y++;
 		}
 		x++;
 	}
-	return (EXIT_SUCCESS);
 }
 
 void	print_wall(t_cub3d *cub, t_point pos)

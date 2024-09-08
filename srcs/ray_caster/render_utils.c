@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 17:57:27 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/06 14:44:57 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/08 01:38:02 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,23 @@ int	get_wall_color(t_directions orientation, double distance, int wallitem)
 //m += (float)(m<0.f);
 // branchless form to add one if m is negative but not zero
 
-int	get_faded_color(t_cub3d *c, int color, int line_height)
+static int	get_faded_color(t_cub3d *c, int color, int line_height, double sens)
 {
 	const double	img_h2 = 0.5 * c->mlx.mlx_img.dim.height;
 	double			distance;
 	double			fade;
 
-	/*(void)img_h2;
-	distance = c->map.wall_heightscale * c->mlx.mlx_img.dim.height
-		/ (c->mlx.mlx_img.dim.height - 2 * line_height);*/
-	distance = (c->player.view_height + 0.5 * c->player.walk_height_shift
+	distance = (sens * (c->player.view_height + c->player.walk_height_shift)
 			- img_h2 * c->map.wall_heightscale) / (line_height - img_h2);
-	/*if (line_height == 450)
-		printf("[get_faded_color()] line: %i  distance: %f\n", line_height, distance);*/
 	fade = LUM_FADE_DIST / (LUM_FADE_DIST + distance * distance);
 	return (((int)(((color >> 16) & 255) * fade) << 16)
 		+ ((int)(((color >> 8) & 255) * fade) << 8)
 		+ (int)((color & 255) * fade));
 }
+
+/*	if (line_height == 450)
+		printf("[get_faded_color()] line: %i  distance: %f\n", line_height,
+			distance);*/
 
 void	draw_floor_n_ceil(t_cub3d *c)
 {
@@ -80,7 +79,7 @@ void	draw_floor_n_ceil(t_cub3d *c)
 	ymax = (c->mlx.mlx_img.dim.height >> 1) - 1;
 	while (p0.y < ymax)
 	{
-		p0.color = get_faded_color(c, c->mlx.color_ceil, p0.y);
+		p0.color = get_faded_color(c, c->mlx.color_ceil, p0.y, 1.0);
 		draw_line(&c->mlx.mlx_img, p0, p1);
 		p0.y++;
 		p1.y++;
@@ -90,7 +89,7 @@ void	draw_floor_n_ceil(t_cub3d *c)
 	ymax = c->mlx.mlx_img.dim.height - 1;
 	while (p0.y < ymax)
 	{
-		p0.color = get_faded_color(c, c->mlx.color_floor, p0.y);
+		p0.color = get_faded_color(c, c->mlx.color_floor, p0.y, -1.0);
 		draw_line(&c->mlx.mlx_img, p0, p1);
 		p0.y++;
 		p1.y++;
