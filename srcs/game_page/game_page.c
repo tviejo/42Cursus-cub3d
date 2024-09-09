@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:27:03 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 22:08:40 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	render_game_page(t_cub3d *cub3d)
 	shoot_monsters(cub3d);
 	sound_close_monster(cub3d);
 	update_time_n_draw_fps(cub3d);
+	reload(cub3d);
 	print_hud(cub3d);
 	return (0);
 }

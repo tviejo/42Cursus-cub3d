@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:46:02 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 22:08:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define M_HIT_BOX 0.5
 
 # define GUN_TEXTURE "assets/textures/gun.xpm"
+# define FIRE_TEXTURE "assets/textures/fire.xpm"
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
 # define MAP_TAG_SOUTH_TEXTURE "SO"
@@ -104,6 +105,7 @@ typedef enum e_keys
 	k_run = XK_Shift_L,
 	k_zoom_in = 65453,
 	k_zoom_out = 65451,
+	k_reload = XK_r,
 }					t_keys;
 
 typedef enum e_page
@@ -131,6 +133,12 @@ typedef enum e_door_state
 	DOOR_CLOSED,
 	DOOR_OPENED,
 }					t_door_state;
+
+typedef enum e_texture
+{
+	GUN,
+	FIRE,
+}					t_texture;
 
 typedef struct s_monsters
 {
@@ -169,6 +177,8 @@ typedef struct s_player_inputs
 	bool			k_right_2;
 	bool			k_run;
 	bool			shoot;
+	bool			has_fired;
+	bool			reload;
 }					t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
@@ -197,7 +207,7 @@ typedef struct s_mlx
 	t_image			text_south;
 	t_image			text_west;
 	t_image			text_east;
-	t_image			gun;
+	t_image			text[2];
 	int				color_floor;
 	int				color_ceil;
 	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
@@ -229,6 +239,7 @@ typedef struct s_player
 	// hauteur des yeux
 	double			view_height;
 	int				health;
+	int				ammo;
 }					t_player;
 
 typedef struct s_map
@@ -366,6 +377,8 @@ void				minimap_keys(t_cub3d *cub3d, int keycode);
 void				difficulty_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
 void				mouse_move(t_cub3d *cub3d);
+void			key_press_player_2(int keycode, t_player_inputs *inputs);
+void			key_release_player_2(int keycode, t_player_inputs *inputs);
 
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
@@ -401,6 +414,8 @@ int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
 
 void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);
-void				sound_close_monster(t_cub3d *cub);
+void				sound_close_monster(t_cub3d *cub);\
+
+void				reload(t_cub3d *cub);
 
 #endif

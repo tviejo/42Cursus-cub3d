@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:30:49 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 21:53:03 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_game(t_cub3d *cub)
 	cub->monsters = NULL;
 	cub->nb_monsters = 0;
 	cub->player.health = 100;
+	cub->player.ammo = 10; 
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	cub->player.walk_distance = 0.0;
