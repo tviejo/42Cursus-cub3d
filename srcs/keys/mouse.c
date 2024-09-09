@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:28:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 21:58:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ int	mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 	(void)y;
 	if (button == 1)
 	{
-		cub3d->inputs.shoot = true;
-		play_sound(SHOOT, cub3d);
+		if (cub3d->player.ammo > 0)
+		{
+			cub3d->inputs.shoot = true;
+			cub3d->inputs.has_fired = true;
+			cub3d->player.ammo--;
+			play_sound(SHOOT, cub3d);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

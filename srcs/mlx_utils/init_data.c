@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:25:40 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:46:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 21:04:48 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	mlx_init_data(t_cub3d *cub3d)
 	cub3d->mlx.text_south.ptr = NULL;
 	cub3d->mlx.text_west.ptr = NULL;
 	cub3d->mlx.text_east.ptr = NULL;
-	cub3d->mlx.gun.ptr = NULL;
+	cub3d->mlx.text[GUN].ptr = NULL;
 	return (0);
 }

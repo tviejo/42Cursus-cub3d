@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 19:56:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 21:33:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	mlx_start(t_cub3d *cub3d)
 
 void	mlx_free_textures(t_mlx *mlx)
 {
+	int	i;
+
 	if (mlx->text_north.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->text_north.ptr);
 	if (mlx->text_south.ptr != NULL)
@@ -34,8 +36,13 @@ void	mlx_free_textures(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->text_west.ptr);
 	if (mlx->text_east.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->text_east.ptr);
-	if (mlx->gun.ptr != NULL)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->gun.ptr);
+	i = GUN;
+	while (i <= FIRE)
+	{
+		if (mlx->text[i].ptr != NULL)
+			mlx_destroy_image(mlx->mlx_ptr, mlx->text[i].ptr);
+		i++;
+	}
 }
 
 int	mlx_close(t_mlx *mlx)
