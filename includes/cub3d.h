@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 22:00:26 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:28:45 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 
-
+# define M_SENSITIVITY 0.0005
 # define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 1.6
@@ -51,6 +51,7 @@
 # define DOOR_CLOSE " assets/sounds/door_close.mp3"
 # define E_SOUND " > /dev/null 2>&1 &"
 
+# define M_HIT_BOX 0.5
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
@@ -68,7 +69,8 @@
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
 
-# define MAX_MONSTERS 50
+# define MAX_MONSTERS 10
+# define MAX_MONSTERS_PER_DIFFICULTY 2
 
 //#define _2PI_DIV_1024 6.13592315154256491887e-3
 

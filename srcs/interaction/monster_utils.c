@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:57:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:11:37 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,27 @@
 static void	print_monster_health(t_cub3d *cub, t_point pos)
 {
 	t_monsters	*tmp;
-	char		*id;
-	char		*hp;
+	char		*info;
+	t_pointd	delta;
 
 	tmp = cub->monsters;
 	while (tmp)
 	{
-		if ((int)tmp->pos.x == pos.x && (int)tmp->pos.y == pos.y)
+		delta = (t_pointd){.x = tmp->pos.x - pos.x, .y = tmp->pos.y - pos.y};
+		if (fabs(delta.x) < M_HIT_BOX * 4 && fabs(delta.y) < M_HIT_BOX * 4)
 		{
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
 				- 100, 20, COL_WHITE, "Monster id:");
-			id = ft_itoa(tmp->id);
+			info = ft_itoa(tmp->id);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 30, 20, COL_WHITE, id);
+				- 30, 20, COL_WHITE, info);
+			free(info);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
 				- 100, 35, COL_WHITE, "HP:");
-			hp = ft_itoa(tmp->hp);
+			info = ft_itoa(tmp->hp);
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 80, 35, COL_WHITE, hp);
-			free(id);
-			free(hp);
+				- 80, 35, COL_WHITE, info);
+			free(info);
 		}
 		tmp = tmp->next;
 	}
@@ -42,29 +43,28 @@ static void	print_monster_health(t_cub3d *cub, t_point pos)
 
 static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 {
-	t_monsters				*tmp;
-	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
+	t_monsters	*tmp;
+	double		delta_x;
+	double		delta_y;
 
-	if (old_time.tv_sec != cub->game.last_time.tv_sec)
+	tmp = cub->monsters;
+	while (tmp)
 	{
-		old_time = cub->game.last_time;
-		tmp = cub->monsters;
-		while (tmp)
+		delta_x = tmp->pos.x - pos.x;
+		delta_y = tmp->pos.y - pos.y;
+		if (fabs(delta_x) < M_HIT_BOX && fabs(delta_y) < 0.5)
 		{
-			if ((int)tmp->pos.x == pos.x && (int)tmp->pos.y == pos.y)
-			{
-				usleep(100000);
-				play_sound(MONSTER_DAMAGE, cub);
-				if (distance == 0)
-					tmp->hp -= 5;
-				else
-					tmp->hp -= 5 / distance;
-				if (tmp->hp <= 0)
-					delete_monster(cub, tmp->id);
-				return ;
-			}
-			tmp = tmp->next;
+			usleep(100000);
+			play_sound(MONSTER_DAMAGE, cub);
+			if (distance == 0)
+				tmp->hp -= 5;
+			else
+				tmp->hp -= 5 / distance;
+			if (tmp->hp <= 0)
+				delete_monster(cub, tmp->id);
+			return ;
 		}
+		tmp = tmp->next;
 	}
 }
 
@@ -83,7 +83,7 @@ void	shoot_monsters(t_cub3d *cub)
 
 void	sound_close_monster(t_cub3d *cub)
 {
-	t_monsters	*tmp;
+	t_monsters				*tmp;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 
 	if (labs(old_time.tv_sec - cub->game.last_time.tv_sec) > 3)

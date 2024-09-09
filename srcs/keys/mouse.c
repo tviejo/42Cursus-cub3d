@@ -6,14 +6,14 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 20:54:45 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:28:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /* pourquoi mlx_mouse_hide() dans mouse_move() ?
-*/
+ */
 
 void	mouse_move(t_cub3d *cub3d)
 {
@@ -35,7 +35,8 @@ void	mouse_move(t_cub3d *cub3d)
 	else
 	{
 		mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, &x1, &y1);
-		rotate_player(&cub3d->player, -(x1 - cub3d->inputs.mouse_x) * 0.001);
+		rotate_player(&cub3d->player, -(x1 - cub3d->inputs.mouse_x)
+			* M_SENSITIVITY);
 		cub3d->inputs.mouse_x = x1;
 		cub3d->inputs.mouse_y = y1;
 		x = x1;
