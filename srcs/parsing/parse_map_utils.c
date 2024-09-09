@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:00:46 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:07 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:41:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	parse_char(t_cub3d *cub3d, char c, int x, int y)
 	if (c == 'A')
 	{
 		add_back_monster(cub3d, new_monster((t_pointd){.x = x + 1 + 0.5, .y = y
-				+ 0.5}, 10));
+				+ 0.5}, M_HP));
 		c = '0';
 	}
 	return (c);
