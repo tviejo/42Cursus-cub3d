@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:28:45 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:46:02 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define LUM_FADE_DIST 55.0
 
 # define M_SENSITIVITY 0.0005
+
+# define M_HP 10
 # define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 1.6
@@ -53,6 +55,7 @@
 
 # define M_HIT_BOX 0.5
 
+# define GUN_TEXTURE "assets/textures/gun.xpm"
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_NORTH_TEXTURE "NO"
 # define MAP_TAG_SOUTH_TEXTURE "SO"
@@ -194,6 +197,7 @@ typedef struct s_mlx
 	t_image			text_south;
 	t_image			text_west;
 	t_image			text_east;
+	t_image			gun;
 	int				color_floor;
 	int				color_ceil;
 	// 'pixel' array seems useless, we can use 'mlx_img.pixels'

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 17:20:29 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 19:49:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ static int	load_texture(void *mlx_ptr, char *tagval,
 			EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+static int load_hud_textures(t_cub3d *c)
+{
+	c->mlx.gun.ptr = mlx_xpm_file_to_image(c->mlx.mlx_ptr, GUN_TEXTURE,
+			&c->mlx.gun.dim.width, &c->mlx.gun.dim.height);
+	if (c->mlx.gun.ptr != NULL)
+		c->mlx.gun.pixels = mlx_get_data_addr(c->mlx.gun.ptr,
+				&c->mlx.gun.bpp, &c->mlx.gun.line_size, &c->mlx.gun.endian);
+	if (c->mlx.gun.pixels == NULL)
+		return (errmsg("load_texture(): mlx_get_data_addr()", GUN_TEXTURE),
+			EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
 
 int	parse_texture(char *line, t_cub3d *c)
 {
@@ -70,6 +82,7 @@ int	parse_texture(char *line, t_cub3d *c)
 	if (get_tag_value(line, MAP_TAG_EAST_TEXTURE, &tagval))
 		retval = load_texture(c->mlx.mlx_ptr, tagval,
 				&c->mlx.text_east, &c->map.east_tfname);
+	retval = load_hud_textures(c);
 	free(line);
 	return (retval);
 }

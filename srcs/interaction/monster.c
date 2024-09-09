@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:04:54 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 18:41:43 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	add_monster_time(t_cub3d *cub)
 			y = rand() % cub->map.height;
 			if (cub->map.m[y][x] == '0')
 				add_back_monster(cub, new_monster((t_pointd){.x = x + 0.5,
-						.y = y + 0.5}, 10));
+						.y = y + 0.5}, M_HP));
 			i++;
 		}
 	}
