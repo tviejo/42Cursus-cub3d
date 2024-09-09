@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 20:54:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:14:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	add_back_monster(t_cub3d *cub, t_monsters *new)
 	t_monsters	*tmp;
 
 	cub->nb_monsters++;
-	if (cub->nb_monsters >= MAX_MONSTERS)
+	if (cub->nb_monsters >= MAX_MONSTERS + cub->game.dificulty
+		* MAX_MONSTERS_PER_DIFFICULTY)
 		return ;
 	if (!cub->monsters)
 	{

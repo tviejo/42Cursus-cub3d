@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:35:15 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 21:59:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:58:43 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	play_sound(char *sound, t_cub3d *cub)
 	second_cmd = ft_strjoin(first_cmd, E_SOUND);
 	status = system(second_cmd);
 	if (status == -1)
-		ft_putstr_fd("Error: sound not found\n", 2);
+		ft_dprintf(2, "Warning: playing sound %s failed\n", sound);
 	free(first_cmd);
 	free(second_cmd);
 }
@@ -39,7 +39,7 @@ void	kill_sound(void)
 
 	if (NO_SOUND == 0)
 		return ;
-	status = system("killall ffplay");
+	status = system("killall ffplay > /dev/null 2>&1");
 	if (status == -1)
 		ft_putstr_fd("Error: killing sound failed\n", 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 15:42:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:04:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,21 @@
 bool	monster_is_present(t_cub3d *cub, t_pointd pos)
 {
 	t_monsters	*m;
+	double		delta_x;
+	double		delta_y;
+	static int	i = 0;
 
+	i++;
 	m = cub->monsters;
 	while (m)
 	{
-		if ((int)m->pos.x == (int)pos.x && (int)m->pos.y == (int)pos.y)
+		delta_x = m->pos.x - pos.x;
+		delta_y = m->pos.y - pos.y;
+		if (fabs(delta_x) < M_HIT_BOX && fabs(delta_y) < M_HIT_BOX)
 			return (true);
 		m = m->next;
 	}
+
 	return (false);
 }
 
@@ -43,7 +50,7 @@ static void	add_monster_time(t_cub3d *cub)
 			y = rand() % cub->map.height;
 			if (cub->map.m[y][x] == '0')
 				add_back_monster(cub, new_monster((t_pointd){.x = x + 0.5,
-						.y = y + 0.5}, 100));
+						.y = y + 0.5}, 10));
 			i++;
 		}
 	}
@@ -77,7 +84,7 @@ static void	movement_monster(t_cub3d *cub, t_monsters *m)
 {
 	static int i = 0;
 
-	if (i > 50)
+	if (i > 30)
 	{
 		i = 0;
 		m->random = rand() % 8;
@@ -107,6 +114,7 @@ void	move_monsters(t_cub3d *cub)
 	t_monsters				*m;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	struct timeval			m_time;
+	t_pointd				old_pos;
 
 	if (old_time.tv_sec == 0)
 		gettimeofday(&old_time, NULL);
@@ -118,7 +126,9 @@ void	move_monsters(t_cub3d *cub)
 		while (m)
 		{
 			old_time = cub->game.last_time;
-			movement_monster(cub, m);
+			old_pos = m->pos;
+			while (old_pos.x == m->pos.x && old_pos.y == m->pos.y)
+				movement_monster(cub, m);
 			m = m->next;
 		}
 	}
