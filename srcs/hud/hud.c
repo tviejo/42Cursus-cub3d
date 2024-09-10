@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
 /*   Updated: 2024/09/10 12:23:12 by tviejo           ###   ########.fr       */
@@ -30,30 +30,33 @@ static void	print_cross(t_cub3d *cub)
 		.color = COL_GREEN});
 }
 
+inline static void	put_pixel(t_image *img, int x, int y, int color)
+{
+	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
+}
+
 static void	print_texture(t_cub3d *cub, t_pointd pos, t_texture texture)
 {
-	t_image	*gun;
-	int		x;
-	int		y;
-	int		r_x;
-	int		r_y;
+	t_image	*tex;
+	t_point	dst;
+	t_point	src;
+	int		pixel;
 
-	gun = &cub->mlx.text[texture];
-	x = pos.x - gun->dim.width;
-	while (x < pos.x)
+	tex = &cub->mlx.text[texture];
+	dst.x = pos.x - tex->dim.width;
+	while (dst.x < pos.x)
 	{
-		y = pos.y - gun->dim.height ;
-		while (y < pos.y)
+		src.x = dst.x - (pos.x - tex->dim.width);
+		dst.y = pos.y - tex->dim.height ;
+		while (dst.y < pos.y)
 		{
-			r_x = x - (pos.x - gun->dim.width);
-			r_y = y - (pos.y - gun->dim.height);
-			if (gun->pixels[(r_y * gun->line_size) + (r_x * (gun->bpp / 8))])
-				img_pix_put(&cub->mlx.mlx_img, x, y,
-					*(int *)(gun->pixels + (r_y * gun->line_size)
-						+ (r_x * (gun->bpp / 8))));
-			y++;
+			src.y = dst.y - (pos.y - tex->dim.height);
+			pixel = *(int *)(tex->pixels + src.y * tex->line_size + src.x * 4);
+			if (pixel & 255)
+				put_pixel(&cub->mlx.mlx_img, dst.x, dst.y, pixel);
+			dst.y++;
 		}
-		x++;
+		dst.x++;
 	}
 }
 
