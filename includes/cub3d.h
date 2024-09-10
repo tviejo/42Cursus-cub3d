@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:29:59 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 19:07:11 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@
 # define DOOR_CLOSE " assets/sounds/door_close.mp3"
 # define EMPTY " assets/sounds/empty.mp3"
 # define RELOAD_SOUND " assets/sounds/reload.mp3"
+# define YOU_DIED " assets/sounds/you_died.mp3"
+# define WELCOME " assets/sounds/welcome.mp3"
+# define GOOD_LUCK " assets/sounds/good_luck.mp3"
 # define E_SOUND " > /dev/null 2>&1 &"
 
 # define M_HIT_BOX 0.5
@@ -130,6 +133,8 @@ typedef enum e_keys
 	k_zoom_out = 65451,
 	k_sw_rendering_mode = XK_m,
 	k_reload = XK_r,
+	k_sit = XK_c,
+	k_lie_down = XK_x,
 }					t_keys;
 
 typedef enum e_page
@@ -266,8 +271,10 @@ typedef struct s_player
 	double			walk_height_shift;
 	// hauteur des yeux
 	double			view_height;
+	double			player_pos_z;
 	int				health;
 	int				ammo;
+	double 			speed;
 }					t_player;
 
 typedef struct s_map
@@ -424,6 +431,7 @@ void				render_ray_tex_init(t_cub3d *c, t_raycast *rc,
 void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
 void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
 int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
+int					scanner(t_cub3d *cub, t_scaninfo *si, double angle, t_pointd pos);
 
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
@@ -480,5 +488,6 @@ void				kill_sound(void);
 void				sound_close_monster(t_cub3d *cub);
 
 void				reload(t_cub3d *cub);
+void				change_height_player(t_cub3d *cub, double height);
 
 #endif

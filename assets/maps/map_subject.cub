@@ -20,7 +20,6 @@ SO ./assets/textures/2001 l'Odyssee de l'espace - Couloir 512x512.xpm
 WE ./assets/textures/2001-l-odyssee-de-l-espace-HAL-memory-room-512x512.xpm
 EA ./assets/textures/EGS_AlienIsolation_CreativeAssembly_S5-512x512.xpm
 
-#openDoorTex   ./assets/textures/porte 512x512.xpm
 closedDoorTex ./assets/textures/porte 512x512.xpm
 
 
@@ -41,6 +40,7 @@ F 150,150,150
 # player : use N/S/W/E to specify initial direction (and position)
 # ===============================
 
+
         1111111111111111111111111
         1000000000110000000000001
         101100000111000000A000001
@@ -59,9 +59,4 @@ F 150,150,150
                      10000001
                       110011 
                        1111
-99999999
-99901999
-91100119
-91000019
-99011199
-99999999
+

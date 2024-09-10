@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 16:36:13 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 19:34:04 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
 
 bool	is_wall(t_cub3d *cub, int x, int y)
 {
@@ -26,10 +26,10 @@ static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
 {
 	double	i;
 
-	i = -0.02;
-	while (i <= 0.02)
+	i = -0.0001;
+	while (i < 0.0002)
 	{
-		if (is_wall(cub, (int)(pos.x + i), (int)(pos.y - i)) == true)
+		if (is_wall(cub, (int)(pos.x - i), (int)(pos.y + i)) == true)
 		{
 			if (is_wall(cub, new_pos.x, (int)old_pos.y) == false)
 				cub->player.pos.y = old_pos.y;
@@ -39,7 +39,7 @@ static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
 				cub->player.pos = old_pos;
 			return (true);
 		}
-		i += 0.01;
+		i += 0.0001;
 	}
 	return (false);
 }
@@ -65,15 +65,6 @@ static int	find_wall_between_two_pos(t_cub3d *cub, t_pointd old_pos,
 	}
 	return (i);
 }
-
-// static int find_angle_from_pos(t_pointd pos, t_pointd new_pos)
-// {
-// 	const double	dx = new_pos.x - pos.x;
-// 	const double	dy = new_pos.y - pos.y;
-// 	const double	angle = atan2(dy, dx) * 180 / M_PI;
-
-// 	return ((int)angle);
-// }
 
 t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
 {
