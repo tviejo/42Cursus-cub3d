@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:27:13 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:30:03 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:37:11 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,8 @@ void	key_release_player_2(int keycode, t_cub3d *cub)
 {
 	if (keycode == k_reload && cub->player.ammo < 10)
 		cub->inputs.reload = true;
+	if (keycode == k_sit && cub->game.page == GAME_PAGE)
+		change_height_player(cub, -0.2 * cub->mlx.mlx_img.dim.height);
+	if (keycode == k_lie_down && cub->game.page == GAME_PAGE)
+		change_height_player(cub, -0.4 * cub->mlx.mlx_img.dim.height);
 }
