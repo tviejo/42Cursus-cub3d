@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/31 23:57:45 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:06:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ bool	is_texture(char *line)
 {
 	while (line && *line == ' ')
 		line++;
-	return (begin_with_tag(line, MAP_TAG_NORTH_TEXTURE)
-		|| begin_with_tag(line, MAP_TAG_SOUTH_TEXTURE)
-		|| begin_with_tag(line, MAP_TAG_WEST_TEXTURE)
-		|| begin_with_tag(line, MAP_TAG_EAST_TEXTURE)
+	return (begin_with_tag(line, MAP_TAG_NORTH_TEX)
+		|| begin_with_tag(line, MAP_TAG_SOUTH_TEX)
+		|| begin_with_tag(line, MAP_TAG_WEST_TEX)
+		|| begin_with_tag(line, MAP_TAG_EAST_TEX)
+		|| begin_with_tag(line, MAP_TAG_OPEN_DOOR_TEX)
+		|| begin_with_tag(line, MAP_TAG_CLOSED_DOOR_TEX)
 	);
 }
 
@@ -58,18 +60,24 @@ int	parse_texture(char *line, t_cub3d *c)
 	char	*tagval;
 
 	retval = EXIT_FAILURE;
-	if (get_tag_value(line, MAP_TAG_NORTH_TEXTURE, &tagval))
+	if (get_tag_value(line, MAP_TAG_NORTH_TEX, &tagval))
 		retval = load_texture(c->mlx.mlx_ptr, tagval,
-				&c->mlx.text_north, &c->map.north_tfname);
-	if (get_tag_value(line, MAP_TAG_SOUTH_TEXTURE, &tagval))
+				&c->mlx.wall_tex[North], &c->map.north_tfname);
+	if (get_tag_value(line, MAP_TAG_SOUTH_TEX, &tagval))
 		retval = load_texture(c->mlx.mlx_ptr, tagval,
-				&c->mlx.text_south, &c->map.south_tfname);
-	if (get_tag_value(line, MAP_TAG_WEST_TEXTURE, &tagval))
+				&c->mlx.wall_tex[South], &c->map.south_tfname);
+	if (get_tag_value(line, MAP_TAG_WEST_TEX, &tagval))
 		retval = load_texture(c->mlx.mlx_ptr, tagval,
-				&c->mlx.text_west, &c->map.west_tfname);
-	if (get_tag_value(line, MAP_TAG_EAST_TEXTURE, &tagval))
+				&c->mlx.wall_tex[West], &c->map.west_tfname);
+	if (get_tag_value(line, MAP_TAG_EAST_TEX, &tagval))
 		retval = load_texture(c->mlx.mlx_ptr, tagval,
-				&c->mlx.text_east, &c->map.east_tfname);
+				&c->mlx.wall_tex[East], &c->map.east_tfname);
+	if (get_tag_value(line, MAP_TAG_OPEN_DOOR_TEX, &tagval))
+		retval = load_texture(c->mlx.mlx_ptr, tagval,
+				&c->mlx.open_door_tex, &c->map.open_door_tfname);
+	if (get_tag_value(line, MAP_TAG_CLOSED_DOOR_TEX, &tagval))
+		retval = load_texture(c->mlx.mlx_ptr, tagval,
+				&c->mlx.closed_door_tex, &c->map.closed_door_tfname);
 	free(line);
 	return (retval);
 }

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 15:19:26 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 04:17:02 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,35 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define MOUSE 1
-//# define WINDOW_WIDTH 1920
-//# define WINDOW_HEIGHT 1080
-# define WINDOW_WIDTH 1360
-# define WINDOW_HEIGHT 700
+# define MOUSE_SHOWHIDE 1
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
+//# define WINDOW_WIDTH 1360
+//# define WINDOW_HEIGHT 700
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
-
+# define TEX_FADE_DIST 91.0
+// facteur d'echelle des textures
+# define TEX_SCALE 512.0
+// Attention: les textures DOIVENT avoir une taille de TEX_SIZE x TEX_SIZE
+// Todo : permettre de charger des texture de n'importe quelle taille et seul
+// le carré inclus de coté égal à la plus grande puissance de 2 sera exploité. 
+# define TEX_SIZE 512
 
 # define M_SPEED 0.05
 // unités de distance par sec
-# define TRANS_SPEED 1.6
+# define TRANS_SPEED 1.8
 // radians par seconde
-# define ROT_SPEED 1.6
+# define ROT_SPEED 1.8
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
-# define MAP_TAG_NORTH_TEXTURE "NO"
-# define MAP_TAG_SOUTH_TEXTURE "SO"
-# define MAP_TAG_WEST_TEXTURE "WE"
-# define MAP_TAG_EAST_TEXTURE "EA"
+# define MAP_TAG_TEX_SIZE "TEX_SIZE"
+# define MAP_TAG_NORTH_TEX "NO"
+# define MAP_TAG_SOUTH_TEX "SO"
+# define MAP_TAG_WEST_TEX "WE"
+# define MAP_TAG_EAST_TEX "EA"
+# define MAP_TAG_OPEN_DOOR_TEX "openDoorTex"
+# define MAP_TAG_CLOSED_DOOR_TEX "closedDoorTex"
 # define MAP_TAG_CEIL_COLOR "C"
 # define MAP_TAG_FLOOR_COLOR "F"
 
@@ -57,13 +66,20 @@
 
 //#define _2PI_DIV_1024 6.13592315154256491887e-3
 
+typedef enum e_rendering_mode
+{
+	RENDER_WIREFRAME,
+	RENDER_COLOR,
+	RENDER_TEXTURE
+}	t_rendering_mode;
+
 typedef enum e_directions
 {
 	East,
 	North,
 	West,
 	South
-}					t_directions;
+}	t_directions;
 
 typedef enum e_keys
 {
@@ -84,6 +100,7 @@ typedef enum e_keys
 	k_run = XK_Shift_L,
 	k_zoom_in = 65453,
 	k_zoom_out = 65451,
+	k_sw_rendering_mode = XK_r
 }					t_keys;
 
 typedef enum e_page
@@ -112,14 +129,15 @@ typedef enum e_door_state
 	DOOR_OPENED,
 }					t_door_state;
 
-typedef struct s_monsters
+typedef struct s_monst
 {
 	int				id;
 	t_pointd		pos;
 	int				hp;
 	int				random;
-	struct s_monsters	*next;
+	struct s_monst	*next;
 }					t_monsters;
+
 typedef struct s_player_inputs
 {
 	bool			open;
@@ -172,10 +190,13 @@ typedef struct s_mlx
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_image			mlx_img;
-	t_image			text_north;
+	/*t_image			text_north;
 	t_image			text_south;
 	t_image			text_west;
-	t_image			text_east;
+	t_image			text_east;*/
+	t_image			wall_tex[4];
+	t_image			open_door_tex;
+	t_image			closed_door_tex;
 	int				color_floor;
 	int				color_ceil;
 	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
@@ -218,6 +239,8 @@ typedef struct s_map
 	char			*south_tfname;
 	char			*west_tfname;
 	char			*east_tfname;
+	char			*open_door_tfname;
+	char			*closed_door_tfname;
 	t_color			col_floor;
 	t_color			col_ceil;
 	double			wall_heightscale;
@@ -227,14 +250,15 @@ typedef struct s_map
 typedef struct s_game
 {
 	// temps de calcul de la dernière frame en seconde
-	double			frame_time;
-	struct timeval	last_time;
-	t_page			page;
-	int				minimap_size;
-	t_point			minimap_center;
-	int				dificulty;
-	double			m_speed;
-}					t_game;
+	double				frame_time;
+	struct timeval		last_time;
+	t_page				page;
+	int					minimap_size;
+	t_point				minimap_center;
+	int					dificulty;
+	double				m_speed;
+	t_rendering_mode	rendering_mode;
+}	t_game;
 
 typedef struct s_cub3d
 {
@@ -261,7 +285,15 @@ typedef struct s_raycast
 	int				column;
 	// ray angle
 	double			angle;
-
+	// coord map du mur trouvé 
+	t_point			mapc;
+	// mur sur intersection verticale ?
+	bool			vertical_wall;
+	// orientation du mur (Est/North/West/South)
+	t_directions	wall_orientation;
+	// point d'intersection avec le mur
+	t_pointd		wall_inter;
+	
 	// point d'intersection avec la prochaine verticale
 	t_pointd		v_inter;
 	// incréments sur les axes x et y entre 2 intersections verticales
@@ -281,17 +313,35 @@ typedef struct s_raycast
 	double			h_dist_inc;
 }					t_raycast;
 
+typedef struct s_render_textured
+{
+	int			height;
+	int			y0;
+	int			ymax;
+	int			y;
+	int			tex_x;
+	int			tex_y;
+	double		ftex_y;
+	double		ftex_yinc;
+	t_image		*tex;
+	int			tex_modulo_m1;
+	double		shade;
+	// wall distance
+	double		w_dist;
+}	t_render_textured;
+
 typedef struct s_scaninfo
 {
 	// coordonnées de map de l'element trouvé
-	t_point	mpos;
+	t_point		mpos;
 	// element trouvé
-	int		item;
+	int			item;
 	// distance précise du joueur à l'élément trouvé
-	double	distance;
-}					t_scaninfo;
+	double		distance;
+}	t_scaninfo;
 
 
+void				set_game_state(t_cub3d *cub, t_page newstate);
 void				init_game(t_cub3d *cub3d);
 int					parse_cub3d(char *filename, t_cub3d *cub);
 bool				begin_with_tag(char *line, char *tag);
@@ -326,6 +376,10 @@ int					ft_close(t_cub3d *cub3d, char *errmsg);
 int					ft_close_cr(t_cub3d *cub3d);
 
 void				render_frame(t_cub3d *cub);
+void				render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem);
+void				render_ray_textured(t_cub3d *c, t_raycast *r, int wallitem);
+void				render_ray_tex_init(t_cub3d *c, t_raycast *rc,
+						t_render_textured *r, int item);
 void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
 void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
 int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
@@ -364,6 +418,8 @@ bool				is_wall(t_cub3d *cub, int x, int y);
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);
 int					get_wall_color(t_directions orientation, double distance,
 						int wallitem);
+t_image				*get_wall_texture(t_cub3d *cub, t_directions orientation,
+						double distance, int item);
 void				draw_floor_n_ceil(t_cub3d *c);
 
 void				print_hud(t_cub3d *cub);

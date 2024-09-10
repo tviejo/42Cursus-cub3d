@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 18:24:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 04:12:01 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /* pourquoi mlx_mouse_hide() dans mouse_move() ?
 */
+//if (MOUSE == 1)
+	//	mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 
 void	mouse_move(t_cub3d *cub3d)
 {
@@ -22,8 +24,6 @@ void	mouse_move(t_cub3d *cub3d)
 	int			x1;
 	int			y1;
 
-	if (MOUSE == 1)
-		mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 	if (x < 100 || x > WINDOW_WIDTH - 100)
 	{
 		x = WINDOW_WIDTH / 2;

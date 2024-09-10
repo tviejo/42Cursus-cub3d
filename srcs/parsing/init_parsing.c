@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:08:35 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 14:47:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:08:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_parsing(t_cub3d *cub)
 	cub->map.south_tfname = NULL;
 	cub->map.west_tfname = NULL;
 	cub->map.east_tfname = NULL;
+	cub->map.open_door_tfname = NULL;
+	cub->map.closed_door_tfname = NULL;
 	cub->map.col_floor = (t_color){-1, -1, -1};
 	cub->map.col_ceil = (t_color){-1, -1, -1};
 	cub->map.error = NO_ERROR;

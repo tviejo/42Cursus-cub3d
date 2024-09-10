@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/08/30 14:03:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:15:06 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ int	mlx_start(t_cub3d *cub3d)
 
 void	mlx_free_textures(t_mlx *mlx)
 {
-	if (mlx->text_north.ptr != NULL)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->text_north.ptr);
-	if (mlx->text_south.ptr != NULL)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->text_south.ptr);
-	if (mlx->text_west.ptr != NULL)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->text_west.ptr);
-	if (mlx->text_east.ptr != NULL)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->text_east.ptr);
+	if (mlx->wall_tex[North].ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->wall_tex[North].ptr);
+	if (mlx->wall_tex[South].ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->wall_tex[South].ptr);
+	if (mlx->wall_tex[West].ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->wall_tex[West].ptr);
+	if (mlx->wall_tex[East].ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->wall_tex[East].ptr);
+	if (mlx->open_door_tex.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->open_door_tex.ptr);
+	if (mlx->closed_door_tex.ptr != NULL)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->closed_door_tex.ptr);
 }
 
 int	mlx_close(t_mlx *mlx)

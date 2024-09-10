@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:22:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 11:04:37 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 11:07:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	free_parsing(t_map *map)
 		free(map->west_tfname);
 	if (map->east_tfname)
 		free(map->east_tfname);
+	if (map->open_door_tfname)
+		free(map->open_door_tfname);
+	if (map->closed_door_tfname)
+		free(map->closed_door_tfname);
 	if (map->m)
 	{
 		while (i < map->height + 2 && map->m[i])

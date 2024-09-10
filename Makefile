@@ -11,7 +11,10 @@ SRCS		+= draw/put_pixel.c
 SRCS		+= draw/rectangle.c
 
 SRCS		+= ray_caster/render_frame.c
+SRCS		+= ray_caster/render_colored.c
 SRCS		+= ray_caster/render_textured.c
+SRCS		+= ray_caster/rdr_tex_loop.c
+SRCS		+= ray_caster/floor_n_ceil.c
 SRCS		+= ray_caster/render_utils.c
 SRCS		+= ray_caster/scanner.c
 

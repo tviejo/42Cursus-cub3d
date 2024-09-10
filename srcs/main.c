@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 15:45:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/09 12:21:58 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_game(t_cub3d *cub)
 {
+	cub->game.rendering_mode = RENDER_TEXTURE;
 	cub->game.minimap_size = 20;
 	cub->game.minimap_center = (t_point){{130}, {130}};
 	cub->game.page = LANDING_PAGE;

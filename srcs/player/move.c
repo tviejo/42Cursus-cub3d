@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 12:59:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 04:15:57 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,11 @@ static void	rotation(t_cub3d *cub)
 int	update_player_pos(t_cub3d *cub)
 {
 	t_pointd	old_pos;
-	//t_scaninfo	si;
 
 	old_pos = cub->player.pos;
 	mouse_move(cub);
 	rotation(cub);
 	translation(cub);
 	collides_wall(cub, old_pos);
-	/*if (cub->inputs.turn_left || cub->inputs.turn_right)
-	{
-		scan_in_front(cub, &si, 0.0);
-		printf("scan_in_front(): %c [%i,%i] dist: %f\n",
-			si.item, si.mpos.x, si.mpos.y, si.distance);
-	}*/
 	return (0);
 }

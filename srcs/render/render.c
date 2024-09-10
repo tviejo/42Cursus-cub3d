@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:41:19 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 18:25:11 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:36:51 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	set_game_state(t_cub3d *cub, t_page newstate)
+{
+	const t_page	oldstate = cub->game.page;
+
+	if (MOUSE_SHOWHIDE)
+	{
+		if (oldstate != GAME_PAGE && newstate == GAME_PAGE)
+			mlx_mouse_hide(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+		if (oldstate == GAME_PAGE && newstate != GAME_PAGE)
+			mlx_mouse_show(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+	}
+	cub->game.page = newstate;
+}
 
 static void	reset_keys(t_cub3d *cub3d)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_looping.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:57:20 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 18:22:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:32:36 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	mlx_looping(t_cub3d *cub3d)
 {
-	cub3d->game.page = LANDING_PAGE;
 	mlx_loop_hook(cub3d->mlx.mlx_ptr, &render, cub3d);
 	mlx_hook(cub3d->mlx.win_ptr, 17, StructureNotifyMask, &ft_close_cr, cub3d);
 	mlx_hook(cub3d->mlx.win_ptr, KeyPress, KeyPressMask, &key_press, cub3d);
