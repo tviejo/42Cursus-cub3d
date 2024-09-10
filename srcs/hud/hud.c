@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:02:09 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:55:15 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ inline static void	put_pixel(t_image *img, int x, int y, int color)
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-static void	print_texture(t_cub3d *cub, t_pointd pos, t_texture texture)
+static void	print_texture(t_cub3d *cub, t_point pos, t_texture texture)
 {
 	t_image	*tex;
 	t_point	dst;
@@ -85,6 +85,9 @@ void	print_hud(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	static int				i = 0;
+	const t_point			pos = {	.x = 0.7 * cub->mlx.mlx_img.dim.width
+		+ 0.25 * cub->player.walk_height_shift,
+		.y = cub->mlx.mlx_img.dim.height + 0.5 * cub->player.walk_height_shift};
 
 	if (cub->inputs.has_fired)
 	{
@@ -93,8 +96,8 @@ void	print_hud(t_cub3d *cub)
 		i = 0;
 	}
 	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
-		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, FIRE);
-	print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, GUN);
+		print_texture(cub, pos, FIRE);
+	print_texture(cub, pos, GUN);
 	print_cross(cub);
 	print_health_bar(cub);
 	print_remaining_ammo(cub);
