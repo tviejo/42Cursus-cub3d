@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:25:40 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:41:14 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:16:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	mlx_init_data(t_cub3d *cub3d)
 {
-	cub3d->mlx.pixel = NULL;
+	cub3d->mlx.slices_zbuffer = NULL;
 	cub3d->mlx.mlx_img.ptr = NULL;
 	cub3d->mlx.wall_tex[North].ptr = NULL;
 	cub3d->mlx.wall_tex[South].ptr = NULL;

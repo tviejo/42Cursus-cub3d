@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:19:52 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 16:24:42 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	mlx_free_textures(t_mlx *mlx)
 int	mlx_close(t_mlx *mlx)
 {
 	mlx_free_textures(mlx);
-	if (mlx->pixel != NULL)
-		ft_free_img(mlx);
+	ft_free_img(mlx);
 	if (mlx->mlx_img.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->mlx_img.ptr);
 	if (mlx->win_ptr != NULL)

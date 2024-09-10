@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 03:47:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 03:49:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:38:01 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	render_ray_textured(t_cub3d *c, t_raycast *rc, int item)
 {
 	t_render_textured	r;
 
-	render_ray_tex_init(c, rc, &r, item);
+	if (render_ray_tex_init(c, rc, &r, item) == EXIT_FAILURE)
+		return ;
 	r.ymax = r.y0 + r.height;
 	r.ftex_yinc = 1.0 * TEX_SCALE / (double)r.height;
 	r.ftex_y = 0.0;

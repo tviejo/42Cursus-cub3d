@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 23:23:32 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 03:55:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:01:10 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,22 @@ static int	get_tex_x(t_raycast *r, double scale)
 	return ((r->mapc.y + 1 - r->wall_inter.y) * scale);
 }
 
-void	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_textured *r,
+int	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_textured *r,
 							int item)
 {
 	r->w_dist = get_wall_distance(c, rc);
 	r->tex = get_wall_texture(c, rc->wall_orientation, r->w_dist, item);
+	if (r->tex->ptr == NULL)
+	{
+		render_ray_colored(c, rc, item);
+		return (EXIT_FAILURE);
+	}
+	c->mlx.slices_zbuffer[rc->column] = r->w_dist;
 	r->shade = TEX_FADE_DIST / (TEX_FADE_DIST + r->w_dist * r->w_dist);
 	r->tex_modulo_m1 = TEX_SIZE - 1;
 	r->tex_x = get_tex_x(rc, TEX_SCALE) & r->tex_modulo_m1;
 	r->height = c->map.wall_heightscale * c->mlx.mlx_img.dim.height / r->w_dist;
 	r->y0 = (c->player.view_height + c->player.walk_height_shift) / r->w_dist
 		+ ((c->mlx.mlx_img.dim.height - r->height) >> 1);
+	return (EXIT_SUCCESS);
 }

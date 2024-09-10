@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:54:49 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 04:09:41 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:59:28 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem)
 	else
 		p_wall_dist = r->h_dist - r->h_dist_inc;
 	p_wall_dist *= cos(c->player.dir - r->angle);
+	c->mlx.slices_zbuffer[r->column] = p_wall_dist;
 	height = c->map.wall_heightscale * c->mlx.mlx_img.dim.height / p_wall_dist;
 	y0 = ((c->mlx.mlx_img.dim.height - height) >> 1)
 		+ (c->player.view_height + c->player.walk_height_shift) / p_wall_dist;

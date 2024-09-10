@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:29:59 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 17:58:56 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@
 # define NO_SOUND 1 // 1 pour activer le son
 # define MOUSE_SHOWHIDE 1
 # define MOUSE 1 // 1 pour activer la gestion de la souris
-# define M_SENSITIVITY 0.0005
+# define M_SENSITIVITY 0.0015
 
 # define M_HP 10
 # define M_SPEED 0.1
 // unités de distance par sec
-# define TRANS_SPEED 1.8
+# define TRANS_SPEED 2.0
 // radians par seconde
-# define ROT_SPEED 1.8
+# define ROT_SPEED 2.0
 
 # define B_SOUND "ffplay -nodisp -autoexit"
 # define MUSIC " assets/sounds/ambiance.mp3"
@@ -171,6 +171,7 @@ typedef struct s_monsters
 	t_pointd			pos;
 	int					hp;
 	int					random;
+	double				dist2_to_player;
 	struct s_monsters	*next;
 }	t_monsters;
 
@@ -228,19 +229,14 @@ typedef struct s_mlx
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_image			mlx_img;
-	/*t_image			text_north;
-	t_image			text_south;
-	t_image			text_west;
-	t_image			text_east;*/
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
 	t_image			text[3];
 	int				color_floor;
 	int				color_ceil;
-	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
-	// from mlx_get_data_addr()
-	int				**pixel;
+	// Z-buffer des tranches de murs exloite pour le rendu des sprites
+	double			*slices_zbuffer;
 }					t_mlx;
 
 typedef struct s_color
@@ -409,9 +405,8 @@ int					mlx_start(t_cub3d *cub3d);
 int					mlx_close(t_mlx *mlx);
 int					mlx_create_img(t_cub3d *cub3d);
 int					mlx_looping(t_cub3d *cub3d);
-int					ft_reset_img(t_cub3d *cub3d);
 int					ft_free_img(t_mlx *mlx);
-int					ft_init_img(t_cub3d *cub3d);
+int					ft_init_img(t_mlx *mlx);
 void				img_pix_put(t_image *img, t_uint x, t_uint y, int color);
 int					ft_close(t_cub3d *cub3d, char *errmsg);
 int					ft_close_cr(t_cub3d *cub3d);
@@ -419,7 +414,7 @@ int					ft_close_cr(t_cub3d *cub3d);
 void				render_frame(t_cub3d *cub);
 void				render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem);
 void				render_ray_textured(t_cub3d *c, t_raycast *r, int wallitem);
-void				render_ray_tex_init(t_cub3d *c, t_raycast *rc,
+int					render_ray_tex_init(t_cub3d *c, t_raycast *rc,
 						t_render_textured *r, int item);
 void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
 void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
@@ -480,5 +475,8 @@ void				kill_sound(void);
 void				sound_close_monster(t_cub3d *cub);
 
 void				reload(t_cub3d *cub);
+
+void				quicksort(void **tab, int nb_elem);
+void				quicksort_int(int *tab, int nb_elem);
 
 #endif
