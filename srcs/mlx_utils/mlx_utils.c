@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 05:19:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:19:52 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	mlx_free_textures(t_mlx *mlx)
 	if (mlx->closed_door_tex.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->closed_door_tex.ptr);
 	i = GUN;
-	while (i <= FIRE)
+	while (i <= RELOAD)
 	{
 		if (mlx->text[i].ptr != NULL)
 			mlx_destroy_image(mlx->mlx_ptr, mlx->text[i].ptr);

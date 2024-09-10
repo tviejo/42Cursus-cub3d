@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:39:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:24:03 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,15 @@ int	mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 	(void)y;
 	if (button == 1)
 	{
-		if (cub3d->player.ammo > 0)
+		if (cub3d->player.ammo > 0 && cub3d->inputs.reload == false)
 		{
 			cub3d->inputs.shoot = true;
 			cub3d->inputs.has_fired = true;
 			cub3d->player.ammo--;
 			play_sound(SHOOT, cub3d);
 		}
+		else
+			play_sound(EMPTY, cub3d);
 	}
 	return (EXIT_SUCCESS);
 }

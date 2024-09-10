@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:38:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:30:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	key_press_player(int keycode, t_player_inputs *in)
 		in->k_fire_1 = true;
 	if (keycode == k_fire_2)
 		in->k_fire_2 = true;
-	key_press_player_2(keycode, in);
 }
 
 int	key_press(int keycode, t_cub3d *cub3d)
@@ -110,7 +109,6 @@ void	key_release_player(int keycode, t_player_inputs *in)
 		in->k_fire_1 = false;
 	if (keycode == k_fire_2)
 		in->k_fire_2 = false;
-	key_release_player_2(keycode, in);
 }
 
 int	key_release(int keycode, t_cub3d *cub3d)
@@ -129,6 +127,7 @@ int	key_release(int keycode, t_cub3d *cub3d)
 	if (keycode == k_run)
 		cub3d->inputs.k_run = false;
 	key_release_player(keycode, &cub3d->inputs);
+	key_release_player_2(keycode, cub3d);
 	update_player_inputs(&cub3d->inputs);
 	return (0);
 }
