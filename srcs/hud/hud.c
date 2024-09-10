@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 22:01:06 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 12:23:12 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void print_remaining_ammo(t_cub3d *cub)
 	else
 		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100,
 			WINDOW_HEIGHT - 150, COL_WHITE, info);
-	
 	free(info);
 }
 
@@ -91,8 +90,11 @@ void	print_hud(t_cub3d *cub)
 		i = 0;
 	}
 	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
-		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, FIRE);
-	print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, GUN);
+		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.54, .y = WINDOW_HEIGHT * 0.8}, FIRE);
+	if (cub->inputs.reload)
+		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, RELOAD);
+	else
+		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, GUN);
 	print_cross(cub);
 	print_health_bar(cub);
 	print_remaining_ammo(cub);
