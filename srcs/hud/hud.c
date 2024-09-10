@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:23:12 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:04:49 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,33 @@ static void	print_cross(t_cub3d *cub)
 		.color = COL_GREEN});
 }
 
-static void	print_texture(t_cub3d *cub, t_pointd pos, t_texture texture)
+inline static void	put_pixel(t_image *img, int x, int y, int color)
 {
-	t_image	*gun;
-	int		x;
-	int		y;
-	int		r_x;
-	int		r_y;
+	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
+}
 
-	gun = &cub->mlx.text[texture];
-	x = pos.x - gun->dim.width;
-	while (x < pos.x)
+static void	print_texture(t_cub3d *cub, t_point pos, t_texture texture)
+{
+	t_image	*tex;
+	t_point	dst;
+	t_point	src;
+	int		pixel;
+
+	tex = &cub->mlx.text[texture];
+	dst.x = pos.x - tex->dim.width;
+	while (dst.x < pos.x)
 	{
-		y = pos.y - gun->dim.height ;
-		while (y < pos.y)
+		src.x = dst.x - (pos.x - tex->dim.width);
+		dst.y = pos.y - tex->dim.height ;
+		while (dst.y < pos.y)
 		{
-			r_x = x - (pos.x - gun->dim.width);
-			r_y = y - (pos.y - gun->dim.height);
-			if (gun->pixels[(r_y * gun->line_size) + (r_x * (gun->bpp / 8))])
-				img_pix_put(&cub->mlx.mlx_img, x, y,
-					*(int *)(gun->pixels + (r_y * gun->line_size)
-						+ (r_x * (gun->bpp / 8))));
-			y++;
+			src.y = dst.y - (pos.y - tex->dim.height);
+			pixel = *(int *)(tex->pixels + src.y * tex->line_size + src.x * 4);
+			if (pixel & 255)
+				put_pixel(&cub->mlx.mlx_img, dst.x, dst.y, pixel);
+			dst.y++;
 		}
-		x++;
+		dst.x++;
 	}
 }
 
@@ -82,6 +85,9 @@ void	print_hud(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	static int				i = 0;
+	const t_point			pos = {	.x = 0.7 * cub->mlx.mlx_img.dim.width
+		+ 0.25 * cub->player.walk_height_shift,
+		.y = cub->mlx.mlx_img.dim.height + 0.5 * cub->player.walk_height_shift};
 
 	if (cub->inputs.has_fired)
 	{
@@ -90,11 +96,12 @@ void	print_hud(t_cub3d *cub)
 		i = 0;
 	}
 	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
-		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.54, .y = WINDOW_HEIGHT * 0.8}, FIRE);
+		print_texture(cub, (t_point){.x = 0.77 * pos.x, .y = 0.8 * pos.y},
+			FIRE);
 	if (cub->inputs.reload)
-		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, RELOAD);
+		print_texture(cub, pos, RELOAD);
 	else
-		print_texture(cub, (t_pointd){.x = WINDOW_WIDTH * 0.7, .y = WINDOW_HEIGHT}, GUN);
+		print_texture(cub, pos, GUN);
 	print_cross(cub);
 	print_health_bar(cub);
 	print_remaining_ammo(cub);

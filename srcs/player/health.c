@@ -14,15 +14,15 @@
 
 static bool	is_close_to_enemy(t_cub3d *cub)
 {
-	t_monsters	*tmp;
+	t_monsters	*m;
 	t_pointd	pos;
 	double		dist;
 	int			i;
 	int			j;
 
-	tmp = cub->monsters;
+	m = cub->monsters;
 	pos = cub->player.pos;
-	while (tmp)
+	while (m)
 	{
 		i = -2;
 		while (++i <= 1)
@@ -30,13 +30,13 @@ static bool	is_close_to_enemy(t_cub3d *cub)
 			j = -2;
 			while (++j <= 1)
 			{
-				dist = sqrt(pow(tmp->pos.x + i - pos.x, 2) + pow(tmp->pos.y + j
+				dist = sqrt(pow(m->pos.x + i - pos.x, 2) + pow(m->pos.y + j
 							- pos.y, 2));
 				if (dist < 0.5)
 					return (true);
 			}
 		}
-		tmp = tmp->next;
+		m = m->next;
 	}
 	return (false);
 }

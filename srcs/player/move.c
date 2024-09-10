@@ -35,21 +35,21 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 	const double	speed_mul = (1.0 + (int)cub->inputs.run)
 			* cub->player.speed;
 	double			dist;
-	static int		old_height = 0;
-	static bool		print_sound = true;
-
 	t_player *const pl = &cub->player;
+	static int old_height = 0;
+	static bool sound_trigger = true;
+
 	dist = cub->game.frame_time * TRANS_SPEED;
 	pl->walk_distance += dist;
 	pl->walk_height_shift = speed_mul * 20.0 * sin(pl->walk_distance * 7.0);
-	if (pl->walk_height_shift > old_height && print_sound == true)
+	if (pl->walk_height_shift > old_height && sound_trigger)
 	{
-		print_sound = false;
+		sound_trigger = false;
 		old_height = pl->walk_height_shift;
 		play_sound(STEP, cub);
 	}
 	else if (pl->walk_height_shift < old_height)
-		print_sound = true;
+		sound_trigger = true;
 	dist *= speed_mul;
 	pl->pos.x += dist * x;
 	pl->pos.y -= dist * y;
