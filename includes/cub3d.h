@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 05:09:12 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:29:59 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <pthread.h>
 
 # define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_HEIGHT 1010
 //# define WINDOW_WIDTH 1360
 //# define WINDOW_HEIGHT 700
 # define DEG_VERTICAL_FOV 86.3
@@ -61,11 +61,14 @@
 # define MONSTER_FAR " assets/sounds/monster_far.mp3"
 # define DOOR_OPEN " assets/sounds/door_open.mp3"
 # define DOOR_CLOSE " assets/sounds/door_close.mp3"
+# define EMPTY " assets/sounds/empty.mp3"
+# define RELOAD_SOUND " assets/sounds/reload.mp3"
 # define E_SOUND " > /dev/null 2>&1 &"
 
 # define M_HIT_BOX 0.5
 
 # define GUN_TEXTURE "assets/textures/gun.xpm"
+# define RELOAD_TEXTURE "assets/textures/reload.xpm"
 # define FIRE_TEXTURE "assets/textures/fire.xpm"
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
@@ -111,7 +114,7 @@ typedef enum e_keys
 	k_fire_1 = XK_Control_L,
 	k_fire_2 = XK_Control_R,
 	k_open_1 = XK_space,
-	k_open_2 = XK_q,
+	k_open_2 = XK_e,
 	k_up_1 = XK_Up,
 	k_up_2 = XK_w,
 	k_down_1 = XK_Down,
@@ -159,6 +162,7 @@ typedef enum e_texture
 {
 	GUN,
 	FIRE,
+	RELOAD,
 }					t_texture;
 
 typedef struct s_monsters
@@ -231,7 +235,7 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
-	t_image			text[2];
+	t_image			text[3];
 	int				color_floor;
 	int				color_ceil;
 	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
@@ -435,8 +439,7 @@ void				minimap_keys(t_cub3d *cub3d, int keycode);
 void				difficulty_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
 void				mouse_move(t_cub3d *cub3d);
-void				key_press_player_2(int keycode, t_player_inputs *inputs);
-void				key_release_player_2(int keycode, t_player_inputs *inputs);
+void				key_release_player_2(int keycode, t_cub3d *cub3d);
 
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);

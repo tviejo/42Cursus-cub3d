@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:55:15 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:04:49 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,12 @@ void	print_hud(t_cub3d *cub)
 		i = 0;
 	}
 	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
-		print_texture(cub, pos, FIRE);
-	print_texture(cub, pos, GUN);
+		print_texture(cub, (t_point){.x = 0.77 * pos.x, .y = 0.8 * pos.y},
+			FIRE);
+	if (cub->inputs.reload)
+		print_texture(cub, pos, RELOAD);
+	else
+		print_texture(cub, pos, GUN);
 	print_cross(cub);
 	print_health_bar(cub);
 	print_remaining_ammo(cub);
