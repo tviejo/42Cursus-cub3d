@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 05:18:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:19:16 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_game(t_cub3d *cub)
 	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	cub->player.walk_distance = 0.0;
 	cub->player.walk_height_shift = 0.0;
+	cub->player.speed = 1.0;
 	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
 	mlx_init_data(cub);
 }
@@ -56,6 +57,7 @@ or one argument: <map filename>\n"), 0);
 	init_keys(&cub);
 	gettimeofday(&cub.game.last_time, NULL);
 	play_sound(MUSIC, &cub);
+	play_sound(WELCOME, &cub);
 	mlx_looping(&cub);
 	return (0);
 }

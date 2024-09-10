@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   health.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 05:20:15 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:49:08 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,8 @@ void	update_health(t_cub3d *cub)
 			cub->player.health++;
 	}
 	if (cub->player.health <= 0)
+	{
+		play_sound(YOU_DIED, cub);
 		set_game_state(cub, GAME_OVER_PAGE);
+	}
 }

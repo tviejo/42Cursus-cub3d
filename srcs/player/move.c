@@ -3,23 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 05:21:43 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:38:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	change_height_player(t_cub3d *cub, double height)
+{
+	if (cub->player.view_height == height)
+	{
+		cub->player.speed = 1.0;
+		cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
+	}
+	else
+	{
+		if (height < 0)
+			cub->player.speed = 0.6 - fabs(height
+					/ cub->mlx.mlx_img.dim.height);
+		else
+			cub->player.speed = 1.0;
+		cub->player.view_height = height;
+	}
+}
+
 static void	translate_player(t_cub3d *cub, double x, double y)
 {
-	const double			speed_mul = 1.0 + (int)cub->inputs.run;
-	double					dist;
-	t_player *const pl = &cub->player;
-	static int old_height = 0;
-	static bool print_sound = true;
+	const double	speed_mul = (1.0 + (int)cub->inputs.run)
+			* cub->player.speed;
+	double			dist;
+	static int		old_height = 0;
+	static bool		print_sound = true;
 
+	t_player *const pl = &cub->player;
 	dist = cub->game.frame_time * TRANS_SPEED;
 	pl->walk_distance += dist;
 	pl->walk_height_shift = speed_mul * 20.0 * sin(pl->walk_distance * 7.0);
@@ -35,7 +54,6 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 	pl->pos.x += dist * x;
 	pl->pos.y -= dist * y;
 }
-
 
 static void	translation(t_cub3d *cub)
 {
