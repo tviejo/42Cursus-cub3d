@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 12:21:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 05:18:24 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
 
 void	init_game(t_cub3d *cub)
 {
@@ -24,6 +24,7 @@ void	init_game(t_cub3d *cub)
 	cub->monsters = NULL;
 	cub->nb_monsters = 0;
 	cub->player.health = 100;
+	cub->player.ammo = 10; 
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	cub->player.walk_distance = 0.0;
@@ -48,10 +49,13 @@ or one argument: <map filename>\n"), 0);
 		ft_close(&cub, "mlx_start() fails !\n");
 	if (parse_cub3d(map_fname, &cub) == EXIT_FAILURE)
 		ft_close(&cub, "parse_cub3d() fails !\n");
+	if (load_textures(&cub) == EXIT_FAILURE)
+		ft_close(&cub, "load_textures() fails !\n");
 	if (mlx_create_img(&cub) == EXIT_FAILURE)
-		ft_close(&cub, "mlx_create_img() fails !");
+		ft_close(&cub, "mlx_create_img() fails !\n");
 	init_keys(&cub);
 	gettimeofday(&cub.game.last_time, NULL);
+	play_sound(MUSIC, &cub);
 	mlx_looping(&cub);
 	return (0);
 }

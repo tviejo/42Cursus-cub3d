@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 15:30:18 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 05:20:15 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	update_health(t_cub3d *cub)
 	{
 		old_time = cub->game.last_time;
 		if (is_close_to_enemy(cub))
+		{
 			cub->player.health -= 10;
+			play_sound(DAMAGE, cub);
+		}
 		else if (cub->player.health < 100)
 			cub->player.health++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 17:55:51 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 20:53:49 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ static int	moove_door(t_cub3d *cub, t_pointd pos)
 	scan_in_front(cub, &info, 0);
 	if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'C')
 	{
+		play_sound(DOOR_OPEN, cub);
 		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'O';
 	}
 	else if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'O')
 	{
+		play_sound(DOOR_CLOSE, cub);
 		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'C';
 	}
 	return (EXIT_FAILURE);

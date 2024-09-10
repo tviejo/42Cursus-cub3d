@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:00:46 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:07 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/10 04:57:12 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool	is_texture(char *line)
+{
+	while (line && *line == ' ')
+		line++;
+	return (begin_with_tag(line, MAP_TAG_NORTH_TEX)
+		|| begin_with_tag(line, MAP_TAG_SOUTH_TEX)
+		|| begin_with_tag(line, MAP_TAG_WEST_TEX)
+		|| begin_with_tag(line, MAP_TAG_EAST_TEX)
+		|| begin_with_tag(line, MAP_TAG_OPEN_DOOR_TEX)
+		|| begin_with_tag(line, MAP_TAG_CLOSED_DOOR_TEX)
+	);
+}
 
 static bool	is_valid(int c)
 {
@@ -56,7 +69,7 @@ char	parse_char(t_cub3d *cub3d, char c, int x, int y)
 	if (c == 'A')
 	{
 		add_back_monster(cub3d, new_monster((t_pointd){.x = x + 1 + 0.5, .y = y
-				+ 0.5}, 10));
+				+ 0.5}, M_HP));
 		c = '0';
 	}
 	return (c);

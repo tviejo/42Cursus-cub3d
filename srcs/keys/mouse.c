@@ -6,16 +6,17 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:12:01 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 04:39:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /* pourquoi mlx_mouse_hide() dans mouse_move() ?
-*/
+
 //if (MOUSE == 1)
 	//	mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
+*/
 
 void	mouse_move(t_cub3d *cub3d)
 {
@@ -35,7 +36,8 @@ void	mouse_move(t_cub3d *cub3d)
 	else
 	{
 		mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, &x1, &y1);
-		rotate_player(&cub3d->player, -(x1 - cub3d->inputs.mouse_x) * 0.001);
+		rotate_player(&cub3d->player, -(x1 - cub3d->inputs.mouse_x)
+			* M_SENSITIVITY);
 		cub3d->inputs.mouse_x = x1;
 		cub3d->inputs.mouse_y = y1;
 		x = x1;
@@ -49,7 +51,13 @@ int	mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 	(void)y;
 	if (button == 1)
 	{
-		cub3d->inputs.shoot = true;
+		if (cub3d->player.ammo > 0)
+		{
+			cub3d->inputs.shoot = true;
+			cub3d->inputs.has_fired = true;
+			cub3d->player.ammo--;
+			play_sound(SHOOT, cub3d);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

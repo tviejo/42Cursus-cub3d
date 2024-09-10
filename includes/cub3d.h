@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:17:02 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 05:09:12 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <X11/keysym.h>
 # include <math.h>
 # include <sys/time.h>
+# include <pthread.h>
 
-# define MOUSE_SHOWHIDE 1
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 //# define WINDOW_WIDTH 1360
@@ -37,12 +37,36 @@
 // le carré inclus de coté égal à la plus grande puissance de 2 sera exploité. 
 # define TEX_SIZE 512
 
-# define M_SPEED 0.05
+# define NO_SOUND 1 // 1 pour activer le son
+# define MOUSE_SHOWHIDE 1
+# define MOUSE 1 // 1 pour activer la gestion de la souris
+# define M_SENSITIVITY 0.0005
+
+# define M_HP 10
+# define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 1.8
 // radians par seconde
 # define ROT_SPEED 1.8
 
+# define B_SOUND "ffplay -nodisp -autoexit"
+# define MUSIC " assets/sounds/ambiance.mp3"
+# define SHOOT " assets/sounds/shoot.mp3"
+# define STEP " assets/sounds/step.mp3"
+# define DAMAGE " assets/sounds/damage.mp3"
+# define MONSTER_DEATH " assets/sounds/monster_death.mp3"
+# define MONSTER_DAMAGE " assets/sounds/monster_damage.mp3"
+# define MONSTER_CLOSE " assets/sounds/monster_close.mp3"
+# define MONSTER_CLOSE_2 " assets/sounds/monster_close_2.mp3"
+# define MONSTER_FAR " assets/sounds/monster_far.mp3"
+# define DOOR_OPEN " assets/sounds/door_open.mp3"
+# define DOOR_CLOSE " assets/sounds/door_close.mp3"
+# define E_SOUND " > /dev/null 2>&1 &"
+
+# define M_HIT_BOX 0.5
+
+# define GUN_TEXTURE "assets/textures/gun.xpm"
+# define FIRE_TEXTURE "assets/textures/fire.xpm"
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
 # define MAP_TAG_NORTH_TEX "NO"
@@ -62,7 +86,8 @@
 # define WEST_ANGLE 3.14159265358979323846
 # define EAST_ANGLE 0.0
 
-# define MAX_MONSTERS 50
+# define MAX_MONSTERS 10
+# define MAX_MONSTERS_PER_DIFFICULTY 2
 
 //#define _2PI_DIV_1024 6.13592315154256491887e-3
 
@@ -100,7 +125,8 @@ typedef enum e_keys
 	k_run = XK_Shift_L,
 	k_zoom_in = 65453,
 	k_zoom_out = 65451,
-	k_sw_rendering_mode = XK_r
+	k_sw_rendering_mode = XK_m,
+	k_reload = XK_r,
 }					t_keys;
 
 typedef enum e_page
@@ -129,14 +155,20 @@ typedef enum e_door_state
 	DOOR_OPENED,
 }					t_door_state;
 
-typedef struct s_monst
+typedef enum e_texture
 {
-	int				id;
-	t_pointd		pos;
-	int				hp;
-	int				random;
-	struct s_monst	*next;
-}					t_monsters;
+	GUN,
+	FIRE,
+}					t_texture;
+
+typedef struct s_monsters
+{
+	int					id;
+	t_pointd			pos;
+	int					hp;
+	int					random;
+	struct s_monsters	*next;
+}	t_monsters;
 
 typedef struct s_player_inputs
 {
@@ -166,6 +198,8 @@ typedef struct s_player_inputs
 	bool			k_right_2;
 	bool			k_run;
 	bool			shoot;
+	bool			has_fired;
+	bool			reload;
 }					t_player_inputs;
 
 /* type t_image is defined in ads_gfx.h
@@ -197,6 +231,7 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
+	t_image			text[2];
 	int				color_floor;
 	int				color_ceil;
 	// 'pixel' array seems useless, we can use 'mlx_img.pixels'
@@ -228,6 +263,7 @@ typedef struct s_player
 	// hauteur des yeux
 	double			view_height;
 	int				health;
+	int				ammo;
 }					t_player;
 
 typedef struct s_map
@@ -357,6 +393,7 @@ void				print_parsing(t_cub3d *cub3d);
 char				parse_char(t_cub3d *cub3d, char c, int x, int y);
 bool				is_texture(char *line);
 bool				is_color(char *line);
+int					load_textures(t_cub3d *c);
 int					check_parsing(t_cub3d *cub3d);
 void				add_back_monster(t_cub3d *cub, t_monsters *new);
 void				clear_monsters(t_cub3d *cub);
@@ -398,12 +435,14 @@ void				minimap_keys(t_cub3d *cub3d, int keycode);
 void				difficulty_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
 void				mouse_move(t_cub3d *cub3d);
+void				key_press_player_2(int keycode, t_player_inputs *inputs);
+void				key_release_player_2(int keycode, t_player_inputs *inputs);
 
 int					draw_minimap(t_cub3d *cub3d);
 void				print_wall(t_cub3d *cub, t_point pos);
 void				print_player(t_cub3d *cub);
-void				print_map_border(t_cub3d *cub, int r, int color);
 void				print_monsters(t_cub3d *cub);
+void				print_map_border(t_cub3d *cub, int r, int color);
 
 int					update_player_pos(t_cub3d *cub3d);
 void				rotate_player(t_player *p, double angle);
@@ -432,5 +471,11 @@ int					render_game_over_page(t_cub3d *cub3d);
 bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
 int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
+
+void				play_sound(char *sound, t_cub3d *cub);
+void				kill_sound(void);
+void				sound_close_monster(t_cub3d *cub);
+
+void				reload(t_cub3d *cub);
 
 #endif

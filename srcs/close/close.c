@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 11:04:52 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:01:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_close_cr(t_cub3d *cub3d)
 
 int	ft_close(t_cub3d *cub3d, char *errmsg)
 {
+	kill_sound();
 	if (errmsg)
 		ft_dprintf(2, errmsg);
 	clear_monsters(cub3d);

@@ -6,24 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 11:06:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 05:06:29 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	is_texture(char *line)
-{
-	while (line && *line == ' ')
-		line++;
-	return (begin_with_tag(line, MAP_TAG_NORTH_TEX)
-		|| begin_with_tag(line, MAP_TAG_SOUTH_TEX)
-		|| begin_with_tag(line, MAP_TAG_WEST_TEX)
-		|| begin_with_tag(line, MAP_TAG_EAST_TEX)
-		|| begin_with_tag(line, MAP_TAG_OPEN_DOOR_TEX)
-		|| begin_with_tag(line, MAP_TAG_CLOSED_DOOR_TEX)
-	);
-}
 
 static void	errmsg(char *msg, char *fname)
 {
@@ -51,6 +38,28 @@ static int	load_texture(void *mlx_ptr, char *tagval,
 	if (img->pixels == NULL)
 		return (errmsg("load_texture(): mlx_get_data_addr()", *filename),
 			EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+static int load_hud_textures(t_cub3d *c, char *tagval, t_texture texture)
+{
+	c->mlx.text[texture].ptr = mlx_xpm_file_to_image(c->mlx.mlx_ptr, tagval,
+			&c->mlx.text[texture].dim.width, &c->mlx.text[texture].dim.height);
+	if (c->mlx.text[texture].ptr != NULL)
+		c->mlx.text[texture].pixels = mlx_get_data_addr(c->mlx.text[texture].ptr,
+				&c->mlx.text[texture].bpp, &c->mlx.text[texture].line_size, &c->mlx.text[texture].endian);
+	if (c->mlx.text[texture].pixels == NULL)
+		return (errmsg("load_texture(): mlx_get_data_addr()", tagval),
+			EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	load_textures(t_cub3d *c)
+{
+	if (load_hud_textures(c, GUN_TEXTURE, GUN) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (load_hud_textures(c, FIRE_TEXTURE, FIRE) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
