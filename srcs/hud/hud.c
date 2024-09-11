@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 00:01:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:29:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ inline static void	put_pixel(t_image *img, int x, int y, int color)
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-static void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
+void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
 {
 	t_image	*tex;
 	t_point	dst;

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:28:37 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 02:04:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 21:33:27 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 /*
 void	copy_image_rect(t_image *dstimg, t_point dstpos, t_image *srcimg)
 {
