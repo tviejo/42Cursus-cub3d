@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:48:49 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:59:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	shoot_monsters(t_cub3d *cub)
 	int			random_angle;
 
 	random_angle = rand() % 2 - 1;
+	random_angle *= 0.1;
 	scan_in_front(cub, &info, random_angle);
 	if (info.item == '0' && cub->inputs.shoot)
 		remove_monster_hp(cub, info.mpos, info.distance);

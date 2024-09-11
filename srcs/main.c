@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:49:23 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:22:26 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	init_game(t_cub3d *cub)
 {
@@ -24,13 +24,14 @@ void	init_game(t_cub3d *cub)
 	cub->monsters = NULL;
 	cub->nb_monsters = 0;
 	cub->player.health = 100;
-	cub->player.ammo = 10; 
+	cub->player.ammo = 10;
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	cub->player.walk_distance = 0.0;
 	cub->player.walk_height_shift = 0.0;
 	cub->player.speed = 1.0;
 	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
+	srand(time(NULL));
 	mlx_init_data(cub);
 }
 
@@ -41,7 +42,8 @@ int	main(int argc, char **argv)
 
 	if (argc > 2)
 		return (ft_dprintf(2, "Error: please, provide zero (for default map) \
-or one argument: <map filename>\n"), 0);
+or one argument: <map filename>\n"),
+			0);
 	map_fname = MAP_DEFAULT_FNAME;
 	if (argc == 2)
 		map_fname = argv[1];

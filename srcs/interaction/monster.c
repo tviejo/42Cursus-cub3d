@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 18:41:43 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:19:00 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ bool	monster_is_present(t_cub3d *cub, t_pointd pos)
 			return (true);
 		m = m->next;
 	}
-
 	return (false);
 }
 
@@ -56,24 +55,28 @@ static void	add_monster_time(t_cub3d *cub)
 	}
 }
 
-static void lateral_move(t_cub3d *cub, t_monsters *m, int random)
+static void	lateral_move(t_cub3d *cub, t_monsters *m, int random)
 {
-	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y + cub->game.m_speed) == false && random == 4)
+	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y
+			+ cub->game.m_speed) == false && random == 4)
 	{
 		m->pos.x += cub->game.m_speed;
 		m->pos.y += cub->game.m_speed;
 	}
-	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y + cub->game.m_speed) == false && random == 5)
+	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y
+			+ cub->game.m_speed) == false && random == 5)
 	{
 		m->pos.x -= cub->game.m_speed;
 		m->pos.y += cub->game.m_speed;
 	}
-	else if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y - cub->game.m_speed) == false && random == 6)
+	else if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y
+			- cub->game.m_speed) == false && random == 6)
 	{
 		m->pos.x += cub->game.m_speed;
 		m->pos.y -= cub->game.m_speed;
 	}
-	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y - cub->game.m_speed) == false && random == 7)
+	else if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y
+			- cub->game.m_speed) == false && random == 7)
 	{
 		m->pos.x -= cub->game.m_speed;
 		m->pos.y -= cub->game.m_speed;
@@ -82,26 +85,30 @@ static void lateral_move(t_cub3d *cub, t_monsters *m, int random)
 
 static void	movement_monster(t_cub3d *cub, t_monsters *m)
 {
-	static int i = 0;
+	static int	i = 0;
 
 	if (i > 30)
 	{
 		i = 0;
 		m->random = rand() % 8;
 	}
-	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y) == false && m->random == 0)
+	if (is_wall(cub, m->pos.x + cub->game.m_speed, m->pos.y) == false
+		&& m->random == 0)
 		m->pos.x += cub->game.m_speed;
 	else if (m->random == 0)
 		m->random = rand() % 3 + 1;
-	if (is_wall(cub, m->pos.x, m->pos.y + cub->game.m_speed) == false && m->random == 1)
+	if (is_wall(cub, m->pos.x, m->pos.y + cub->game.m_speed) == false
+		&& m->random == 1)
 		m->pos.y += cub->game.m_speed;
 	else if (m->random == 1)
 		m->random = rand() % 2 + 2;
-	if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y) == false && m->random == 2)
+	if (is_wall(cub, m->pos.x - cub->game.m_speed, m->pos.y) == false
+		&& m->random == 2)
 		m->pos.x -= cub->game.m_speed;
 	else if (m->random == 2)
 		m->random = rand() % 1 + 3;
-	if (is_wall(cub, m->pos.x, m->pos.y - cub->game.m_speed) == false && m->random == 3)
+	if (is_wall(cub, m->pos.x, m->pos.y - cub->game.m_speed) == false
+		&& m->random == 3)
 		m->pos.y -= cub->game.m_speed;
 	else if (m->random == 3)
 		m->random = rand() % 4;
