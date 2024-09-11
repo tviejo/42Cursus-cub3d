@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:49:29 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:11:29 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:36:55 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	render_game_over_page(t_cub3d *cub3d)
 {
-	mlx_clear_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
-	mlx_string_put(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, 950, 500, 0xFF0000,
-		"Game Over: y to exit, n to start again");
+	mlx_put_image_to_window(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
+		cub3d->mlx.text[TXID_GAME_OVER].ptr, 0, 0);
 	return (0);
 }
 //if (MOUSE == 1)
