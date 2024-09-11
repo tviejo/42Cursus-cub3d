@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 22:48:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 23:49:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@
 // 1 pour activer le son
 # define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 1 
+# define MOUSE_SHOWHIDE 1
+// 1 pour activer les fonts custom
+# define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
