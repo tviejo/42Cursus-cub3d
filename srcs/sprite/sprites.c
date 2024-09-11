@@ -6,11 +6,12 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:28:37 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 20:27:42 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:02:46 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 /*
 void	draw_monsters(t_cub3d *cub)
 {

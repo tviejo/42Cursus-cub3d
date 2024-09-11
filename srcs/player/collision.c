@@ -6,11 +6,11 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 19:34:04 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:21:36 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 bool	is_wall(t_cub3d *cub, int x, int y)
 {
@@ -26,8 +26,8 @@ static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
 {
 	double	i;
 
-	i = -0.0001;
-	while (i < 0.0002)
+	i = -0.0003;
+	while (i < 0.0004)
 	{
 		if (is_wall(cub, (int)(pos.x - i), (int)(pos.y + i)) == true)
 		{
@@ -51,11 +51,11 @@ static int	find_wall_between_two_pos(t_cub3d *cub, t_pointd old_pos,
 	t_pointd	pos;
 	int			i;
 
-	inc.x = (new_pos.x - old_pos.x) / 100;
-	inc.y = (new_pos.y - old_pos.y) / 100;
+	inc.x = (new_pos.x - old_pos.x) / 200;
+	inc.y = (new_pos.y - old_pos.y) / 200;
 	pos = old_pos;
 	i = 0;
-	while (i < 100)
+	while (i < 200)
 	{
 		pos.x += inc.x;
 		pos.y += inc.y;
@@ -68,6 +68,8 @@ static int	find_wall_between_two_pos(t_cub3d *cub, t_pointd old_pos,
 
 t_pointd	collides_wall(t_cub3d *cub, t_pointd old_pos)
 {
+	if (old_pos.x == cub->player.pos.x && old_pos.y == cub->player.pos.y)
+		return (cub->player.pos);
 	find_wall_between_two_pos(cub, old_pos, cub->player.pos);
 	return (cub->player.pos);
 }

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:30:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:48:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	key_press(int keycode, t_cub3d *cub3d)
 	}
 	if (keycode == XK_Escape)
 		set_game_state(cub3d, EXIT_PAGE);
-	if (keycode == XK_space && cub3d->game.page == LANDING_PAGE)
+	if (keycode == k_enter && cub3d->game.page == LANDING_PAGE)
 		set_game_state(cub3d, GAME_PAGE);
 	if (keycode == XK_n && cub3d->game.page == EXIT_PAGE)
 		set_game_state(cub3d, GAME_PAGE);

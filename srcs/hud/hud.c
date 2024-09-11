@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 23:53:41 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:12:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,20 @@ static void	print_remaining_ammo(t_cub3d *cub)
 {
 	char	*info;
 
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50,
-		WINDOW_HEIGHT - 150, COL_WHITE, "Ammo:");
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT - 150,
+		COL_WHITE, "Ammo:");
 	info = ft_itoa(cub->player.ammo);
 	if (cub->player.ammo <= 5)
 	{
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100,
-			WINDOW_HEIGHT - 150, COL_RED, info);
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+			- 150, COL_RED, info);
 		if (cub->player.ammo == 0)
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50,
-				WINDOW_HEIGHT - 120, COL_WHITE, "press R to reload");
+			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT
+				- 120, COL_WHITE, "press R to reload");
 	}
 	else
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100,
-			WINDOW_HEIGHT - 150, COL_WHITE, info);
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+			- 150, COL_WHITE, info);
 	free(info);
 }
 

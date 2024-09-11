@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 00:18:59 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 23:54:11 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	mlx_start(t_cub3d *cub3d)
 			WINDOW_HEIGHT, "cub3D");
 	if (cub3d->mlx.win_ptr == NULL)
 		return (EXIT_FAILURE);
+	if (CUSTOM_FONT == 1)
+		mlx_set_font(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, "10*20");
 	return (EXIT_SUCCESS);
 }
 
@@ -41,7 +43,7 @@ void	mlx_free_textures(t_mlx *mlx)
 	if (mlx->closed_door_tex.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->closed_door_tex.ptr);
 	i = TXID_GUN;
-	while (i <= TXID_GUN_RELOAD)
+	while (i <= TXID_EXIT)
 	{
 		if (mlx->text[i].ptr != NULL)
 			mlx_destroy_image(mlx->mlx_ptr, mlx->text[i].ptr);

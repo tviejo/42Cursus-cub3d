@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 01:28:04 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 15:45:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:13:53 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ int	load_hud_textures(t_cub3d *c)
 		return (EXIT_FAILURE);
 	if (load_texture(mlxptr, IMG_RELOAD, &tx[TXID_GUN_RELOAD])
 		== EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (load_texture(mlxptr, IMG_GAME_OVER, &tx[TXID_GAME_OVER])
+		== EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (load_texture(mlxptr, IMG_LANDING, &tx[TXID_LANDING])
+		== EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (load_texture(mlxptr, IMG_EXIT, &tx[TXID_EXIT]) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:35:15 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:55:23 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:19:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	play_sound(char *sound, t_cub3d *cub)
 
 	(void)cub;
 	(void)pid;
-
 	if (SOUND_SUPPORT == 0)
 		return ;
 	first_cmd = ft_strjoin(B_SND_PLAYER, sound);
@@ -35,7 +34,7 @@ void	play_sound(char *sound, t_cub3d *cub)
 
 void	kill_sound(void)
 {
-	int status;
+	int	status;
 
 	if (SOUND_SUPPORT == 0)
 		return ;

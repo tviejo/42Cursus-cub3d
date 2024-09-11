@@ -4,3 +4,6 @@
 [submodule "libft"]
 	path = libft
 	url = git@github.com:tviejo/42Libft-Enhanced.git
+[submodule "Cub3D_Map_Generator"]
+	path = Cub3D_Map_Generator
+	url = git@github.com:tviejo/Cub3D_Map_Generator.git

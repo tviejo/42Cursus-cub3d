@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 23:45:48 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 00:15:29 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@
 // 1 pour activer le son
 # define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 1 
+# define MOUSE_SHOWHIDE 1
+// 1 pour activer les fonts custom
+# define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
@@ -77,12 +79,15 @@
 
 # define M_HIT_BOX 0.5
 
+# define PATH_SPR_MONSTER1 "assets/textures/monster_mummie_"
+# define NBIMG_SPR_MONSTER1 4
+
 # define IMG_GUN "assets/textures/gun.xpm"
 # define IMG_RELOAD "assets/textures/reload.xpm"
 # define IMG_FIRE "assets/textures/fire.xpm"
-
-# define PATH_SPR_MONSTER1 "assets/textures/monster_mummie_"
-# define NBIMG_SPR_MONSTER1 4
+# define IMG_GAME_OVER "assets/textures/game_over.xpm"
+# define IMG_LANDING "assets/textures/landing.xpm"
+# define IMG_EXIT "assets/textures/exit.xpm"
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
@@ -146,6 +151,7 @@ typedef enum e_keys
 	k_reload = XK_r,
 	k_sit = XK_c,
 	k_lie_down = XK_x,
+	k_enter = 65293,
 }					t_keys;
 
 typedef enum e_page
@@ -179,7 +185,9 @@ typedef enum e_tex_id
 	TXID_GUN,
 	TXID_FIRE,
 	TXID_GUN_RELOAD,
-	TXID_SPRITES
+	TXID_GAME_OVER,
+	TXID_LANDING,
+	TXID_EXIT,
 }					t_tex_id;
 
 typedef enum e_sprite_id
@@ -268,8 +276,9 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
-	int				nb_textures;
-	t_image			text[MAX_TEXTURES];
+	//int				nb_textures;
+	//t_image			text[MAX_TEXTURES];
+	t_image			text[6];
 	int				color_floor;
 	int				color_ceil;
 	// Z-buffer des tranches de murs exloite pour le rendu des sprites
@@ -486,6 +495,7 @@ int					render_landing_page(t_cub3d *cub3d);
 int					render_game_page(t_cub3d *cub3d);
 void				update_time_n_draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
+void				draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid);
 
 // void			render_background(t_cub3d *cub3d, int color);
 
