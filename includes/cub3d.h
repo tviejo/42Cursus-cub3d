@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 12:21:52 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 23:45:48 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 // le carré inclus de coté égal à la plus grande puissance de 2 sera exploité. 
 # define TEX_SIZE 512
 
+# define MAX_TEXTURES 30
+# define MAX_SPRITES 30
+
 // 1 pour activer le son
 # define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
@@ -53,10 +56,10 @@
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"
 //# define SND_MUSIC "-volume 45 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
-# define SND_MUSIC "-volume 75 'assets/sounds/BO Solaris - Wear Your Seat Belt.mp3'"
-
+# define SND_MUSIC "-volume 75 'assets/sounds/BO Solaris - Wear Your Seat Belt\
+.mp3'"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
-# define SND_STEP "assets/sounds/step.mp3"
+# define SND_STEP "-volume 40 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"
 # define SND_MONSTER_DEATH "assets/sounds/monster_death.mp3"
 # define SND_MONSTER_DAMAGE "assets/sounds/monster_damage.mp3"
@@ -74,9 +77,13 @@
 
 # define M_HIT_BOX 0.5
 
-# define GUN_TEXTURE "assets/textures/gun.xpm"
-# define RELOAD_TEXTURE "assets/textures/reload.xpm"
-# define FIRE_TEXTURE "assets/textures/fire.xpm"
+# define IMG_GUN "assets/textures/gun.xpm"
+# define IMG_RELOAD "assets/textures/reload.xpm"
+# define IMG_FIRE "assets/textures/fire.xpm"
+
+# define PATH_SPR_MONSTER1 "assets/textures/monster_mummie_"
+# define NBIMG_SPR_MONSTER1 4
+
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
 # define MAP_TAG_NORTH_TEX "NO"
@@ -172,7 +179,13 @@ typedef enum e_tex_id
 	TXID_GUN,
 	TXID_FIRE,
 	TXID_GUN_RELOAD,
+	TXID_SPRITES
 }					t_tex_id;
+
+typedef enum e_sprite_id
+{
+	SPR_MONSTER1
+}	t_sprite_id;
 
 typedef struct s_monsters
 {
@@ -183,6 +196,20 @@ typedef struct s_monsters
 	double				dist2_to_player;
 	struct s_monsters	*next;
 }	t_monsters;
+
+
+typedef struct s_sprite_img
+{
+	t_image		img;
+	// hot spot: quand un sprite est affiché en (x,y) il sera centré sur son hotspot
+	t_point		hspot;
+}	t_sprite_img;
+
+typedef struct s_sprite
+{
+	int				nb_images;
+	t_sprite_img	*images;
+}	t_sprite;
 
 typedef struct s_player_inputs
 {
@@ -241,7 +268,8 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
-	t_image			text[3];
+	int				nb_textures;
+	t_image			text[MAX_TEXTURES];
 	int				color_floor;
 	int				color_ceil;
 	// Z-buffer des tranches de murs exloite pour le rendu des sprites
@@ -312,6 +340,8 @@ typedef struct s_cub3d
 	t_player		player;
 	int				nb_monsters;
 	t_monsters		*monsters;
+	int				nb_sprites;
+	t_sprite		sprites[MAX_SPRITES];
 	t_mlx			mlx;
 	t_map			map;
 	t_game			game;
@@ -386,6 +416,22 @@ typedef struct s_scaninfo
 	// distance précise du joueur à l'élément trouvé
 	double		distance;
 }	t_scaninfo;
+
+typedef struct s_copy_img
+{
+	t_image		*srcimg;
+	t_image		*dstimg;
+	t_point		srcpos;
+	t_point		dstpos;
+	// dimensions of rectangle to copy after clipping
+	t_size2i	dim;
+}	t_copy_img;
+
+typedef struct s_src_dst_x0
+{
+	int			src;
+	int			dst;
+}	t_src_dst_x0;
 
 
 void				set_game_state(t_cub3d *cub, t_page newstate);
@@ -491,6 +537,11 @@ void				sound_close_monster(t_cub3d *cub);
 
 void				reload(t_cub3d *cub);
 void				change_height_player(t_cub3d *cub, double height);
+
+void				copy_image(t_image *srcimg, t_point srcpos,
+						t_image *dstimg, t_point dstpos);
+int					load_sprites(t_cub3d *c);
+void				free_sprites(t_cub3d *c);
 
 void				quicksort(void **tab, int nb_elem);
 void				quicksort_int(int *tab, int nb_elem);

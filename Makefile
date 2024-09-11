@@ -11,7 +11,9 @@ SRCS		+= draw/put_pixel.c
 SRCS		+= draw/rectangle.c
 
 SRCS		+= sprite/sprites.c
+SRCS		+= sprite/load.c
 SRCS		+= sprite/load_texture.c
+SRCS		+= sprite/copy_image.c
 SRCS		+= sprite/quicksort.c
 
 SRCS		+= ray_caster/render_frame.c

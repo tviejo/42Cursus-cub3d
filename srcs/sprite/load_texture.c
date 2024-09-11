@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 23:36:46 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 01:27:51 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:11:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ static void	errmsg(char *msg, char *fname)
 
 int	load_texture(void *mlx_ptr, char *filename,	t_image *img)
 {
-	if (img->ptr)
-		return (errmsg("load_texture(): already loaded (check the map file !)",
-				filename), EXIT_FAILURE);
 	img->ptr = mlx_xpm_file_to_image(mlx_ptr, filename,
 			&img->dim.width, &img->dim.height);
 	if (img->ptr == NULL)

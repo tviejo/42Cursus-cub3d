@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:49:23 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:00:57 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	init_game(t_cub3d *cub)
 	mlx_init_data(cub);
 }
 
+int	load_resources(t_cub3d *c)
+{
+	if (load_hud_textures(c) == EXIT_FAILURE)
+		return (ft_dprintf(2, "load_hud_textures() fails !\n"), EXIT_FAILURE);
+	if (load_sprites(c) == EXIT_FAILURE)
+		return (ft_dprintf(2, "load_sprites() fails !\n"), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	cub;
@@ -50,8 +59,8 @@ or one argument: <map filename>\n"), 0);
 		ft_close(&cub, "mlx_start() fails !\n");
 	if (parse_cub3d(map_fname, &cub) == EXIT_FAILURE)
 		ft_close(&cub, "parse_cub3d() fails !\n");
-	if (load_hud_textures(&cub) == EXIT_FAILURE)
-		ft_close(&cub, "load_hud_textures() fails !\n");
+	if (load_resources(&cub) == EXIT_FAILURE)
+		ft_close(&cub, "load_resources() fails !\n");
 	if (mlx_create_img(&cub) == EXIT_FAILURE)
 		ft_close(&cub, "mlx_create_img() fails !\n");
 	init_keys(&cub);
