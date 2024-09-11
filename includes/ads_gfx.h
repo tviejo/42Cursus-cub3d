@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/09 08:58:27 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 00:12:05 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@
 # define COL_ORANGE   0xFFff7f00
 # define TRANSPARENT	0x50000000
 
-# define NUMBER_OF_COMMAND 14
+/*# define NUMBER_OF_COMMAND 14
 # define NUM_OF_KEY_MOD 6
 // Power of two
 # define PAL_NUM_COLORS 1024
 # define PALNB			1023
 # define INFOBAR_HEIGHT 20
+*/
 
 /*
 enum e_keymod
@@ -241,7 +242,7 @@ typedef struct s_hue_range
 	double	direction;
 }	t_hue_range;
 
-typedef struct s_matrix
+/*typedef struct s_matrix
 {
 	double	m11;
 	double	m12;
@@ -275,9 +276,9 @@ typedef struct s_matrix_inv
 	double	s3;
 	double	s4;
 	double	s5;
-}	t_matrix_inv;
+}	t_matrix_inv;*/
 
-typedef struct s_fdfmap
+/*typedef struct s_fdfmap
 {
 	t_size2i	dim;
 	t_range3d	range;
@@ -304,7 +305,7 @@ typedef struct s_fdfmap
 	double		palidx0;
 	double		palidx_inc;
 	double		palnbc_div_zrange;
-}	t_fdfmap;
+}	t_fdfmap;*/
 
 /*typedef struct s_map_load
 {
@@ -328,7 +329,7 @@ typedef struct s_image
 	t_size2i	dim;
 }	t_image;
 
-typedef struct s_app
+/*typedef struct s_app
 {
 	union
 	{
@@ -350,15 +351,15 @@ typedef struct s_app
 	int			frame;
 	t_time_ms	time0;
 	t_duree_ms	duree;
-}	t_app;
+}	t_app;*/
 
 void		amlx_set_win_minmax(t_xvar *xvar, Window win,
 				t_size2i min, t_size2i max);
-void		amlx_enable_win_resizing(t_app *app);
-int			amlx_create_img_buffer(t_app *app, int width, int height);
+//void		amlx_enable_win_resizing(t_app *app);
+//int			amlx_create_img_buffer(t_app *app, int width, int height);
 void		amlx_get_win_size(void *mlx, void *win, int *width, int *height);
-void		amlx_update_app_img_size(t_app *app);
-int			amlx_free_and_exit(t_app *app);
+//void		amlx_update_app_img_size(t_app *app);
+//int			amlx_free_and_exit(t_app *app);
 
 t_time_ms	get_time(void);
 t_duree_ms	get_duree(t_time_ms time0);
@@ -375,8 +376,8 @@ void		draw_v_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
 void		draw_line_fast(t_image *img, t_pt2d *p0, t_pt2d *p1);
 void		draw_line_safe(t_image *img, t_pt2d p0, t_pt2d p1);
 void		draw_line_color(t_image *img, t_pt2d *p0, t_pt2d *p1);
-void		draw_line_palette(t_fdfmap *map, t_image *img, t_pt2d *p0,
-				t_pt2d *p1);
+/*void		draw_line_palette(t_fdfmap *map, t_image *img, t_pt2d *p0,
+				t_pt2d *p1);*/
 void		draw_line(t_image *img, t_pt2d p0, t_pt2d p1);
 
 int			get_inter_color(int c1, int c2, double ramp);
@@ -388,7 +389,7 @@ void		img_fill128(t_image *img, int color);
 
 void		fill_rectangle(t_image *img, t_rect rc, int color);
 
-void		mat_set_identity(t_matrix *mat);
+/*void		mat_set_identity(t_matrix *mat);
 t_matrix	mat_mul(t_matrix a, t_matrix b);
 t_matrix	mat_get_inverse(t_matrix *mat);
 void		mat_translate(t_matrix *mat, double x, double y, double z);
@@ -403,5 +404,5 @@ t_matrix	mat_ortho_project(double fov, double aspect,
 t_matrix	mat_persp_project(double fov, double aspect,
 				double near, double far);
 void		set_viewport(t_fdfmap *map, t_size2i dim, t_point offset);
-
+*/
 #endif

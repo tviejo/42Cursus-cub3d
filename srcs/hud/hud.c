@@ -6,13 +6,13 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 13:04:49 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 00:01:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	print_cross(t_cub3d *cub)
+static void	draw_cross(t_cub3d *cub)
 {
 	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = WINDOW_WIDTH / 2 - 20,
 		.y = WINDOW_HEIGHT / 2, .color = COL_GREEN}, (t_pt2d){.x = WINDOW_WIDTH
@@ -35,14 +35,14 @@ inline static void	put_pixel(t_image *img, int x, int y, int color)
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-static void	print_texture(t_cub3d *cub, t_point pos, t_texture texture)
+static void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
 {
 	t_image	*tex;
 	t_point	dst;
 	t_point	src;
 	int		pixel;
 
-	tex = &cub->mlx.text[texture];
+	tex = &cub->mlx.text[texid];
 	dst.x = pos.x - tex->dim.width;
 	while (dst.x < pos.x)
 	{
@@ -60,7 +60,7 @@ static void	print_texture(t_cub3d *cub, t_point pos, t_texture texture)
 	}
 }
 
-static void print_remaining_ammo(t_cub3d *cub)
+static void	print_remaining_ammo(t_cub3d *cub)
 {
 	char	*info;
 
@@ -81,7 +81,7 @@ static void print_remaining_ammo(t_cub3d *cub)
 	free(info);
 }
 
-void	print_hud(t_cub3d *cub)
+void	draw_hud(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	static int				i = 0;
@@ -96,14 +96,14 @@ void	print_hud(t_cub3d *cub)
 		i = 0;
 	}
 	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
-		print_texture(cub, (t_point){.x = 0.77 * pos.x, .y = 0.8 * pos.y},
-			FIRE);
+		draw_texture(cub, (t_point){.x = 0.77 * pos.x, .y = 0.8 * pos.y},
+			TXID_FIRE);
 	if (cub->inputs.reload)
-		print_texture(cub, pos, RELOAD);
+		draw_texture(cub, pos, TXID_GUN_RELOAD);
 	else
-		print_texture(cub, pos, GUN);
-	print_cross(cub);
-	print_health_bar(cub);
+		draw_texture(cub, pos, TXID_GUN);
+	draw_cross(cub);
+	draw_health_bar(cub);
 	print_remaining_ammo(cub);
 	i++;
 }

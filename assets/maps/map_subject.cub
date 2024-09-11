@@ -23,8 +23,8 @@ EA ./assets/textures/EGS_AlienIsolation_CreativeAssembly_S5-512x512.xpm
 closedDoorTex ./assets/textures/porte 512x512.xpm
 #closedDoorTex ./assets/textures/door-leading-magical-world-512x512.xpm
 
-#animSprite format: id, nb_images, path
-animSprite MONSTER_1, 4, ./assets/textures/.xpm
+#animSprite format: tex_id, format, nb_images, path_of_first_texture_without_number_nor_ext
+animSprite MONSTER_1, 4, XPM, ./assets/textures/monster_mummie_
 
 
 # Colors: Floor and Ceil colors (r,g,b) [0-255]:

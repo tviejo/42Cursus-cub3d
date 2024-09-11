@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 20:14:53 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:21:52 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
 // le carré inclus de coté égal à la plus grande puissance de 2 sera exploité. 
 # define TEX_SIZE 512
 
-# define NO_SOUND 1 // 1 pour activer le son
-# define MOUSE_SHOWHIDE 1
-# define MOUSE 1 // 1 pour activer la gestion de la souris
+// 1 pour activer le son
+# define SOUND_SUPPORT 1
+// 1 pour activer la gestion show/hide de la souris
+# define MOUSE_SHOWHIDE 1 
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
@@ -49,23 +50,26 @@
 // radians par seconde
 # define ROT_SPEED 2.0
 
-# define B_SOUND "ffplay -nodisp -autoexit"
-# define MUSIC " assets/sounds/ambiance.mp3"
-# define SHOOT " assets/sounds/shoot.mp3"
-# define STEP " assets/sounds/step.mp3"
-# define DAMAGE " assets/sounds/damage.mp3"
-# define MONSTER_DEATH " assets/sounds/monster_death.mp3"
-# define MONSTER_DAMAGE " assets/sounds/monster_damage.mp3"
-# define MONSTER_CLOSE " assets/sounds/monster_close.mp3"
-# define MONSTER_CLOSE_2 " assets/sounds/monster_close_2.mp3"
-# define MONSTER_FAR " assets/sounds/monster_far.mp3"
-# define DOOR_OPEN " assets/sounds/door_open.mp3"
-# define DOOR_CLOSE " assets/sounds/door_close.mp3"
-# define EMPTY " assets/sounds/empty.mp3"
-# define RELOAD_SOUND " assets/sounds/reload.mp3"
-# define YOU_DIED " assets/sounds/you_died.mp3"
-# define WELCOME " assets/sounds/welcome.mp3"
-# define GOOD_LUCK " assets/sounds/good_luck.mp3"
+# define B_SND_PLAYER "ffplay -nodisp -autoexit "
+//# define SND_MUSIC "assets/sounds/ambiance.mp3"
+//# define SND_MUSIC "-volume 45 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
+# define SND_MUSIC "-volume 75 'assets/sounds/BO Solaris - Wear Your Seat Belt.mp3'"
+
+# define SND_SHOOT "assets/sounds/shoot.mp3"
+# define SND_STEP "assets/sounds/step.mp3"
+# define SND_DAMAGE "assets/sounds/damage.mp3"
+# define SND_MONSTER_DEATH "assets/sounds/monster_death.mp3"
+# define SND_MONSTER_DAMAGE "assets/sounds/monster_damage.mp3"
+# define SND_MONSTER_CLOSE "assets/sounds/monster_close.mp3"
+# define SND_MONSTER_CLOSE_2 "assets/sounds/monster_close_2.mp3"
+# define SND_MONSTER_FAR "assets/sounds/monster_far.mp3"
+# define SND_DOOR_OPEN "assets/sounds/door_open.mp3"
+# define SND_DOOR_CLOSE "assets/sounds/door_close.mp3"
+# define SND_EMPTY "assets/sounds/empty.mp3"
+# define SND_RELOAD "assets/sounds/reload.mp3"
+# define SND_YOU_DIED "assets/sounds/you_died.mp3"
+# define SND_WELCOME "assets/sounds/welcome.mp3"
+# define SND_GOOD_LUCK "assets/sounds/good_luck.mp3"
 # define E_SOUND " > /dev/null 2>&1 &"
 
 # define M_HIT_BOX 0.5
@@ -163,12 +167,12 @@ typedef enum e_door_state
 	DOOR_OPENED,
 }					t_door_state;
 
-typedef enum e_texture
+typedef enum e_tex_id
 {
-	GUN,
-	FIRE,
-	RELOAD,
-}					t_texture;
+	TXID_GUN,
+	TXID_FIRE,
+	TXID_GUN_RELOAD,
+}					t_tex_id;
 
 typedef struct s_monsters
 {
@@ -356,7 +360,7 @@ typedef struct s_raycast
 	double			h_dist_inc;
 }					t_raycast;
 
-typedef struct s_render_textured
+typedef struct s_render_tex
 {
 	int			height;
 	int			y0;
@@ -371,7 +375,7 @@ typedef struct s_render_textured
 	double		shade;
 	// wall distance
 	double		w_dist;
-}	t_render_textured;
+}	t_render_tex;
 
 typedef struct s_scaninfo
 {
@@ -400,7 +404,7 @@ void				print_parsing(t_cub3d *cub3d);
 char				parse_char(t_cub3d *cub3d, char c, int x, int y);
 bool				is_texture(char *line);
 bool				is_color(char *line);
-int					load_textures(t_cub3d *c);
+int					load_hud_textures(t_cub3d *c);
 int					check_parsing(t_cub3d *cub3d);
 void				add_back_monster(t_cub3d *cub, t_monsters *new);
 void				clear_monsters(t_cub3d *cub);
@@ -414,19 +418,22 @@ int					mlx_create_img(t_cub3d *cub3d);
 int					mlx_looping(t_cub3d *cub3d);
 int					ft_free_img(t_mlx *mlx);
 int					ft_init_img(t_mlx *mlx);
-void				img_pix_put(t_image *img, t_uint x, t_uint y, int color);
+//void				img_pix_put(t_image *img, t_uint x, t_uint y, int color);
 int					ft_close(t_cub3d *cub3d, char *errmsg);
 int					ft_close_cr(t_cub3d *cub3d);
+
+int					load_texture(void *mlx_ptr, char *filename,	t_image *img);
 
 void				render_frame(t_cub3d *cub);
 void				render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem);
 void				render_ray_textured(t_cub3d *c, t_raycast *r, int wallitem);
 int					render_ray_tex_init(t_cub3d *c, t_raycast *rc,
-						t_render_textured *r, int item);
+						t_render_tex *r, int item);
 void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
 void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
 int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
-int					scanner(t_cub3d *cub, t_scaninfo *si, double angle, t_pointd pos);
+int					scanner(t_cub3d *cub, t_scaninfo *si, double angle,
+						t_pointd pos);
 
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
@@ -467,8 +474,8 @@ t_image				*get_wall_texture(t_cub3d *cub, t_directions orientation,
 						double distance, int item);
 void				draw_floor_n_ceil(t_cub3d *c);
 
-void				print_hud(t_cub3d *cub);
-void				print_health_bar(t_cub3d *cub);
+void				draw_hud(t_cub3d *cub);
+void				draw_health_bar(t_cub3d *cub);
 
 void				update_health(t_cub3d *cub);
 

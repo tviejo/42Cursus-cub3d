@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 16:24:42 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 00:18:59 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	mlx_free_textures(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->open_door_tex.ptr);
 	if (mlx->closed_door_tex.ptr != NULL)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->closed_door_tex.ptr);
-	i = GUN;
-	while (i <= RELOAD)
+	i = TXID_GUN;
+	while (i <= TXID_GUN_RELOAD)
 	{
 		if (mlx->text[i].ptr != NULL)
 			mlx_destroy_image(mlx->mlx_ptr, mlx->text[i].ptr);
@@ -64,7 +64,7 @@ int	mlx_close(t_mlx *mlx)
 	return (EXIT_SUCCESS);
 }
 
-void	img_pix_put(t_image *img, t_uint x, t_uint y, int color)
+/*void	img_pix_put(t_image *img, t_uint x, t_uint y, int color)
 {
 	char	*pixel;
 	int		i;
@@ -83,7 +83,7 @@ void	img_pix_put(t_image *img, t_uint x, t_uint y, int color)
 			i -= 8;
 		}
 	}
-}
+}*/
 
 /*
 void	render_background(t_cub3d *cub3d, int color)

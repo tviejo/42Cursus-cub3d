@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   health_bar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 21:23:20 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 00:03:14 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_health_bar(t_cub3d *cub)
+void	draw_health_bar(t_cub3d *cub)
 {
 	static const int	colors[] = {COL_RED, COL_ORANGE, COL_YELLOW, COL_GREEN,
 		COL_GREEN};

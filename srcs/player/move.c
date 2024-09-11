@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 19:38:21 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:50:07 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 	{
 		sound_trigger = false;
 		old_height = pl->walk_height_shift;
-		play_sound(STEP, cub);
+		play_sound(SND_STEP, cub);
 	}
 	else if (pl->walk_height_shift < old_height)
 		sound_trigger = true;

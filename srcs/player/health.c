@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   health.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:49:08 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:51:16 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	update_health(t_cub3d *cub)
 		if (is_close_to_enemy(cub))
 		{
 			cub->player.health -= 10;
-			play_sound(DAMAGE, cub);
+			play_sound(SND_DAMAGE, cub);
 		}
 		else if (cub->player.health < 100)
 			cub->player.health++;
 	}
 	if (cub->player.health <= 0)
 	{
-		play_sound(YOU_DIED, cub);
+		play_sound(SND_YOU_DIED, cub);
 		set_game_state(cub, GAME_OVER_PAGE);
 	}
 }

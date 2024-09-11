@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 23:23:32 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 17:01:10 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 23:22:34 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	get_tex_x(t_raycast *r, double scale)
 	return ((r->mapc.y + 1 - r->wall_inter.y) * scale);
 }
 
-int	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_textured *r,
+int	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_tex *r,
 							int item)
 {
 	r->w_dist = get_wall_distance(c, rc);

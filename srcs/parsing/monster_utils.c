@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 16:14:30 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:48:33 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	delete_monster(t_cub3d *cub, int id)
 			else
 				cub->monsters = tmp->next;
 			free(tmp);
-			play_sound(MONSTER_DEATH, cub);
+			play_sound(SND_MONSTER_DEATH, cub);
 			return ;
 		}
 		prev = tmp;

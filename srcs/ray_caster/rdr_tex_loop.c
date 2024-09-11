@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 03:47:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 16:38:01 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/10 23:22:34 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ inline int	get_shaded_color(int color, double shade, int item)
 
 void	render_ray_textured(t_cub3d *c, t_raycast *rc, int item)
 {
-	t_render_textured	r;
+	t_render_tex	r;
 
 	if (render_ray_tex_init(c, rc, &r, item) == EXIT_FAILURE)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:41:19 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:51:22 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:51:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_game_state(t_cub3d *cub, t_page newstate)
 	}
 	cub->game.page = newstate;
 	if (newstate == GAME_PAGE)
-		play_sound(GOOD_LUCK, cub);
+		play_sound(SND_GOOD_LUCK, cub);
 }
 
 static void	reset_keys(t_cub3d *cub3d)

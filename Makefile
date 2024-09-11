@@ -10,6 +10,10 @@ SRCS		+= draw/image_fill.c
 SRCS		+= draw/put_pixel.c
 SRCS		+= draw/rectangle.c
 
+SRCS		+= sprite/sprites.c
+SRCS		+= sprite/load_texture.c
+SRCS		+= sprite/quicksort.c
+
 SRCS		+= ray_caster/render_frame.c
 SRCS		+= ray_caster/render_colored.c
 SRCS		+= ray_caster/render_textured.c
@@ -67,9 +71,9 @@ SRCS		+= interaction/door.c
 SRCS		+= interaction/monster.c
 SRCS		+= interaction/monster_utils.c
 
-
 SRCS		+= hud/hud.c
 SRCS		+= hud/health_bar.c
+SRCS		+= hud/load_images.c
 
 SRCS		+= game_over_page/game_over.c
 
@@ -151,7 +155,7 @@ ${NAME}: 		${OBJS}
 
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
-				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/ $(OBJ_DIR)interaction/ $(OBJ_DIR)hud/ $(OBJ_DIR)game_over_page/ $(OBJ_DIR)sound/
+				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)sprite/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/ $(OBJ_DIR)interaction/ $(OBJ_DIR)hud/ $(OBJ_DIR)game_over_page/ $(OBJ_DIR)sound/
 				$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

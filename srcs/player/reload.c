@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reload.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:06:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 12:21:10 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:49:09 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	reload(t_cub3d *cub3d)
 	{
 		if (sound_played == false)
 		{
-			play_sound(RELOAD_SOUND, cub3d);
+			play_sound(SND_RELOAD, cub3d);
 			sound_played = true;
 		}
 		if (cub3d->player.ammo < 10)
