@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:50:07 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:24:58 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	change_height_player(t_cub3d *cub, double height)
 static void	translate_player(t_cub3d *cub, double x, double y)
 {
 	const double	speed_mul = (1.0 + (int)cub->inputs.run)
-			* cub->player.speed;
+		* cub->player.speed;
 	double			dist;
-	t_player *const pl = &cub->player;
-	static int old_height = 0;
-	static bool sound_trigger = true;
+	static int		old_height = 0;
+	static bool		sound_trigger = true;
+	t_player *const	pl = &cub->player;
 
 	dist = cub->game.frame_time * TRANS_SPEED;
 	pl->walk_distance += dist;
@@ -57,7 +57,8 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 
 static void	translation(t_cub3d *cub)
 {
-	t_player *const pl = &cub->player;
+	t_player *const	pl = &cub->player;
+
 	if (cub->inputs.mv_left)
 		translate_player(cub, cos(pl->dir + M_PI_2), sin(pl->dir + M_PI_2));
 	if (cub->inputs.mv_right)

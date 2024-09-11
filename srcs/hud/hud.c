@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 21:29:32 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:23:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
 	while (dst.x < pos.x)
 	{
 		src.x = dst.x - (pos.x - tex->dim.width);
-		dst.y = pos.y - tex->dim.height ;
+		dst.y = pos.y - tex->dim.height;
 		while (dst.y < pos.y)
 		{
 			src.y = dst.y - (pos.y - tex->dim.height);
@@ -64,20 +64,20 @@ static void	print_remaining_ammo(t_cub3d *cub)
 {
 	char	*info;
 
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50,
-		WINDOW_HEIGHT - 150, COL_WHITE, "Ammo:");
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT - 150,
+		COL_WHITE, "Ammo:");
 	info = ft_itoa(cub->player.ammo);
 	if (cub->player.ammo <= 5)
 	{
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100,
-			WINDOW_HEIGHT - 150, COL_RED, info);
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+			- 150, COL_RED, info);
 		if (cub->player.ammo == 0)
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50,
-				WINDOW_HEIGHT - 120, COL_WHITE, "press R to reload");
+			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT
+				- 120, COL_WHITE, "press R to reload");
 	}
 	else
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100,
-			WINDOW_HEIGHT - 150, COL_WHITE, info);
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+			- 150, COL_WHITE, info);
 	free(info);
 }
 
@@ -85,9 +85,10 @@ void	draw_hud(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	static int				i = 0;
-	const t_point			pos = {	.x = 0.7 * cub->mlx.mlx_img.dim.width
-		+ 0.25 * cub->player.walk_height_shift,
-		.y = cub->mlx.mlx_img.dim.height + 0.5 * cub->player.walk_height_shift};
+	const t_point			pos = {.x = 0.7 * cub->mlx.mlx_img.dim.width + 0.25
+		* cub->player.walk_height_shift,
+		.y = cub->mlx.mlx_img.dim.height + 0.5
+		* cub->player.walk_height_shift};
 
 	if (cub->inputs.has_fired)
 	{

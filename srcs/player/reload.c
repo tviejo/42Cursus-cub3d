@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reload.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:06:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:49:09 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:20:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	reload(t_cub3d *cub3d)
 {
 	static struct timeval	last_time = {0, 0};
-	static bool sound_played = false;
+	static bool				sound_played = false;
 
 	if (cub3d->inputs.reload == true)
 	{
