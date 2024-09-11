@@ -35,7 +35,7 @@ inline static void	put_pixel(t_image *img, int x, int y, int color)
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-static void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
+void	draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid)
 {
 	t_image	*tex;
 	t_point	dst;

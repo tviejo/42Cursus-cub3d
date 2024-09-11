@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 12:21:52 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:48:33 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@
 # define GUN_TEXTURE "assets/textures/gun.xpm"
 # define RELOAD_TEXTURE "assets/textures/reload.xpm"
 # define FIRE_TEXTURE "assets/textures/fire.xpm"
+# define GAME_OVER_TEXTURE "assets/textures/game_over.xpm"
+# define LANDING_TEXTURE "assets/textures/landing.xpm"
+# define EXIT_TEXTURE "assets/textures/exit.xpm"
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
 # define MAP_TAG_NORTH_TEX "NO"
@@ -139,6 +142,7 @@ typedef enum e_keys
 	k_reload = XK_r,
 	k_sit = XK_c,
 	k_lie_down = XK_x,
+	k_enter = 65293,
 }					t_keys;
 
 typedef enum e_page
@@ -172,6 +176,9 @@ typedef enum e_tex_id
 	TXID_GUN,
 	TXID_FIRE,
 	TXID_GUN_RELOAD,
+	TXID_GAME_OVER,
+	TXID_LANDING,
+	TXID_EXIT,
 }					t_tex_id;
 
 typedef struct s_monsters
@@ -241,7 +248,7 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
-	t_image			text[3];
+	t_image			text[6];
 	int				color_floor;
 	int				color_ceil;
 	// Z-buffer des tranches de murs exloite pour le rendu des sprites
@@ -440,6 +447,7 @@ int					render_landing_page(t_cub3d *cub3d);
 int					render_game_page(t_cub3d *cub3d);
 void				update_time_n_draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
+void				draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid);
 
 // void			render_background(t_cub3d *cub3d, int color);
 
