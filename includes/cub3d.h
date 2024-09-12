@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 00:15:29 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:06:18 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@
 
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"
-//# define SND_MUSIC "-volume 45 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
-# define SND_MUSIC "-volume 75 'assets/sounds/BO Solaris - Wear Your Seat Belt\
-.mp3'"
+//# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
+//# define SND_MUSIC "-volume 65 'assets/sounds/BO-Solaris-WearYourSeatBelt.mp3'"
+# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
-# define SND_STEP "-volume 40 assets/sounds/step.mp3"
+# define SND_STEP "-volume 32 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"
 # define SND_MONSTER_DEATH "assets/sounds/monster_death.mp3"
 # define SND_MONSTER_DAMAGE "assets/sounds/monster_damage.mp3"
@@ -217,6 +217,22 @@ typedef struct s_sprite
 {
 	int				nb_images;
 	t_sprite_img	*images;
+	// facteur d'echelle
+	double			scale;
+	// ratio largeur/hauteur
+	double			ratio_w_h;
+	// position du sprite dans le jeu
+	t_pointd		pos;
+	// distance au joueur
+	double			dist;
+	// angle du sprite dans le champ de vision du joueur
+	double			angle;
+	// hauteur apparente en pixel (calcul rendu)
+	int				height;
+	// colonne pour le rendu d'une tranche
+	int				column;
+	//
+	double			x_spot;
 }	t_sprite;
 
 typedef struct s_player_inputs
@@ -412,6 +428,7 @@ typedef struct s_render_tex
 	t_image		*tex;
 	int			tex_modulo_m1;
 	double		shade;
+	int			pixel;
 	// wall distance
 	double		w_dist;
 }	t_render_tex;
@@ -553,7 +570,9 @@ void				copy_image(t_image *srcimg, t_point srcpos,
 int					load_sprites(t_cub3d *c);
 void				free_sprites(t_cub3d *c);
 
-void				quicksort(void **tab, int nb_elem);
-void				quicksort_int(int *tab, int nb_elem);
+void				qsort_monsters(t_monsters **tab, int nb_elem);
+void				draw_monsters(t_cub3d *cub);
+void				draw_sprite(t_cub3d *c, t_sprite *spr, int img_num);
+void				draw_slice(t_cub3d *c, t_sprite *spr, int img_num);
 
 #endif

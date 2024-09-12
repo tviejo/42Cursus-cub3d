@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:08:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 17:11:19 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/12 11:26:12 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ void	print_monsters(t_cub3d *cub)
 	m = cub->monsters;
 	while (m)
 	{
-		p0.x = m->pos.x * cub->game.minimap_size
-			- (cub->player.pos.x * cub->game.minimap_size);
-		p0.y = m->pos.y * cub->game.minimap_size
-			- (cub->player.pos.y * cub->game.minimap_size);
+		p0.x = (m->pos.x - cub->player.pos.x) * cub->game.minimap_size;
+		p0.y = (m->pos.y - cub->player.pos.y) * cub->game.minimap_size;
 		p0c.x = p0.x + cub->game.minimap_center.x;
 		p0c.y = p0.y + cub->game.minimap_center.y;
 		i = -2;

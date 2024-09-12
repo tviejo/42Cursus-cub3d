@@ -10,7 +10,8 @@ SRCS		+= draw/image_fill.c
 SRCS		+= draw/put_pixel.c
 SRCS		+= draw/rectangle.c
 
-SRCS		+= sprite/sprites.c
+SRCS		+= sprite/draw_sprite.c
+SRCS		+= sprite/draw_slice.c
 SRCS		+= sprite/load.c
 SRCS		+= sprite/load_texture.c
 SRCS		+= sprite/copy_image.c

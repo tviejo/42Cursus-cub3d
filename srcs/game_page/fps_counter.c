@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:53:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 01:29:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:30:44 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print(t_cub3d *cub, char *str, int fps, t_point pos)
 	fps_value = ft_itoa(fps);
 	fps_str = ft_strjoin(str, fps_value);
 	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, pos.x, pos.y,
-		COL_BLACK, fps_str);
+		COL_WHITE, fps_str);
 	free(fps_str);
 	free(fps_value);
 }
