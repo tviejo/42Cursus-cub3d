@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 00:12:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,11 @@ void	draw_hud(t_cub3d *cub)
 
 	if (cub->inputs.has_fired)
 	{
-		old_time = cub->game.last_time;
+		old_time = cub->game.last_tod;
 		cub->inputs.has_fired = false;
 		i = 0;
 	}
-	if (old_time.tv_sec == cub->game.last_time.tv_sec && i < 10)
+	if (old_time.tv_sec == cub->game.last_tod.tv_sec && i < 10)
 		draw_hud_texture(cub, (t_point){.x = 0.77 * pos.x, .y = 0.8 * pos.y},
 			TXID_FIRE);
 	if (cub->inputs.reload)

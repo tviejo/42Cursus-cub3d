@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:27:13 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 13:37:11 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/13 09:23:58 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	difficulty_keys(t_cub3d *cub3d, int keycode)
 {
 	if (keycode == k_zoom_out && cub3d->game.page == LANDING_PAGE)
 	{
-		if (cub3d->game.dificulty > 20)
-			cub3d->game.dificulty = 20;
+		if (cub3d->game.difficulty > 20)
+			cub3d->game.difficulty = 20;
 		else
-			cub3d->game.dificulty++;
+			cub3d->game.difficulty++;
 	}
 	if (keycode == k_zoom_in && cub3d->game.page == LANDING_PAGE)
 	{
-		cub3d->game.dificulty--;
-		if (cub3d->game.dificulty <= 0)
-			cub3d->game.dificulty = 0;
+		cub3d->game.difficulty--;
+		if (cub3d->game.difficulty <= 0)
+			cub3d->game.difficulty = 0;
 	}
 }
 

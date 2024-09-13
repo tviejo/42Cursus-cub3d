@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 16:19:00 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static void	add_monster_time(t_cub3d *cub)
 	int						y;
 	int						i;
 
-	if (cub->game.last_time.tv_sec != old_time.tv_sec)
+	if (cub->game.last_tod.tv_sec != old_time.tv_sec)
 	{
-		old_time = cub->game.last_time;
+		old_time = cub->game.last_tod;
 		i = 0;
-		while (i < cub->game.dificulty)
+		while (i < cub->game.difficulty)
 		{
 			x = rand() % cub->map.width;
 			y = rand() % cub->map.height;
@@ -132,7 +132,7 @@ void	move_monsters(t_cub3d *cub)
 		m = cub->monsters;
 		while (m)
 		{
-			old_time = cub->game.last_time;
+			old_time = cub->game.last_tod;
 			old_pos = m->pos;
 			while (old_pos.x == m->pos.x && old_pos.y == m->pos.y)
 				movement_monster(cub, m);

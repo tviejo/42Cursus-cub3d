@@ -6,11 +6,13 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 00:16:36 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:00:11 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//cub->game.last_tod = (struct timeval){.tv_sec = 0, .tv_usec = 0};
 
 void	init_game(t_cub3d *cub)
 {
@@ -19,8 +21,9 @@ void	init_game(t_cub3d *cub)
 	cub->game.minimap_center = (t_point){{130}, {130}};
 	cub->game.page = LANDING_PAGE;
 	cub->game.m_speed = M_SPEED;
-	cub->game.last_time = (struct timeval){.tv_sec = 0, .tv_usec = 0};
-	cub->game.dificulty = 0;
+	cub->game.time = 0.0;
+	cub->game.frame_time = 0.01;
+	cub->game.difficulty = 0;
 	cub->monsters = NULL;
 	cub->nb_monsters = 0;
 	cub->player.health = 100;
@@ -66,9 +69,9 @@ or one argument: <map filename>\n"),
 	if (mlx_create_img(&cub) == EXIT_FAILURE)
 		ft_close(&cub, "mlx_create_img() fails !\n");
 	init_keys(&cub);
-	gettimeofday(&cub.game.last_time, NULL);
 	play_sound(SND_MUSIC, &cub);
 	play_sound(SND_WELCOME, &cub);
-	mlx_looping(&cub);
+	gettimeofday(&cub.game.last_tod, NULL);
+	mlx_set_hooks_n_loop(&cub);
 	return (0);
 }

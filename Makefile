@@ -48,6 +48,7 @@ SRCS		+= close/close.c
 
 SRCS		+= game_page/game_page.c
 SRCS		+= game_page/fps_counter.c
+SRCS		+= game_page/time.c
 
 SRCS		+= landing_page/landing_page.c
 

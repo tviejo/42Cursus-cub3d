@@ -6,18 +6,12 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 18:53:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 10:30:44 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 09:52:17 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	update_frame_time(t_game *g, struct timeval time)
-{
-	g->frame_time = time.tv_sec - g->last_time.tv_sec
-		+ 1e-6 * (time.tv_usec - g->last_time.tv_usec);
-	g->last_time = time;
-}
 
 static void	print(t_cub3d *cub, char *str, int fps, t_point pos)
 {
@@ -32,7 +26,7 @@ static void	print(t_cub3d *cub, char *str, int fps, t_point pos)
 	free(fps_value);
 }
 
-void	print_moy_fps(t_cub3d *cub, int fps, int frame)
+static void	print_moy_fps(t_cub3d *cub, int fps, int frame)
 {
 	static long int	sum_fps = 300;
 	static long int	sec_counter = 0;
@@ -53,13 +47,16 @@ void	print_moy_fps(t_cub3d *cub, int fps, int frame)
 		(t_point){{cub->mlx.mlx_img.dim.width - 85}, {40}});
 }
 
-void	print_fps(t_cub3d *cub, int fps)
+static void	print_fps(t_cub3d *cub, int fps)
 {
 	print(cub, "FPS: ", fps,
 		(t_point){{cub->mlx.mlx_img.dim.width - 60}, {20}});
 }
 
-void	update_time_n_draw_fps(t_cub3d *cub3d)
+/* Fonction à réécrire en exploitant game.frame_time au lieu de faire
+* un nouvel appel à gettimeofday()
+*/
+void	draw_fps(t_cub3d *cub3d)
 {
 	struct timeval	current_time;
 	static int		frame = 0;
@@ -67,7 +64,6 @@ void	update_time_n_draw_fps(t_cub3d *cub3d)
 	static int		last_sec = 0;
 
 	gettimeofday(&current_time, NULL);
-	update_frame_time(&cub3d->game, current_time);
 	if (current_time.tv_sec != last_sec)
 	{
 		last_fps = frame;

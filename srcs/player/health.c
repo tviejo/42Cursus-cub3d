@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:40:12 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:51:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	update_health(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 
-	if (cub->game.last_time.tv_sec - old_time.tv_sec != 0)
+	if (cub->game.last_tod.tv_sec - old_time.tv_sec != 0)
 	{
-		old_time = cub->game.last_time;
+		old_time = cub->game.last_tod;
 		if (is_close_to_enemy(cub))
 		{
 			cub->player.health -= 10;

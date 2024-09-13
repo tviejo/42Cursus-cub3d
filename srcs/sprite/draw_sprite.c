@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:46:36 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/12 18:20:32 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	draw_monsters(t_cub3d *cub)
 		spr->angle = get_angle(monsters[i]->pos, &cub->player);
 		if (spr->angle > 2 * M_PI - 0.5 * cub->player.vertical_fov
 			|| spr->angle < 0.5 * cub->player.vertical_fov)
-			draw_sprite(cub, spr, cub->game.last_time.tv_sec & 3);
+			draw_sprite(cub, spr, cub->game.last_tod.tv_sec & 3);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reload.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:06:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 16:20:05 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	reload(t_cub3d *cub3d)
 		{
 			if (last_time.tv_sec == 0)
 				gettimeofday(&last_time, NULL);
-			if (cub3d->game.last_time.tv_sec - last_time.tv_sec > 2)
+			if (cub3d->game.last_tod.tv_sec - last_time.tv_sec > 2)
 			{
 				cub3d->player.ammo = 10;
 				last_time = (struct timeval){0, 0};

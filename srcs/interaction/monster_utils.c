@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 15:59:32 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	sound_close_monster(t_cub3d *cub)
 	t_monsters				*tmp;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 
-	if (labs(old_time.tv_sec - cub->game.last_time.tv_sec) > 3)
+	if (labs(old_time.tv_sec - cub->game.last_tod.tv_sec) > 3)
 	{
-		old_time = cub->game.last_time;
+		old_time = cub->game.last_tod;
 		tmp = cub->monsters;
 		while (tmp)
 		{

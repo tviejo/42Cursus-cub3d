@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 17:06:18 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:53:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef enum e_keys
 	k_sit = XK_c,
 	k_lie_down = XK_x,
 	k_enter = 65293,
+	k_freeze_monsters = XK_f
 }					t_keys;
 
 typedef enum e_page
@@ -297,7 +298,7 @@ typedef struct s_mlx
 	t_image			text[6];
 	int				color_floor;
 	int				color_ceil;
-	// Z-buffer des tranches de murs exloite pour le rendu des sprites
+	// Z-buffer des tranches de murs, exloité pour le rendu des sprites
 	double			*slices_zbuffer;
 }					t_mlx;
 
@@ -349,14 +350,21 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	// temps du jeu en secondes (mis à jour à chaque nouvelle frame)
+	double				time;
 	// temps de calcul de la dernière frame en seconde
 	double				frame_time;
-	struct timeval		last_time;
+	// last_tod ne devrait etre exploité que par la fonction update_time()
+	// qui met a jour le temps du jeu ('time') ainsi que 'frame_time'.
+	// Tous les autres fonctions devraient exploiter time et frame_time et ne
+	// pas faire d'appel à gettimeofday()
+	struct timeval		last_tod;
 	t_page				page;
 	int					minimap_size;
 	t_point				minimap_center;
-	int					dificulty;
+	int					difficulty;
 	double				m_speed;
+	bool				m_freeze;
 	t_rendering_mode	rendering_mode;
 }	t_game;
 
@@ -395,7 +403,7 @@ typedef struct s_raycast
 	t_directions	wall_orientation;
 	// point d'intersection avec le mur
 	t_pointd		wall_inter;
-	
+
 	// point d'intersection avec la prochaine verticale
 	t_pointd		v_inter;
 	// incréments sur les axes x et y entre 2 intersections verticales
@@ -487,7 +495,7 @@ int					mlx_init_data(t_cub3d *cub3d);
 int					mlx_start(t_cub3d *cub3d);
 int					mlx_close(t_mlx *mlx);
 int					mlx_create_img(t_cub3d *cub3d);
-int					mlx_looping(t_cub3d *cub3d);
+int					mlx_set_hooks_n_loop(t_cub3d *cub3d);
 int					ft_free_img(t_mlx *mlx);
 int					ft_init_img(t_mlx *mlx);
 //void				img_pix_put(t_image *img, t_uint x, t_uint y, int color);
@@ -510,7 +518,8 @@ int					scanner(t_cub3d *cub, t_scaninfo *si, double angle,
 int					render(t_cub3d *cub3d);
 int					render_landing_page(t_cub3d *cub3d);
 int					render_game_page(t_cub3d *cub3d);
-void				update_time_n_draw_fps(t_cub3d *cub3d);
+void				update_time(t_game *game);
+void				draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
 void				draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid);
 
