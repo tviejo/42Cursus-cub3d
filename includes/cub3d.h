@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 10:53:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:28:24 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -571,6 +571,7 @@ void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);
 void				sound_close_monster(t_cub3d *cub);
 
+void				tryfire(t_cub3d *cub);
 void				reload(t_cub3d *cub);
 void				change_height_player(t_cub3d *cub, double height);
 

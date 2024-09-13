@@ -73,6 +73,7 @@ SRCS		+= player/reload.c
 
 SRCS		+= interaction/door.c
 SRCS		+= interaction/monster.c
+SRCS		+= interaction/monster2.c
 SRCS		+= interaction/monster_utils.c
 
 SRCS		+= hud/hud.c

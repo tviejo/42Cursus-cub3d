@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:34:47 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void	move_monsters(t_cub3d *cub)
 	struct timeval			m_time;
 	t_pointd				old_pos;
 
+	if (cub->game.m_freeze)
+		return ;
 	if (old_time.tv_sec == 0)
 		gettimeofday(&old_time, NULL);
 	gettimeofday(&m_time, NULL);

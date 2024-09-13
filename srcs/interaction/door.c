@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:26:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 11:49:00 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:52:55 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ static t_door_state	door_present(t_cub3d *cub)
 
 static int	moove_door(t_cub3d *cub, t_pointd pos)
 {
-	t_scaninfo	info;
+	t_scaninfo	si;
 
 	(void)pos;
-	scan_in_front(cub, &info, 0);
-	if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'C')
+	scan_in_front(cub, &si, 0);
+	if (si.item == 'C')
 	{
 		play_sound(SND_DOOR_OPEN, cub);
-		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'O';
+		cub->map.m[si.mpos.y][si.mpos.x] = 'O';
 	}
-	else if (cub->map.m[(int)info.mpos.y][(int)info.mpos.x] == 'O')
+	else if (si.item == 'O')
 	{
 		play_sound(SND_DOOR_CLOSE, cub);
-		cub->map.m[(int)info.mpos.y][(int)info.mpos.x] = 'C';
+		cub->map.m[si.mpos.y][si.mpos.x] = 'C';
 	}
 	return (EXIT_FAILURE);
 }
