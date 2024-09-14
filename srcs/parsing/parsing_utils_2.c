@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:25:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:28:05 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/14 21:47:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	find_map(t_cub3d *cub3d, int fd, char *line)
 		{
 			if (parse_map(cub3d, fd, line) == EXIT_FAILURE)
 				return (free(line), EXIT_FAILURE);
+			else
+				return (EXIT_SUCCESS);
 		}
 		else
 			free(line);

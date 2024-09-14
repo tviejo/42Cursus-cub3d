@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 18:30:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/14 21:48:53 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ int	check_parsing(t_cub3d *cub3d)
 	if (cub3d->map.col_ceil.r == -1 || cub3d->map.col_ceil.g == -1
 		|| cub3d->map.col_ceil.b == -1)
 		return (ft_dprintf(2, "error: bad ceiling color\n"), EXIT_FAILURE);
-	if (cub3d->map.m == NULL)
-		return (ft_dprintf(2, "error: missing map\n"), EXIT_FAILURE);
 	if (cub3d->player.pos.x == -1 || cub3d->player.pos.y == -1)
 		return (ft_dprintf(2, "error: missing player\n"), EXIT_FAILURE);
 	if (check_parsing_map(cub3d) == EXIT_FAILURE)

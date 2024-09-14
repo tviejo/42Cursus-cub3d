@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_monster.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:08:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/12 11:26:12 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:28:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,3 @@ void	print_monsters(t_cub3d *cub)
 		m = m->next;
 	}
 }
-
-					/*if (is_inside_circle(m->pos.x * cub->game.minimap_size + i,
-						m->pos.y * cub->game.minimap_size + i))
-					put_pixel(&cub->mlx.mlx_img, 150 + m->pos.x
-						* cub->game.minimap_size + i - (cub->player.pos.x
-							* cub->game.minimap_size), 150 + m->pos.y
-						* cub->game.minimap_size + j - (cub->player.pos.y
-							* cub->game.minimap_size), COL_RED);*/

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:30:37 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/14 22:10:17 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,30 @@ static bool	text_parsed(char *line)
 		check.floor = true;
 	else if (line[0] == 'C')
 		check.ceil = true;
+	if (check.north && check.south && check.west && check.east && check.floor
+		&& check.ceil)
+		return (true);
 	return (false);
 }
 
 int	find_map_size(int fd, t_cub3d *cub3d)
 {
-	char	*line;
-	int		i;
+	char		*line;
+	static int	i = 0;
 
-	i = 0;
 	line = get_next_line(fd);
 	while (line && !is_map(line) && text_parsed(line) == false)
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
-	while (line && is_map(line))
+	while (line && !is_map(line))
 	{
-		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	while (line && is_map(line) && i++ <= INT_MAX)
+	{
 		if ((int)ft_strlen(line) > cub3d->map.width)
 			cub3d->map.width = ft_strlen(line);
 		free(line);
