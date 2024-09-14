@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 18:29:02 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 10:59:34 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	mouse_hook(int button, int x, int y, t_cub3d *cub)
 {
 	(void)x;
 	(void)y;
-	if (button == 1 && cub->game.page == GAME_PAGE)
-		tryfire(cub);
+	if (button == 1)
+		cub->inputs.tryfire = true;
 	return (EXIT_SUCCESS);
 }

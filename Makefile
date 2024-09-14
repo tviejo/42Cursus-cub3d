@@ -69,7 +69,7 @@ SRCS		+= player/move.c
 SRCS		+= player/move_utils.c
 SRCS		+= player/collision.c
 SRCS		+= player/health.c
-SRCS		+= player/reload.c
+SRCS		+= player/gun.c
 
 SRCS		+= interaction/door.c
 SRCS		+= interaction/monster.c

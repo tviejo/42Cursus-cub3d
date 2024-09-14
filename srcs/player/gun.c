@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reload.c                                           :+:      :+:    :+:   */
+/*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:06:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:22:50 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,27 @@ void	reload(t_cub3d *cub3d)
 				sound_played = false;
 			}
 		}
+	}
+}
+
+void	tryfire(t_cub3d *cub)
+{
+	if (cub->player.ammo > 0 && cub->inputs.reload == false)
+	{
+		cub->inputs.shoot = true;
+		cub->inputs.has_fired = true;
+		cub->player.ammo--;
+		play_sound(SND_SHOOT, cub);
+	}
+	else
+		play_sound(SND_EMPTY, cub);
+}
+
+void	gunfire(t_cub3d *cub)
+{
+	if (cub->inputs.tryfire)
+	{
+		tryfire(cub);
+		cub->inputs.tryfire = false;
 	}
 }

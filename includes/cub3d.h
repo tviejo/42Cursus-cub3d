@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 18:28:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:27:42 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ typedef struct s_player_inputs
 	bool			k_right_1;
 	bool			k_right_2;
 	bool			k_run;
+	bool			tryfire;
 	bool			shoot;
 	bool			has_fired;
 	bool			reload;
@@ -571,6 +572,7 @@ void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);
 void				sound_close_monster(t_cub3d *cub);
 
+void				gunfire(t_cub3d *cub);
 void				tryfire(t_cub3d *cub);
 void				reload(t_cub3d *cub);
 void				change_height_player(t_cub3d *cub, double height);
