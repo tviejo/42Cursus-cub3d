@@ -6,23 +6,23 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 03:47:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 23:22:34 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:38:03 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline static void	put_pixel(t_image *img, int x, int y, int color)
+static inline void	put_pixel(t_image *img, int x, int y, int color)
 {
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-inline static int	get_pixel(t_image *img, int x, int y)
+static inline int	get_pixel(t_image *img, int x, int y)
 {
 	return (*(t_uint *)(img->pixels + y * img->line_size + 4 * x));
 }
 
-inline int	get_shaded_color(int color, double shade, int item)
+static inline int	get_shaded_color(int color, double shade, int item)
 {
 	if (item == 'C')
 		return (color);

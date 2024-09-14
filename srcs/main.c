@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 11:00:11 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:57:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 //cub->game.last_tod = (struct timeval){.tv_sec = 0, .tv_usec = 0};
 
-void	init_game(t_cub3d *cub)
+/* A appeler avant toute autre fonction d'initialisation
+*/
+void	init_game_vars(t_cub3d *cub)
 {
 	cub->game.rendering_mode = RENDER_TEXTURE;
 	cub->game.minimap_size = 20;
 	cub->game.minimap_center = (t_point){{130}, {130}};
 	cub->game.page = LANDING_PAGE;
 	cub->game.m_speed = M_SPEED;
+	cub->game.m_freeze = false;
 	cub->game.time = 0.0;
 	cub->game.frame_time = 0.01;
 	cub->game.difficulty = 0;
@@ -29,13 +32,23 @@ void	init_game(t_cub3d *cub)
 	cub->player.health = 100;
 	cub->player.ammo = 10;
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
-	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	cub->player.walk_distance = 0.0;
 	cub->player.walk_height_shift = 0.0;
 	cub->player.speed = 1.0;
+	cub->player.shoot_last_time = 0.0;
 	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
+}
+
+/* A appeler juste avant l'appel à mlx_set_hooks_n_loop()
+*/
+void	init_game_final(t_cub3d *cub)
+{
+	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	srand(time(NULL));
-	mlx_init_data(cub);
+	init_keys(cub);
+	play_sound(SND_MUSIC, cub);
+	play_sound(SND_WELCOME, cub);
+	gettimeofday(&cub->game.last_tod, NULL);
 }
 
 int	load_resources(t_cub3d *c)
@@ -59,7 +72,8 @@ or one argument: <map filename>\n"),
 	map_fname = MAP_DEFAULT_FNAME;
 	if (argc == 2)
 		map_fname = argv[1];
-	init_game(&cub);
+	init_game_vars(&cub);
+	mlx_init_data(&cub);
 	if (mlx_start(&cub) == EXIT_FAILURE)
 		ft_close(&cub, "mlx_start() fails !\n");
 	if (parse_cub3d(map_fname, &cub) == EXIT_FAILURE)
@@ -68,10 +82,7 @@ or one argument: <map filename>\n"),
 		ft_close(&cub, "load_resources() fails !\n");
 	if (mlx_create_img(&cub) == EXIT_FAILURE)
 		ft_close(&cub, "mlx_create_img() fails !\n");
-	init_keys(&cub);
-	play_sound(SND_MUSIC, &cub);
-	play_sound(SND_WELCOME, &cub);
-	gettimeofday(&cub.game.last_tod, NULL);
+	init_game_final(&cub);
 	mlx_set_hooks_n_loop(&cub);
 	return (0);
 }

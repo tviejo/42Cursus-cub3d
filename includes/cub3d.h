@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 11:27:42 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:40:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 // 1 pour activer la gestion show/hide de la souris
 # define MOUSE_SHOWHIDE 1
 // 1 pour activer les fonts custom
-# define CUSTOM_FONT 1
+# define CUSTOM_FONT 0
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
@@ -54,12 +54,14 @@
 # define TRANS_SPEED 2.0
 // radians par seconde
 # define ROT_SPEED 2.0
+// Délai entre chaque tir en seconde
+# define SHOOT_DELAY 0.5
 
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"
-//# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
-//# define SND_MUSIC "-volume 65 'assets/sounds/BO-Solaris-WearYourSeatBelt.mp3'"
-# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
+# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
+//# define SND_MUSIC "-volume 65 'assets/sounds/BOSolaris-WearYourSeatBelt.mp3'"
+//# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
 # define SND_STEP "-volume 32 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"
@@ -263,7 +265,7 @@ typedef struct s_player_inputs
 	bool			k_right_1;
 	bool			k_right_2;
 	bool			k_run;
-	bool			tryfire;
+	bool			ms_fire;
 	bool			shoot;
 	bool			has_fired;
 	bool			reload;
@@ -329,7 +331,8 @@ typedef struct s_player
 	double			player_pos_z;
 	int				health;
 	int				ammo;
-	double 			speed;
+	double			speed;
+	double			shoot_last_time;
 }					t_player;
 
 typedef struct s_map
@@ -506,12 +509,13 @@ int					ft_close_cr(t_cub3d *cub3d);
 int					load_texture(void *mlx_ptr, char *filename,	t_image *img);
 
 void				render_frame(t_cub3d *cub);
-void				render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem);
-void				render_ray_textured(t_cub3d *c, t_raycast *r, int wallitem);
+void				render_ray_colored(t_cub3d *c, t_raycast *rc, int wallitem);
+void				render_ray_textured(t_cub3d *c, t_raycast *rc,
+						int wallitem);
 int					render_ray_tex_init(t_cub3d *c, t_raycast *rc,
-						t_render_tex *r, int item);
-void				init_ray_v_inter(t_raycast *r, double angle, t_pointd pos);
-void				init_ray_h_inter(t_raycast *r, double angle, t_pointd pos);
+						t_render_tex *rt, int item);
+void				init_ray_v_inter(t_raycast *rc, double angle, t_pointd pos);
+void				init_ray_h_inter(t_raycast *rc, double angle, t_pointd pos);
 int					scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
 int					scanner(t_cub3d *cub, t_scaninfo *si, double angle,
 						t_pointd pos);
@@ -566,7 +570,8 @@ int					render_game_over_page(t_cub3d *cub3d);
 
 bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
-int					mouse_hook(int button, int x, int y, t_cub3d *cub3d);
+int					mouse_on_btn_press(int btn, int x, int y, t_cub3d *cub);
+int					mouse_on_btn_release(int btn, int x, int y, t_cub3d *cub);
 
 void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 11:04:08 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:16:07 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	update_player_inputs(t_player_inputs *in)
 	in->turn_right = (!strafe) & (in->k_right_1 | in->k_right_2);
 	in->open = in->k_open_1 | in->k_open_2;
 	in->run = in->k_run;
-	if (in->k_fire_1 || in->k_fire_2)
-		in->tryfire = true;
 }
 
 void	key_press_player(int keycode, t_player_inputs *in)
@@ -116,7 +114,7 @@ void	key_release_player(int keycode, t_player_inputs *in)
 int	key_release(int keycode, t_cub3d *cub3d)
 {
 	if (keycode == k_freeze_monsters)
-		cub3d->game.m_freeze = true;
+		cub3d->game.m_freeze = !cub3d->game.m_freeze;
 	if (keycode == k_sw_rendering_mode)
 	{
 		if (cub3d->game.rendering_mode == RENDER_COLOR)

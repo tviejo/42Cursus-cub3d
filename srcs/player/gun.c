@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 22:06:57 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 11:22:50 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:18:41 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	reload(t_cub3d *cub3d)
 
 void	tryfire(t_cub3d *cub)
 {
-	if (cub->player.ammo > 0 && cub->inputs.reload == false)
+	if (cub->game.time < cub->player.shoot_last_time + SHOOT_DELAY)
+		return ;
+	cub->player.shoot_last_time = cub->game.time;
+	if (!cub->inputs.reload && cub->player.ammo > 0)
 	{
 		cub->inputs.shoot = true;
 		cub->inputs.has_fired = true;
@@ -54,9 +57,8 @@ void	tryfire(t_cub3d *cub)
 
 void	gunfire(t_cub3d *cub)
 {
-	if (cub->inputs.tryfire)
+	if (cub->inputs.ms_fire || cub->inputs.k_fire_1 || cub->inputs.k_fire_2)
 	{
 		tryfire(cub);
-		cub->inputs.tryfire = false;
 	}
 }

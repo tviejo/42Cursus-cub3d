@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:28:37 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/12 18:21:11 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:49:42 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ static int	draw_slice_init(t_cub3d *c, t_sprite *spr, t_render_tex *r,
 		return (EXIT_FAILURE);
 	r->shade = TEX_FADE_DIST / (TEX_FADE_DIST + r->w_dist * r->w_dist);
 	r->tex_modulo_m1 = TEX_SIZE - 1;
-	r->tex_x = (int)(0.79 * spr->x_spot * TEX_SCALE * spr->ratio_w_h) & r->tex_modulo_m1;
-	r->height = spr->height;//= c->map.wall_heightscale * c->mlx.mlx_img.dim.height / r->w_dist;
-	r->y0 = (140 + c->player.view_height + c->player.walk_height_shift) / r->w_dist
-		+ ((c->mlx.mlx_img.dim.height - r->height) >> 1);
+	r->tex_x = (int)(0.79 * spr->x_spot * TEX_SCALE * spr->ratio_w_h)
+		& r->tex_modulo_m1;
+	r->height = spr->height;
+	r->y0 = (140 + c->player.view_height + c->player.walk_height_shift)
+		/ r->w_dist + ((c->mlx.mlx_img.dim.height - r->height) >> 1);
 	return (EXIT_SUCCESS);
 }
 

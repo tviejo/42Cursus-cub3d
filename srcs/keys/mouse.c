@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 10:59:34 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:35:17 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,20 @@ void	mouse_move(t_cub3d *cub3d)
 	}
 }
 
-int	mouse_hook(int button, int x, int y, t_cub3d *cub)
+int	mouse_on_btn_press(int button, int x, int y, t_cub3d *cub)
 {
 	(void)x;
 	(void)y;
 	if (button == 1)
-		cub->inputs.tryfire = true;
+		cub->inputs.ms_fire = true;
+	return (EXIT_SUCCESS);
+}
+
+int	mouse_on_btn_release(int button, int x, int y, t_cub3d *cub)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		cub->inputs.ms_fire = false;
 	return (EXIT_SUCCESS);
 }
