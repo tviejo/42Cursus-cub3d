@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 11:57:50 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 15:59:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/14 18:30:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	check_parsing_map(t_cub3d *cub3d)
 
 int	check_parsing(t_cub3d *cub3d)
 {
-	if (cub3d->map.height == 0 || cub3d->map.width == 0)
+	if (cub3d->map.height == 0 || cub3d->map.width == 0 || cub3d->map.m == NULL)
 		return (ft_dprintf(2, "error: missing map\n"), EXIT_FAILURE);
 	if (cub3d->map.north_tfname == NULL || cub3d->map.south_tfname == NULL
 		|| cub3d->map.west_tfname == NULL || cub3d->map.east_tfname == NULL)

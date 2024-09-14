@@ -3,39 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:40:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	print_m(t_cub3d *cub, t_monsters *tmp)
+{
+	char	*info;
+
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 100,
+		30, COL_WHITE, "Monster id:");
+	info = ft_itoa(tmp->id);
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 + 20,
+		30, COL_WHITE, info);
+	free(info);
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 100,
+		50, COL_WHITE, "HP:");
+	info = ft_itoa(tmp->hp);
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 60,
+		50, COL_WHITE, info);
+	free(info);
+}
+
 static void	print_monster_health(t_cub3d *cub, t_point pos)
 {
 	t_monsters	*tmp;
-	char		*info;
 	t_pointd	delta;
 
 	tmp = cub->monsters;
 	while (tmp)
 	{
 		delta = (t_pointd){.x = tmp->pos.x - pos.x, .y = tmp->pos.y - pos.y};
-		if (fabs(delta.x) < M_HIT_BOX * 4 && fabs(delta.y) < M_HIT_BOX * 4)
+		if (fabs(delta.x) < M_HIT_BOX * 2 && fabs(delta.y) < M_HIT_BOX * 2)
 		{
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 100, 20, COL_WHITE, "Monster id:");
-			info = ft_itoa(tmp->id);
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 30, 20, COL_WHITE, info);
-			free(info);
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 100, 35, COL_WHITE, "HP:");
-			info = ft_itoa(tmp->hp);
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2
-				- 80, 35, COL_WHITE, info);
-			free(info);
+			print_m(cub, tmp);
+			return ;
 		}
 		tmp = tmp->next;
 	}
@@ -56,10 +63,10 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 		{
 			usleep(100000);
 			play_sound(SND_MONSTER_DAMAGE, cub);
-			if (distance == 0)
+			if (distance < 2)
 				tmp->hp -= 5;
 			else
-				tmp->hp -= 5 / distance;
+				tmp->hp -= 5 / distance / 2 + 1;
 			if (tmp->hp <= 0)
 				delete_monster(cub, tmp->id);
 			return ;
@@ -71,11 +78,8 @@ static void	remove_monster_hp(t_cub3d *cub, t_point pos, int distance)
 void	shoot_monsters(t_cub3d *cub)
 {
 	t_scaninfo	info;
-	int			random_angle;
 
-	random_angle = rand() % 2 - 1;
-	random_angle *= 0.1;
-	scan_in_front(cub, &info, random_angle);
+	scan_in_front(cub, &info, 0);
 	if (info.item == '0' && cub->inputs.shoot)
 		remove_monster_hp(cub, info.mpos, info.distance);
 	scan_in_front(cub, &info, 0);

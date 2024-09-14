@@ -1,4 +1,9 @@
 
+
+closedDoorTex ./assets/textures/porte 512x512.xpm
+
+animSprite MONSTER_1, 4, XPM, ./assets/textures/monster_mummie_
+
 NO ./assets/textures/brown_old_wall_2.xpm
 SO ./assets/textures/brown_old_wall_3.xpm
 WE ./assets/textures/cement_old_wall_1.xpm
@@ -6,10 +11,6 @@ EA ./assets/textures/blood_old_wall.xpm
 
 C 70,70,70
 F 150,150,150
-
-closedDoorTex ./assets/textures/porte 512x512.xpm
-
-animSprite MONSTER_1, 4, XPM, ./assets/textures/monster_mummie_
 
 11111111111111111111111111111111111111111111111111
 101010000000000000101001000001111110A1011100000101

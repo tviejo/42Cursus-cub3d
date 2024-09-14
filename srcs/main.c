@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 11:00:11 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:41:28 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	init_game(t_cub3d *cub)
 	cub->player.walk_height_shift = 0.0;
 	cub->player.speed = 1.0;
 	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
+	cub->nb_sprites = 0;
+	cub->game.m_freeze = false;
 	srand(time(NULL));
 	mlx_init_data(cub);
 }
