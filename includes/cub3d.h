@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 19:04:46 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:07:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 // 1 pour activer le son
 # define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 0
+# define MOUSE_SHOWHIDE 1
 // 1 pour activer les fonts custom
 # define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
@@ -65,13 +65,15 @@
 // radians par seconde
 # define ROT_SPEED 2.0
 // Délai entre chaque tir en seconde
-# define SHOOT_DELAY 0.5
+# define SHOOT_DELAY 0.22
+// Nombre de munitions
+# define NB_AMMO 20
 
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"
-# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
+//# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
 //# define SND_MUSIC "-volume 65 'assets/sounds/BOSolaris-WearYourSeatBelt.mp3'"
-//# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
+# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
 # define SND_STEP "-volume 32 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"
@@ -222,7 +224,7 @@ typedef struct s_monsters
 typedef struct s_sprite_img
 {
 	t_image		img;
-	// hot spot: quand un sprite est affiché en (x,y) il sera centré sur son hotspot
+	// hot spot: un sprite est affiché en (x,y) il sera centré sur son hotspot
 	t_point		hspot;
 }	t_sprite_img;
 

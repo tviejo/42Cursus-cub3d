@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:40:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 20:04:44 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 static void	print_m(t_cub3d *cub, t_monsters *tmp)
 {
+	const int	width = cub->mlx.mlx_img.dim.width;
 	char	*info;
 
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 100,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, width / 2 - 100,
 		30, COL_WHITE, "Monster id:");
 	info = ft_itoa(tmp->id);
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 + 20,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, width / 2 + 20,
 		30, COL_WHITE, info);
 	free(info);
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 100,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, width / 2 - 100,
 		50, COL_WHITE, "HP:");
 	info = ft_itoa(tmp->hp);
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, WINDOW_WIDTH / 2 - 60,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, width / 2 - 60,
 		50, COL_WHITE, info);
 	free(info);
 }

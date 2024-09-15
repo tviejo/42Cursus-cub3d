@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 17:52:52 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 11:57:01 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:02:06 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@
 	//	mlx_mouse_hide(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr);
 */
 
-void	mouse_move(t_cub3d *cub3d)
+void	mouse_move(t_cub3d *cub)
 {
 	static int	x = WINDOW_WIDTH / 2;
 	static int	y = WINDOW_HEIGHT / 2;
 	int			x1;
 	int			y1;
 
-	if (x < 100 || x > WINDOW_WIDTH - 100)
+	if (x < 100 || x > cub->mlx.mlx_img.dim.width - 100)
 	{
-		x = WINDOW_WIDTH / 2;
-		y = WINDOW_HEIGHT / 2;
-		mlx_mouse_move(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, x, y);
-		cub3d->inputs.mouse_x = x;
-		cub3d->inputs.mouse_y = y;
+		x = cub->mlx.mlx_img.dim.width / 2;
+		y = cub->mlx.mlx_img.dim.height / 2;
+		mlx_mouse_move(cub->mlx.mlx_ptr, cub->mlx.win_ptr, x, y);
+		cub->inputs.mouse_x = x;
+		cub->inputs.mouse_y = y;
 	}
 	else
 	{
-		mlx_mouse_get_pos(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, &x1, &y1);
-		rotate_player(&cub3d->player, -(x1 - cub3d->inputs.mouse_x)
+		mlx_mouse_get_pos(cub->mlx.mlx_ptr, cub->mlx.win_ptr, &x1, &y1);
+		rotate_player(&cub->player, -(x1 - cub->inputs.mouse_x)
 			* M_SENSITIVITY);
-		cub3d->inputs.mouse_x = x1;
-		cub3d->inputs.mouse_y = y1;
+		cub->inputs.mouse_x = x1;
+		cub->inputs.mouse_y = y1;
 		x = x1;
 		y = y1;
 	}

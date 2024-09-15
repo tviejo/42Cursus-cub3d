@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:33:23 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 19:53:01 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,24 @@
 
 static void	draw_cross(t_cub3d *cub)
 {
-	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = WINDOW_WIDTH / 2 - 20,
-		.y = WINDOW_HEIGHT / 2, .color = COL_GREEN}, (t_pt2d){.x = WINDOW_WIDTH
-		/ 2 - 5, .y = WINDOW_HEIGHT / 2, .color = COL_GREEN});
-	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = WINDOW_WIDTH / 2 + 20,
-		.y = WINDOW_HEIGHT / 2, .color = COL_GREEN}, (t_pt2d){.x = WINDOW_WIDTH
-		/ 2 + 5, .y = WINDOW_HEIGHT / 2, .color = COL_GREEN});
-	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = WINDOW_WIDTH / 2,
-		.y = WINDOW_HEIGHT / 2 - 20, .color = COL_GREEN},
-		(t_pt2d){.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2 - 5,
+	const int	width = cub->mlx.mlx_img.dim.width;
+	const int	height = cub->mlx.mlx_img.dim.height;
+
+	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = width / 2 - 20,
+		.y = height / 2, .color = COL_GREEN}, (t_pt2d){.x = width
+		/ 2 - 5, .y = height / 2, .color = COL_GREEN});
+	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = width / 2 + 20,
+		.y = height / 2, .color = COL_GREEN}, (t_pt2d){.x = width
+		/ 2 + 5, .y = height / 2, .color = COL_GREEN});
+	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = width / 2,
+		.y = height / 2 - 20, .color = COL_GREEN},
+		(t_pt2d){.x = width / 2, .y = height / 2 - 5,
 		.color = COL_GREEN});
-	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = WINDOW_WIDTH / 2,
-		.y = WINDOW_HEIGHT / 2 + 20, .color = COL_GREEN},
-		(t_pt2d){.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2 + 5,
+	draw_line(&cub->mlx.mlx_img, (t_pt2d){.x = width / 2,
+		.y = height / 2 + 20, .color = COL_GREEN},
+		(t_pt2d){.x = width / 2, .y = height / 2 + 5,
 		.color = COL_GREEN});
 }
-
-/*inline static void	put_pixel(t_image *img, int x, int y, int color)
-{
-	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
-}*/
-
-/* 'posBR' is the position on screen (mlx_img) of the bottom right pixel
- * of the texture
-*/
-/*static void	draw_hud_texture(t_cub3d *cub, t_point posBR, t_tex_id texid)
-{
-	t_image	*tex;
-	t_point	dst;
-	t_point	src;
-	int		pixel;
-
-	tex = &cub->mlx.text[texid];
-	src.y = 0;
-	dst.y = posBR.y - tex->dim.height;
-	while (dst.y < posBR.y)
-	{
-		src.x = 0;
-		dst.x = posBR.x - tex->dim.width ;
-		while (dst.x < posBR.x)
-		{
-			pixel = *(int *)(tex->pixels + src.y * tex->line_size + src.x * 4);
-			if (pixel & 255)
-				put_pixel(&cub->mlx.mlx_img, dst.x, dst.y, pixel);
-			src.x++;
-			dst.x++;
-		}
-		src.y++;
-		dst.y++;
-	}
-}*/
 
 /* 'posBR' is the position on screen (mlx_img) of the bottom right pixel
  * of the texture
@@ -76,21 +44,22 @@ static void	draw_hud_texture(t_cub3d *cub, t_point posBR, t_tex_id texid)
 
 static void	print_remaining_ammo(t_cub3d *cub)
 {
-	char	*info;
+	const int	height = cub->mlx.mlx_img.dim.height;
+	char		*info;
 
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT - 150,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, height - 150,
 		COL_WHITE, "Ammo:");
 	info = ft_itoa(cub->player.ammo);
 	if (cub->player.ammo <= 5)
 	{
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, height
 			- 150, COL_RED, info);
 		if (cub->player.ammo == 0)
-			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, WINDOW_HEIGHT
+			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, height
 				- 120, COL_WHITE, "press R to reload");
 	}
 	else
-		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, WINDOW_HEIGHT
+		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, height
 			- 150, COL_WHITE, info);
 	free(info);
 }

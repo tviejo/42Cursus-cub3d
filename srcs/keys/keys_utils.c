@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   keys_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/09 22:04:22 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 19:58:02 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_keys(t_cub3d *cub3d)
+int	init_keys(t_cub3d *cub)
 {
-	ft_memset(&cub3d->inputs, 0, sizeof(t_player_inputs));
-	cub3d->inputs.strafe_mode = true;
-	mlx_mouse_move(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr,
-		WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	cub3d->inputs.mouse_x = WINDOW_WIDTH / 2;
-	cub3d->inputs.mouse_y = WINDOW_HEIGHT / 2;
+	const int	width = cub->mlx.mlx_img.dim.width;
+	const int	height = cub->mlx.mlx_img.dim.height;
+
+	ft_memset(&cub->inputs, 0, sizeof(t_player_inputs));
+	cub->inputs.strafe_mode = true;
+	mlx_mouse_move(cub->mlx.mlx_ptr, cub->mlx.win_ptr,
+		width / 2, height / 2);
+	cub->inputs.mouse_x = width / 2;
+	cub->inputs.mouse_y = height / 2;
 	return (0);
 }

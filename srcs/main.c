@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 12:54:05 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:31:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	init_game_vars(t_cub3d *cub)
 {
 	const int	mmap_rad = MINIMAP_RADIUS;
-	
+
 	cub->game.rendering_mode = RENDER_TEXTURE;
 	cub->game.minimap_size = MINIMAP_SIZE;
 	cub->game.minimap_radius = mmap_rad;
@@ -34,7 +34,7 @@ void	init_game_vars(t_cub3d *cub)
 	cub->nb_monsters = 0;
 	cub->nb_sprites = 0;
 	cub->player.health = 100;
-	cub->player.ammo = 10;
+	cub->player.ammo = NB_AMMO;
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub->player.walk_distance = 0.0;
 	cub->player.walk_height_shift = 0.0;
