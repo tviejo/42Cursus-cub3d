@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 10:42:47 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 14:58:32 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@
 # define MAX_SPRITES 30
 
 // 1 pour activer le son
-# define SOUND_SUPPORT 0
+# define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 0
+# define MOUSE_SHOWHIDE 1
 // 1 pour activer les fonts custom
-# define CUSTOM_FONT 0
+# define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
@@ -56,7 +56,9 @@
 // radians par seconde
 # define ROT_SPEED 2.0
 // Délai entre chaque tir en seconde
-# define SHOOT_DELAY 0.5
+# define SHOOT_DELAY 0.15
+// Nombre de munitions
+# define NB_AMMO 20
 
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"

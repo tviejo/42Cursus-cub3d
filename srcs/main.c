@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:54:12 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:57:23 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_game_vars(t_cub3d *cub)
 	cub->nb_monsters = 0;
 	cub->nb_sprites = 0;
 	cub->player.health = 100;
-	cub->player.ammo = 10;
+	cub->player.ammo = NB_AMMO;
 	cub->player.vertical_fov = DEG_VERTICAL_FOV * M_PI / 180.0;
 	cub->player.walk_distance = 0.0;
 	cub->player.walk_height_shift = 0.0;
