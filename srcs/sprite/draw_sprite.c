@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:46:36 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/15 13:29:19 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:25:20 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,3 @@ void	draw_monsters(t_cub3d *cub)
 			draw_sprite(cub, spr, cub->game.last_tod.tv_sec & 3);
 	}
 }
-
-//printf("pl: (%.2f,%.2f)  monster %i: (%.2f,%.2f)  angle: %.1f\n", cub->player.pos.x, cub->player.pos.y,
-		//	i, monsters[i]->pos.x, monsters[i]->pos.y, angle * 180.0 / M_PI);

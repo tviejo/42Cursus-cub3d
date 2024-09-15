@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:07:08 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 23:37:32 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:33:58 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	copy_image(t_image *srcimg, t_point srcpos,
 		{
 			pixel = *(int *)(srcimg->pixels + src.y * srcimg->line_size
 					+ src.x * 4);
-			if (pixel & 255)
+			if (!(pixel & 0xff000000))
 				put_pixel(dstimg, dst.x, dst.y, pixel);
 			dst.x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 14:18:27 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:04:46 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
-# define M_HB 0.5
+# define M_HB 0.3
 # define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 2.0
@@ -493,6 +493,28 @@ typedef struct s_src_dst_x0
 	int			dst;
 }	t_src_dst_x0;
 
+typedef struct s_draw_img
+{
+	t_image		*srcimg;
+	t_image		*dstimg;
+	t_point		srcpos;
+	t_point		dstpos;
+	// dimensions of rectangle to copy after clipping
+	//t_size2i	dim;
+	double		scale;
+	int			dst_x0;
+	double		src_x0;
+	double		src_x;
+	double		src_y;
+	double		inc;
+	//double		src_xinc;
+	//double		src_yinc;
+	t_point		dst;
+	t_point		dstmax;
+	int			srci_y;
+	int			pixel;
+}	t_draw_img;
+
 
 void				amlx_enable_win_resizing(t_mlx *mlx,
 						t_size2i min, t_size2i max);
@@ -609,6 +631,9 @@ void				change_height_player(t_cub3d *cub, double height);
 
 void				copy_image(t_image *srcimg, t_point srcpos,
 						t_image *dstimg, t_point dstpos);
+void				draw_image(t_draw_img di);
+void				draw_image_autoscale(t_image *src, t_image *dst);
+
 int					load_sprites(t_cub3d *c);
 void				free_sprites(t_cub3d *c);
 

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:36:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:43:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	movement_monster(t_cub3d *c, t_monsters *m)
 	if (!is_m_wall(c, m->pos.x, m->pos.y - c->game.m_speed) && m->random == 3)
 		m->pos.y -= c->game.m_speed;
 	else if (m->random == 3)
-		m->random = rand() % 4;
+		m->random = rand() % 4 + 4;
 	lateral_move(c, m, m->random);
 	i++;
 }

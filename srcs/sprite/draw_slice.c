@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:28:37 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/14 11:49:42 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:50:05 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_slice(t_cub3d *c, t_sprite *spr, int img_num)
 	{
 		r.tex_y = (int)r.ftex_y & r.tex_modulo_m1;
 		r.pixel = get_pixel(r.tex, r.tex_x, r.tex_y);
-		if (r.pixel & 255)
+		if (r.pixel & 0xffffff)
 			put_pixel(&c->mlx.mlx_img, spr->column, r.y,
 				get_shaded_color(r.pixel, r.shade));
 		r.ftex_y += r.ftex_yinc;

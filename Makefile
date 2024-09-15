@@ -15,6 +15,7 @@ SRCS		+= sprite/draw_slice.c
 SRCS		+= sprite/load.c
 SRCS		+= sprite/load_texture.c
 SRCS		+= sprite/copy_image.c
+SRCS		+= sprite/draw_image.c
 SRCS		+= sprite/quicksort.c
 SRCS		+= sprite/init_sprite.c
 
@@ -96,7 +97,7 @@ OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -g3
 
 LIBFT 		= 	libft/libft.a
 
