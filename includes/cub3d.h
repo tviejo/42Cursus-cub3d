@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:55:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:42:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
-# define M_HB 0.5
+# define M_HB 0.3
 # define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 2.0

@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 10:27:31 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:43:22 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	move_monsters(t_cub3d *cub)
 	t_monsters				*m;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	struct timeval			m_time;
+	t_pointd				old_pos;
 
 	if (cub->game.m_freeze)
 		return ;
@@ -130,7 +131,9 @@ void	move_monsters(t_cub3d *cub)
 		while (m)
 		{
 			old_time = cub->game.last_tod;
-			movement_monster(cub, m);
+			old_pos = m->pos;
+			while (old_pos.x == m->pos.x && old_pos.y == m->pos.y)
+				movement_monster(cub, m);
 			m = m->next;
 		}
 	}
