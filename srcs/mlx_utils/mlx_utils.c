@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:27:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 23:54:11 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/14 21:07:47 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	mlx_start(t_cub3d *cub3d)
 	if (cub3d->mlx.win_ptr == NULL)
 		return (EXIT_FAILURE);
 	if (CUSTOM_FONT == 1)
-		mlx_set_font(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, "10*20");
+		mlx_set_font(cub3d->mlx.mlx_ptr, cub3d->mlx.win_ptr, "10*mak20");
 	return (EXIT_SUCCESS);
 }
 

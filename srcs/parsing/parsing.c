@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 12:26:27 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:34:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,41 @@ static int	error_open_map_file(char *filename)
 static int	open_and_size(char *filename, t_cub3d *cub3d)
 {
 	int		fd;
+	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (EXIT_FAILURE);
 	find_map_size(fd, cub3d);
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 	close(fd);
 	return (EXIT_SUCCESS);
 }
 
 static int	parse_file_core(int fd, char *line, t_cub3d *cub3d)
 {
-	while (line)
+	while (line && ready_to_parse_map(cub3d) == false)
 	{
-		if (is_map(line))
-		{
-			if (parse_map(cub3d, fd, line) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
-		else if (is_texture(line))
+		if (is_texture(line))
 		{
 			if (parse_texture(line, cub3d) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		else if (is_color(line))
-			parse_color(line, cub3d);
+		{
+			if (parse_color(line, cub3d) == false)
+				return (free(line), EXIT_FAILURE);
+		}
 		else
 			free(line);
 		line = get_next_line(fd);
 	}
+	find_map(cub3d, fd, line);
 	return (EXIT_SUCCESS);
 }
 

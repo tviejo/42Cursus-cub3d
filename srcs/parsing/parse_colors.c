@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:56:34 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/01 04:07:16 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:16:43 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	assign_color(t_cub3d *cube3d, int colortype, t_color color)
 	}
 }
 
-void	parse_color(char *line, t_cub3d *cube3d)
+bool	parse_color(char *line, t_cub3d *cube3d)
 {
 	t_color	color;
 	int		colortype;
@@ -67,5 +67,8 @@ void	parse_color(char *line, t_cub3d *cube3d)
 	color.b = ft_atoi(++vals);
 	if (is_valid_color(color))
 		assign_color(cube3d, colortype, color);
+	else
+		return (ft_dprintf(2, "bad color\n"), false);
 	free(line);
+	return (true);
 }

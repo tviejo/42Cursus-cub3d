@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:40:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:55:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@
 # define MAX_SPRITES 30
 
 // 1 pour activer le son
-# define SOUND_SUPPORT 1
+# define SOUND_SUPPORT 0
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 1
+# define MOUSE_SHOWHIDE 0
 // 1 pour activer les fonts custom
 # define CUSTOM_FONT 0
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
+# define M_HB 0.5
 # define M_SPEED 0.1
 // unités de distance par sec
 # define TRANS_SPEED 2.0
@@ -335,6 +336,17 @@ typedef struct s_player
 	double			shoot_last_time;
 }					t_player;
 
+
+typedef struct s_check_parse
+{
+	bool	north;
+	bool	south;
+	bool	west;
+	bool	east;
+	bool	floor;
+	bool	ceil;
+}	t_check_parse;
+
 typedef struct s_map
 {
 	char			**m;
@@ -481,7 +493,9 @@ bool				is_map(char *line);
 int					parse_map(t_cub3d *cub3d, int fd, char *line);
 int					find_map_size(int fd, t_cub3d *cub3d);
 int					parse_texture(char *line, t_cub3d *cub3d);
-void				parse_color(char *line, t_cub3d *cub3d);
+bool				parse_color(char *line, t_cub3d *cub3d);
+int					find_map(t_cub3d *cub3d, int fd, char *line);
+bool				ready_to_parse_map(t_cub3d *cub3d);
 void				init_parsing(t_cub3d *cub3d);
 void				free_parsing(t_map *map);
 void				print_parsing(t_cub3d *cub3d);
@@ -552,6 +566,7 @@ t_pointd			collides_wall(t_cub3d *cub, t_pointd old_pos);
 int					interact_door(t_cub3d *cub, t_pointd pos);
 void				move_monsters(t_cub3d *cub);
 void				shoot_monsters(t_cub3d *cub);
+bool				is_m_wall(t_cub3d *cub, double x, double y);
 bool				is_wall(t_cub3d *cub, int x, int y);
 
 t_directions		get_wall_orientation(double ray_angle, bool vertical_wall);

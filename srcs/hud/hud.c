@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 10:32:37 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:33:23 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	draw_hud(t_cub3d *cub)
 {
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	static int				i = 0;
-	const t_point			pos = {	.x = 0.7 * cub->mlx.mlx_img.dim.width
+	const t_point			pos = {.x = 0.7 * cub->mlx.mlx_img.dim.width
 		+ 0.25 * cub->player.walk_height_shift,
 		.y = cub->mlx.mlx_img.dim.height + 0.45 * cub->player.walk_height_shift
 		+ 15};

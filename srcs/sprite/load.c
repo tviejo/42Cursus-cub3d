@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:59:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/12 13:15:30 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 02:03:56 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ void	free_sprites(t_cub3d *c)
 	{
 		j = c->sprites[i].nb_images;
 		while (j--)
-			mlx_destroy_image(c->mlx.mlx_ptr, c->sprites[i].images[j].img.ptr);
-		free(c->sprites[i].images);
+		{
+			if (c->sprites[i].images[j].img.ptr != NULL)
+				mlx_destroy_image(c->mlx.mlx_ptr,
+					c->sprites[i].images[j].img.ptr);
+		}
+		if (c->sprites[i].images != NULL)
+			free(c->sprites[i].images);
 	}
 	c->nb_sprites = 0;
 }
@@ -33,8 +38,8 @@ void	free_sprites(t_cub3d *c)
  */
 size_t	strlcpynum(char *dst, int num, size_t size)
 {
-	char *const	snum = ft_itoa(num);
 	size_t		ret;
+	char *const	snum = ft_itoa(num);
 
 	ret = ft_strlcpy(dst, snum, size);
 	free(snum);
@@ -53,10 +58,10 @@ void	set_scale_n_ratio(t_sprite *sprite, double scale, double ratio)
 
 int	load_sprites(t_cub3d *c)
 {
-	t_sprite *const	sprite = &c->sprites[SPR_MONSTER1];
 	int				i;
 	const char		filename[256] = PATH_SPR_MONSTER1;
 	const int		pathlen = ft_strlen(filename);
+	t_sprite *const	sprite = &c->sprites[SPR_MONSTER1];
 	char *const		strnum = (char *)filename + pathlen;
 
 	c->nb_sprites = 0;

@@ -16,6 +16,7 @@ SRCS		+= sprite/load.c
 SRCS		+= sprite/load_texture.c
 SRCS		+= sprite/copy_image.c
 SRCS		+= sprite/quicksort.c
+SRCS		+= sprite/init_sprite.c
 
 SRCS		+= ray_caster/render_frame.c
 SRCS		+= ray_caster/render_colored.c
@@ -27,6 +28,7 @@ SRCS		+= ray_caster/scanner.c
 
 SRCS		+= parsing/parsing.c
 SRCS		+= parsing/parsing_utils.c
+SRCS		+= parsing/parsing_utils_2.c
 SRCS		+= parsing/init_parsing.c
 SRCS		+= parsing/parse_map.c
 SRCS		+= parsing/parse_colors.c
@@ -36,6 +38,7 @@ SRCS		+= parsing/print_parsing.c
 SRCS		+= parsing/check_parsing.c
 SRCS		+= parsing/monster_utils.c
 SRCS		+= parsing/parse_map_utils.c
+
 
 SRCS		+= mlx_utils/mlx_utils.c
 SRCS		+= mlx_utils/mlx_create_image.c
