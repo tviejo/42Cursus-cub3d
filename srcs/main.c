@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:54:12 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:54:05 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 */
 void	init_game_vars(t_cub3d *cub)
 {
+	const int	mmap_rad = MINIMAP_RADIUS;
+	
 	cub->game.rendering_mode = RENDER_TEXTURE;
-	cub->game.minimap_size = 20;
-	cub->game.minimap_center = (t_point){{130}, {130}};
+	cub->game.minimap_size = MINIMAP_SIZE;
+	cub->game.minimap_radius = mmap_rad;
+	cub->game.minimap_center = (t_point){{mmap_rad + 25}, {mmap_rad + 25}};
 	cub->game.page = LANDING_PAGE;
 	cub->game.m_speed = M_SPEED;
 	cub->game.m_freeze = false;
@@ -47,6 +50,8 @@ void	init_game_final(t_cub3d *cub)
 	cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
 	srand(time(NULL));
 	init_keys(cub);
+	amlx_enable_win_resizing(&cub->mlx,
+		(t_size2i){{480}, {360}}, (t_size2i){{9000}, {9000}});
 	play_sound(SND_MUSIC, cub);
 	play_sound(SND_WELCOME, cub);
 	gettimeofday(&cub->game.last_tod, NULL);
@@ -81,7 +86,7 @@ or one argument: <map filename>\n"),
 		ft_close(&cub, "parse_cub3d() fails !\n");
 	if (load_resources(&cub) == EXIT_FAILURE)
 		ft_close(&cub, "load_resources() fails !\n");
-	if (mlx_create_img(&cub) == EXIT_FAILURE)
+	if (mlx_create_img(&cub, WINDOW_WIDTH, WINDOW_HEIGHT) == EXIT_FAILURE)
 		ft_close(&cub, "mlx_create_img() fails !\n");
 	init_game_final(&cub);
 	mlx_set_hooks_n_loop(&cub);

@@ -40,6 +40,7 @@ SRCS		+= parsing/monster_utils.c
 SRCS		+= parsing/parse_map_utils.c
 
 
+SRCS		+= mlx_utils/amlx.c
 SRCS		+= mlx_utils/mlx_utils.c
 SRCS		+= mlx_utils/mlx_create_image.c
 SRCS		+= mlx_utils/mlx_looping.c

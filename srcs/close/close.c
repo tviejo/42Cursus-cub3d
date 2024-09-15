@@ -6,13 +6,13 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:01:14 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 15:39:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:45:30 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_close_cr(t_cub3d *cub)
+int	on_win_close(t_cub3d *cub)
 {
 	ft_close(cub, NULL);
 	return (EXIT_SUCCESS);

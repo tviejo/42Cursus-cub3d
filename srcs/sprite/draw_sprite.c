@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:46:36 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/14 19:30:09 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 13:29:19 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ void	draw_sprite(t_cub3d *c, t_sprite *spr, int img_num)
 	}
 }
 
-void	draw_monsters(t_cub3d *cub)
+static int	sort_monsters_n_get_nb_monsters(t_cub3d *cub, t_monsters **monsters)
 {
-	static t_monsters	*monsters[MAX_MONSTERS*5];
-	t_monsters			*m;
-	const t_pointd		ppos = cub->player.pos;
-	t_sprite *const		spr = &cub->sprites[SPR_MONSTER1];
-	int					i;
+	const t_pointd	ppos = cub->player.pos;
+	t_monsters		*m;
+	int				i;
 
 	i = 0;
 	m = cub->monsters;
@@ -83,7 +81,18 @@ void	draw_monsters(t_cub3d *cub)
 		monsters[i++] = m;
 		m = m->next;
 	}
-	qsort_monsters(monsters, i);
+	if (i > 1)
+		qsort_monsters(monsters, i);
+	return (i);
+}
+
+void	draw_monsters(t_cub3d *cub)
+{
+	static t_monsters	*monsters[MAX_MONSTERS*5];
+	t_sprite *const		spr = &cub->sprites[SPR_MONSTER1];
+	int					i;
+
+	i = sort_monsters_n_get_nb_monsters(cub, monsters);
 	while (i--)
 	{
 		spr->pos = monsters[i]->pos;

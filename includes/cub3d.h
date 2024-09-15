@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:55:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:18:27 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,19 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1010
-//# define WINDOW_WIDTH 1360
+// dimensions initiales de la fenetre
+//# define WINDOW_WIDTH 1920
+//# define WINDOW_HEIGHT 1010
+# define WINDOW_WIDTH 1550
+# define WINDOW_HEIGHT 910
+//# define WINDOW_WIDTH 1200
 //# define WINDOW_HEIGHT 700
+
+// taille initiale (rayon en pixel) du cercle de la minimap
+# define MINIMAP_RADIUS 140
+// valeur de zoom initiale (taille d'une unité en pixel) pour la minimap
+# define MINIMAP_SIZE 12
+
 # define DEG_VERTICAL_FOV 86.3
 # define LUM_FADE_DIST 55.0
 # define TEX_FADE_DIST 91.0
@@ -41,11 +50,11 @@
 # define MAX_SPRITES 30
 
 // 1 pour activer le son
-# define SOUND_SUPPORT 0
+# define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
 # define MOUSE_SHOWHIDE 0
 // 1 pour activer les fonts custom
-# define CUSTOM_FONT 0
+# define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
 
 # define M_HP 10
@@ -377,6 +386,7 @@ typedef struct s_game
 	struct timeval		last_tod;
 	t_page				page;
 	int					minimap_size;
+	int					minimap_radius;
 	t_point				minimap_center;
 	int					difficulty;
 	double				m_speed;
@@ -484,8 +494,11 @@ typedef struct s_src_dst_x0
 }	t_src_dst_x0;
 
 
+void				amlx_enable_win_resizing(t_mlx *mlx,
+						t_size2i min, t_size2i max);
+void				amlx_update_img_size(t_cub3d *cub);
+
 void				set_game_state(t_cub3d *cub, t_page newstate);
-void				init_game(t_cub3d *cub3d);
 int					parse_cub3d(char *filename, t_cub3d *cub);
 bool				begin_with_tag(char *line, char *tag);
 bool				get_tag_value(char *line, char *tag, char **value);
@@ -512,13 +525,13 @@ void				delete_monster(t_cub3d *cub, int id);
 int					mlx_init_data(t_cub3d *cub3d);
 int					mlx_start(t_cub3d *cub3d);
 int					mlx_close(t_mlx *mlx);
-int					mlx_create_img(t_cub3d *cub3d);
+int					mlx_create_img(t_cub3d *cub3d, int width, int height);
 int					mlx_set_hooks_n_loop(t_cub3d *cub3d);
 int					ft_free_img(t_mlx *mlx);
 int					ft_init_img(t_mlx *mlx);
-//void				img_pix_put(t_image *img, t_uint x, t_uint y, int color);
 int					ft_close(t_cub3d *cub3d, char *errmsg);
-int					ft_close_cr(t_cub3d *cub3d);
+int					on_win_close(t_cub3d *cub3d);
+int					on_win_change(t_cub3d *cub3d);
 
 int					load_texture(void *mlx_ptr, char *filename,	t_image *img);
 
@@ -540,12 +553,9 @@ int					render_game_page(t_cub3d *cub3d);
 void				update_time(t_game *game);
 void				draw_fps(t_cub3d *cub3d);
 int					render_exit_page(t_cub3d *cub3d);
-void				draw_texture(t_cub3d *cub, t_point pos, t_tex_id texid);
 
-// void			render_background(t_cub3d *cub3d, int color);
-
-int					key_press(int keycode, t_cub3d *cub3d);
-int					key_release(int keycode, t_cub3d *cub3d);
+int					on_key_press(int keycode, t_cub3d *cub3d);
+int					on_key_release(int keycode, t_cub3d *cub3d);
 void				minimap_keys(t_cub3d *cub3d, int keycode);
 void				difficulty_keys(t_cub3d *cub3d, int keycode);
 int					init_keys(t_cub3d *cub3d);
@@ -585,8 +595,8 @@ int					render_game_over_page(t_cub3d *cub3d);
 
 bool				monster_is_present(t_cub3d *cub, t_pointd pos);
 
-int					mouse_on_btn_press(int btn, int x, int y, t_cub3d *cub);
-int					mouse_on_btn_release(int btn, int x, int y, t_cub3d *cub);
+int					on_mouse_btn_press(int btn, int x, int y, t_cub3d *cub);
+int					on_mouse_btn_release(int btn, int x, int y, t_cub3d *cub);
 
 void				play_sound(char *sound, t_cub3d *cub);
 void				kill_sound(void);

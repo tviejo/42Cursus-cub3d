@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:16:07 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:56:34 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	key_press_player(int keycode, t_player_inputs *in)
 		in->k_fire_2 = true;
 }
 
-int	key_press(int keycode, t_cub3d *cub3d)
+int	on_key_press(int keycode, t_cub3d *cub3d)
 {
 	minimap_keys(cub3d, keycode);
 	difficulty_keys(cub3d, keycode);
@@ -111,7 +111,7 @@ void	key_release_player(int keycode, t_player_inputs *in)
 		in->k_fire_2 = false;
 }
 
-int	key_release(int keycode, t_cub3d *cub3d)
+int	on_key_release(int keycode, t_cub3d *cub3d)
 {
 	if (keycode == k_freeze_monsters)
 		cub3d->game.m_freeze = !cub3d->game.m_freeze;

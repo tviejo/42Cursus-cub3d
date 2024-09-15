@@ -6,22 +6,29 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:57:20 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 01:36:33 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:01:49 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	mlx_set_hooks_n_loop(t_cub3d *cub3d)
+int	on_win_change(t_cub3d *cub)
 {
-	mlx_loop_hook(cub3d->mlx.mlx_ptr, &render, cub3d);
-	mlx_hook(cub3d->mlx.win_ptr, 17, StructureNotifyMask, &ft_close_cr, cub3d);
-	mlx_hook(cub3d->mlx.win_ptr, KeyPress, KeyPressMask, &key_press, cub3d);
-	mlx_hook(cub3d->mlx.win_ptr, KeyRelease, KeyReleaseMask, &key_release,
-		cub3d);
-	mlx_mouse_hook(cub3d->mlx.win_ptr, &mouse_on_btn_press, cub3d);
-	mlx_hook(cub3d->mlx.win_ptr, ButtonRelease, ButtonReleaseMask,
-		&mouse_on_btn_release, cub3d);
-	mlx_loop(cub3d->mlx.mlx_ptr);
+	amlx_update_img_size(cub);
+	return (0);
+}
+
+int	mlx_set_hooks_n_loop(t_cub3d *cub)
+{
+	void *const	wp = cub->mlx.win_ptr;
+
+	mlx_loop_hook(cub->mlx.mlx_ptr, &render, cub);
+	mlx_hook(wp, DestroyNotify, StructureNotifyMask, &on_win_close, cub);
+	mlx_hook(wp, ConfigureNotify, StructureNotifyMask, &on_win_change, cub);
+	mlx_hook(wp, KeyPress, KeyPressMask, &on_key_press, cub);
+	mlx_hook(wp, KeyRelease, KeyReleaseMask, &on_key_release, cub);
+	mlx_mouse_hook(wp, &on_mouse_btn_press, cub);
+	mlx_hook(wp, ButtonRelease, ButtonReleaseMask, &on_mouse_btn_release, cub);
+	mlx_loop(cub->mlx.mlx_ptr);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/11 00:12:05 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:28:03 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,44 +47,6 @@
 # define COL_ORANGE   0xFFff7f00
 # define TRANSPARENT	0x50000000
 
-/*# define NUMBER_OF_COMMAND 14
-# define NUM_OF_KEY_MOD 6
-// Power of two
-# define PAL_NUM_COLORS 1024
-# define PALNB			1023
-# define INFOBAR_HEIGHT 20
-*/
-
-/*
-enum e_keymod
-{
-	leftShift,
-	rightShift,
-	leftCtrl,
-	rightCtrl,
-	leftAlt,
-	rightAlt
-};
-
-enum e_command
-{
-	zoomIn,
-	zoomOut,
-	mvUp,
-	mvDown,
-	mvLeft,
-	mvRight,
-	rotUp,
-	rotDown,
-	rotLeft,
-	rotRight,
-	rotZinc,
-	rotZdec,
-	scaleZinc,
-	scaleZdec,
-	number_of_command
-};
-*/
 typedef unsigned int	t_uint;
 typedef long			t_time_ms;
 typedef t_time_ms		t_duree_ms;
@@ -222,9 +184,9 @@ typedef struct s_pt2d
 
 typedef struct s_triangle
 {
-	t_pt2d 	p0;
-	t_pt2d 	p1;
-	t_pt2d 	p2;
+	t_pt2d	p0;
+	t_pt2d	p1;
+	t_pt2d	p2;
 	int		color;
 }	t_triangle;
 
@@ -241,78 +203,6 @@ typedef struct s_hue_range
 	double	end;
 	double	direction;
 }	t_hue_range;
-
-/*typedef struct s_matrix
-{
-	double	m11;
-	double	m12;
-	double	m13;
-	double	m14;
-	double	m21;
-	double	m22;
-	double	m23;
-	double	m24;
-	double	m31;
-	double	m32;
-	double	m33;
-	double	m34;
-	double	m41;
-	double	m42;
-	double	m43;
-	double	m44;
-}	t_matrix;
-
-typedef struct s_matrix_inv
-{
-	double	c0;
-	double	c1;
-	double	c2;
-	double	c3;
-	double	c4;
-	double	c5;
-	double	s0;
-	double	s1;
-	double	s2;
-	double	s3;
-	double	s4;
-	double	s5;
-}	t_matrix_inv;*/
-
-/*typedef struct s_fdfmap
-{
-	t_size2i	dim;
-	t_range3d	range;
-	t_pt3d		**points;
-	t_pt2d		**pts2d;
-	char		*name;
-	int			max_height;
-	t_matrix	transform;
-	t_matrix	camera;
-	t_matrix	projection;
-	double		viewport_xmul;
-	double		viewport_ymul;
-	double		viewport_xadd;
-	double		viewport_yadd;
-	bool		has_perspective;
-	bool		raw_clipping;
-	bool		z_clipping;
-	bool		use_z_color_palette;
-	bool		palette_rotate;
-	int			palette[PAL_NUM_COLORS];
-	double		palrotbase;
-	double		palrotspeed;
-	double		pal_zrange;
-	double		palidx0;
-	double		palidx_inc;
-	double		palnbc_div_zrange;
-}	t_fdfmap;*/
-
-/*typedef struct s_map_load
-{
-	t_fdfmap 		*map;
-	int 		max_height;
-	int			fd;
-} 	s_map_load;*/
 
 typedef struct s_image
 {
@@ -353,7 +243,7 @@ typedef struct s_image
 	t_duree_ms	duree;
 }	t_app;*/
 
-void		amlx_set_win_minmax(t_xvar *xvar, Window win,
+void		x11_set_win_minmax(Display *display, Window win,
 				t_size2i min, t_size2i max);
 //void		amlx_enable_win_resizing(t_app *app);
 //int			amlx_create_img_buffer(t_app *app, int width, int height);
@@ -389,20 +279,4 @@ void		img_fill128(t_image *img, int color);
 
 void		fill_rectangle(t_image *img, t_rect rc, int color);
 
-/*void		mat_set_identity(t_matrix *mat);
-t_matrix	mat_mul(t_matrix a, t_matrix b);
-t_matrix	mat_get_inverse(t_matrix *mat);
-void		mat_translate(t_matrix *mat, double x, double y, double z);
-void		mat_set_translate(t_matrix *mat, double x, double y, double z);
-void		mat_set_scale(t_matrix *mat, double x, double y, double z);
-void		mat_set_rotate_x(t_matrix *mat, double angle);
-void		mat_set_rotate_y(t_matrix *mat, double angle);
-void		mat_set_rotate_z(t_matrix *mat, double angle);
-void		mat_set_rotate(t_matrix *mat, double x, double y, double z);
-t_matrix	mat_ortho_project(double fov, double aspect,
-				double near, double far);
-t_matrix	mat_persp_project(double fov, double aspect,
-				double near, double far);
-void		set_viewport(t_fdfmap *map, t_size2i dim, t_point offset);
-*/
 #endif

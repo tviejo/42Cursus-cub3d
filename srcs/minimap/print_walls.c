@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 18:31:28 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/08 13:02:26 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:37:28 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ inline static void	put_pixel(t_image *img, int x, int y, int color)
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
 }
 
-inline static bool	is_inside_circle(int x, int y)
+inline static bool	is_inside_circle(int x, int y, int square_radius)
 {
-	return (x * x + y * y < 10000);
+	return (x * x + y * y < square_radius);
 }
 
 /*
@@ -33,10 +33,11 @@ inline static bool	is_inside_circle(int x, int y)
 
 static void	print_square(t_image *img, t_point pos, int color, t_cub3d *cub)
 {
-	int		x;
-	int		y;
-	t_point	p0;
-	t_point	p0c;
+	const int	radius2 = cub->game.minimap_radius * cub->game.minimap_radius;
+	int			x;
+	int			y;
+	t_point		p0;
+	t_point		p0c;
 
 	p0.x = pos.x * cub->game.minimap_size
 		- (cub->player.pos.x * cub->game.minimap_size);
@@ -50,7 +51,7 @@ static void	print_square(t_image *img, t_point pos, int color, t_cub3d *cub)
 		y = 0;
 		while (y < cub->game.minimap_size)
 		{
-			if (is_inside_circle(p0.x + x, p0.y + y))
+			if (is_inside_circle(p0.x + x, p0.y + y, radius2))
 				put_pixel(img, p0c.x + x, p0c.y + y, color);
 			y++;
 		}
