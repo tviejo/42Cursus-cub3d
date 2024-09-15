@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:46:36 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/14 19:30:09 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:34:28 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_sprite(t_cub3d *c, t_sprite *spr, int img_num)
 
 void	draw_monsters(t_cub3d *cub)
 {
-	static t_monsters	*monsters[MAX_MONSTERS*5];
+	static t_monsters	*monsters[MAX_MONSTERS * 5];
 	t_monsters			*m;
 	const t_pointd		ppos = cub->player.pos;
 	t_sprite *const		spr = &cub->sprites[SPR_MONSTER1];
@@ -94,6 +94,3 @@ void	draw_monsters(t_cub3d *cub)
 			draw_sprite(cub, spr, cub->game.last_tod.tv_sec & 3);
 	}
 }
-
-//printf("pl: (%.2f,%.2f)  monster %i: (%.2f,%.2f)  angle: %.1f\n", cub->player.pos.x, cub->player.pos.y,
-		//	i, monsters[i]->pos.x, monsters[i]->pos.y, angle * 180.0 / M_PI);

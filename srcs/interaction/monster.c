@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:36:41 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:27:31 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	movement_monster(t_cub3d *c, t_monsters *m)
 	if (!is_m_wall(c, m->pos.x, m->pos.y - c->game.m_speed) && m->random == 3)
 		m->pos.y -= c->game.m_speed;
 	else if (m->random == 3)
-		m->random = rand() % 4;
+		m->random = rand() % 4 + 4;
 	lateral_move(c, m, m->random);
 	i++;
 }
@@ -117,7 +117,6 @@ void	move_monsters(t_cub3d *cub)
 	t_monsters				*m;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 	struct timeval			m_time;
-	t_pointd				old_pos;
 
 	if (cub->game.m_freeze)
 		return ;
@@ -131,9 +130,7 @@ void	move_monsters(t_cub3d *cub)
 		while (m)
 		{
 			old_time = cub->game.last_tod;
-			old_pos = m->pos;
-			while (old_pos.x == m->pos.x && old_pos.y == m->pos.y)
-				movement_monster(cub, m);
+			movement_monster(cub, m);
 			m = m->next;
 		}
 	}

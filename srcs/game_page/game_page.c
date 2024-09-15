@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 22:08:15 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:31:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ int	render_game_page(t_cub3d *cub)
 	mlx_put_image_to_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr,
 		cub->mlx.mlx_img.ptr, 0, 0);
 	render_frame(cub);
-	draw_monsters(cub);
+	if (cub->nb_monsters > 0)
+	{
+		draw_monsters(cub);
+		move_monsters(cub);
+		shoot_monsters(cub);
+		sound_close_monster(cub);
+	}
 	draw_minimap(cub);
 	interact_door(cub, cub->player.pos);
-	move_monsters(cub);
-	shoot_monsters(cub);
-	sound_close_monster(cub);
 	update_time(&cub->game);
 	draw_fps(cub);
 	reload(cub);

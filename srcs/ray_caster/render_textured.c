@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_textured.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 23:23:32 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/14 23:49:33 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:34:01 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,5 @@ int	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_tex *r,
 	r->height = c->map.wall_heightscale * c->mlx.mlx_img.dim.height / r->w_dist;
 	r->y0 = (c->player.view_height + c->player.walk_height_shift) / r->w_dist
 		+ ((c->mlx.mlx_img.dim.height - r->height) >> 1);
-	//printf("view_height: %.2f  walk_height_shift: %.2f  r->w_dist: %.2f  mlx_img.dim.height: %i  r->height: %i\n", c->player.view_height, c->player.walk_height_shift, r->w_dist, 
-	//	c->mlx.mlx_img.dim.height, r->height);
-	//exit(0);
 	return (EXIT_SUCCESS);
 }

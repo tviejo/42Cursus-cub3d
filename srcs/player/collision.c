@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 14:22:09 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 15:45:35 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/15 10:36:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static bool	find_wall(t_cub3d *cub, t_pointd pos, t_pointd new_pos,
 {
 	double	i;
 
-	i = -0.0003;
-	while (i < 0.0004)
+	i = -0.0005;
+	while (i < 0.0007)
 	{
 		if (is_wall(cub, (int)(pos.x - i), (int)(pos.y + i)) == true)
 		{
@@ -51,11 +51,11 @@ static int	find_wall_between_two_pos(t_cub3d *cub, t_pointd old_pos,
 	t_pointd	pos;
 	int			i;
 
-	inc.x = (new_pos.x - old_pos.x) / 200;
-	inc.y = (new_pos.y - old_pos.y) / 200;
+	inc.x = (new_pos.x - old_pos.x) / 500;
+	inc.y = (new_pos.y - old_pos.y) / 500;
 	pos = old_pos;
 	i = 0;
-	while (i < 200)
+	while (i < 500)
 	{
 		pos.x += inc.x;
 		pos.y += inc.y;
