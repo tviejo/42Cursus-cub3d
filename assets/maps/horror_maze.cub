@@ -9,6 +9,9 @@ SO ./assets/textures/creepy/brown_old_wall_3.xpm
 WE ./assets/textures/creepy/cement_old_wall_1.xpm
 EA ./assets/textures/creepy/blood_old_wall.xpm
 
+FloorTex ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
+CeilTex  ./assets/textures/floor-ceil/white-cubes-3d_tiled_512.xpm
+
 C 70,70,70
 F 150,150,150
 

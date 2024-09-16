@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 10:31:05 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/16 19:55:57 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	render_game_page(t_cub3d *cub)
 	draw_fps(cub);
 	reload(cub);
 	draw_hud(cub);
+	shade_image(&cub->mlx.mlx_img, cub->player.health);
 	return (0);
 }
