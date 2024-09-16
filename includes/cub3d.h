@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 20:07:22 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:46:53 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 // dimensions initiales de la fenetre
 //# define WINDOW_WIDTH 1920
 //# define WINDOW_HEIGHT 1010
-# define WINDOW_WIDTH 1550
-# define WINDOW_HEIGHT 910
+# define WINDOW_WIDTH 1600
+# define WINDOW_HEIGHT 900
 //# define WINDOW_WIDTH 1200
 //# define WINDOW_HEIGHT 700
 
@@ -37,6 +37,11 @@
 # define MINIMAP_SIZE 12
 
 # define DEG_VERTICAL_FOV 86.3
+//# define WALK_HEIGHT_RANGE 20.0
+# define WALK_HEIGHT_RANGE 0.0
+//# define PLAYER_HEIGHT_FACTOR 0.08
+# define PLAYER_HEIGHT_FACTOR 0.0
+
 # define LUM_FADE_DIST 55.0
 # define TEX_FADE_DIST 91.0
 // facteur d'echelle des textures
@@ -65,15 +70,17 @@
 // radians par seconde
 # define ROT_SPEED 2.0
 // Délai entre chaque tir en seconde
-# define SHOOT_DELAY 0.22
+# define SHOOT_DELAY 0.25
 // Nombre de munitions
-# define NB_AMMO 20
+# define NB_AMMO 25
 
 # define B_SND_PLAYER "ffplay -nodisp -autoexit "
 //# define SND_MUSIC "assets/sounds/ambiance.mp3"
 //# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
 //# define SND_MUSIC "-volume 65 'assets/sounds/BOSolaris-WearYourSeatBelt.mp3'"
-# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
+//# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
+//# define SND_MUSIC "assets/sounds/dm-pimpf.aac"
+# define SND_MUSIC "-volume 60 assets/sounds/dm-nothing.aac"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
 # define SND_STEP "-volume 32 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"
@@ -93,15 +100,16 @@
 
 # define M_HIT_BOX 0.5
 
-# define PATH_SPR_MONSTER1 "assets/textures/monster_mummie_"
+# define PATH_SPR_MONSTER1 "assets/sprites/monster_mummie_"
 # define NBIMG_SPR_MONSTER1 4
 
-# define IMG_GUN "assets/textures/gun.xpm"
-# define IMG_RELOAD "assets/textures/reload.xpm"
-# define IMG_FIRE "assets/textures/fire.xpm"
-# define IMG_GAME_OVER "assets/textures/game_over.xpm"
-# define IMG_LANDING "assets/textures/landing.xpm"
-# define IMG_EXIT "assets/textures/exit.xpm"
+# define IMG_GUN "assets/textures/guns/gun.xpm"
+# define IMG_RELOAD "assets/textures/guns/reload.xpm"
+# define IMG_FIRE "assets/textures/guns/fire.xpm"
+
+# define IMG_GAME_OVER "assets/textures/game-pages/game_over.xpm"
+# define IMG_LANDING "assets/textures/game-pages/landing.xpm"
+# define IMG_EXIT "assets/textures/game-pages/exit.xpm"
 
 # define MAP_DEFAULT_FNAME "assets/maps/map_subject.cub"
 # define MAP_TAG_TEX_SIZE "TEX_SIZE"
@@ -113,6 +121,8 @@
 # define MAP_TAG_CLOSED_DOOR_TEX "closedDoorTex"
 # define MAP_TAG_CEIL_COLOR "C"
 # define MAP_TAG_FLOOR_COLOR "F"
+# define MAP_TAG_CEIL_TEX "CeilTex"
+# define MAP_TAG_FLOOR_TEX "FloorTex"
 
 //# define NORTH_ANGLE M_PI_2
 # define NORTH_ANGLE 1.57079632679489661923
@@ -197,12 +207,15 @@ typedef enum e_door_state
 
 typedef enum e_tex_id
 {
+	TXID_FLOOR,
+	TXID_CEIL,
 	TXID_GUN,
 	TXID_FIRE,
 	TXID_GUN_RELOAD,
 	TXID_GAME_OVER,
 	TXID_LANDING,
 	TXID_EXIT,
+	TXID_MAXIMUM
 }					t_tex_id;
 
 typedef enum e_sprite_id
@@ -310,7 +323,7 @@ typedef struct s_mlx
 	t_image			closed_door_tex;
 	//int				nb_textures;
 	//t_image			text[MAX_TEXTURES];
-	t_image			text[6];
+	t_image			text[TXID_MAXIMUM];
 	int				color_floor;
 	int				color_ceil;
 	// Z-buffer des tranches de murs, exloité pour le rendu des sprites
@@ -462,12 +475,36 @@ typedef struct s_render_tex
 	double		ftex_y;
 	double		ftex_yinc;
 	t_image		*tex;
+	t_image		*texCeil;
+	t_image		*texFloor;
 	int			tex_modulo_m1;
 	double		shade;
+	double		shadeCeilFloor;
 	int			pixel;
 	// wall distance
 	double		w_dist;
 }	t_render_tex;
+
+typedef struct s_render_horiz_tex
+{
+	int			line;
+	int			x0;
+	int			xmax;
+	int			x;
+	int			tex_x;
+	int			tex_y;
+	double		ftex_y;
+	double		ftex_yinc;
+	double		ftex_x;
+	double		ftex_xinc;
+	t_image		*tex;
+	int			tex_modulo_m1;
+	double		shade;
+	int			pixel;
+	double		dist;
+	double 		scale;
+	double		angle;
+}	t_render_horiz_tex;
 
 typedef struct s_scaninfo
 {
@@ -644,4 +681,5 @@ void				draw_monsters(t_cub3d *cub);
 void				draw_sprite(t_cub3d *c, t_sprite *spr, int img_num);
 void				draw_slice(t_cub3d *c, t_sprite *spr, int img_num);
 
+void				draw_floor_n_ceil_textured(t_cub3d *c);
 #endif

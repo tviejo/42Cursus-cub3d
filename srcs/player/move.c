@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 15:20:11 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 16:24:58 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/16 16:46:24 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	change_height_player(t_cub3d *cub, double height)
 	if (cub->player.view_height == height)
 	{
 		cub->player.speed = 1.0;
-		cub->player.view_height = 0.08 * cub->mlx.mlx_img.dim.height;
+		cub->player.view_height = PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
 	}
 	else
 	{
@@ -41,7 +41,7 @@ static void	translate_player(t_cub3d *cub, double x, double y)
 
 	dist = cub->game.frame_time * TRANS_SPEED;
 	pl->walk_distance += dist;
-	pl->walk_height_shift = speed_mul * 20.0 * sin(pl->walk_distance * 7.0);
+	pl->walk_height_shift = speed_mul * WALK_HEIGHT_RANGE * sin(pl->walk_distance * 7.0);
 	if (pl->walk_height_shift > old_height && sound_trigger)
 	{
 		sound_trigger = false;

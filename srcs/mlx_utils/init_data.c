@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:25:40 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 21:27:25 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/16 09:31:33 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	mlx_init_data(t_cub3d *cub3d)
 	cub3d->mlx.wall_tex[East].ptr = NULL;
 	cub3d->mlx.open_door_tex.ptr = NULL;
 	cub3d->mlx.closed_door_tex.ptr = NULL;
-	cub3d->mlx.text[TXID_GUN].ptr = NULL;
-	i = TXID_GUN;
-	while (i <= TXID_EXIT)
+	i = 0;
+	while (i < TXID_MAXIMUM)
 		cub3d->mlx.text[i++].ptr = NULL;
 	return (0);
 }

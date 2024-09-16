@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_textured.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 23:23:32 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/15 10:34:01 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/16 15:05:06 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	render_ray_tex_init(t_cub3d *c, t_raycast *rc, t_render_tex *r,
 		render_ray_colored(c, rc, item);
 		return (EXIT_FAILURE);
 	}
+	r->texCeil = &c->mlx.text[TXID_CEIL];
+	r->texFloor = &c->mlx.text[TXID_FLOOR];
 	c->mlx.slices_zbuffer[rc->column] = r->w_dist;
 	r->shade = TEX_FADE_DIST / (TEX_FADE_DIST + r->w_dist * r->w_dist);
 	r->tex_modulo_m1 = TEX_SIZE - 1;

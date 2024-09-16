@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:00:46 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/10 04:57:12 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/16 09:38:20 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	is_texture(char *line)
 		|| begin_with_tag(line, MAP_TAG_EAST_TEX)
 		|| begin_with_tag(line, MAP_TAG_OPEN_DOOR_TEX)
 		|| begin_with_tag(line, MAP_TAG_CLOSED_DOOR_TEX)
+		|| begin_with_tag(line, MAP_TAG_CEIL_TEX)
+		|| begin_with_tag(line, MAP_TAG_FLOOR_TEX)
 	);
 }
 

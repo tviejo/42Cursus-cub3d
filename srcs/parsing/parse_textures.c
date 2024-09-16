@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:57:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/11 16:21:46 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/16 10:16:56 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	errmsg(char *msg, char *fname)
 	perror(NULL);
 }
 
-static int	load_tex(void *mlx_ptr, char *tagval, t_image *img, char **filename)
+static int	load_tex_core(void *mlx_ptr, char *tagval, t_image *img,
+							char **filename)
 {
 	if (img->ptr)
 		return (errmsg("load_texture(): already loaded (check the map file !)",
@@ -39,30 +40,59 @@ static int	load_tex(void *mlx_ptr, char *tagval, t_image *img, char **filename)
 	return (EXIT_SUCCESS);
 }
 
+static int	load_tex(void *mlx_ptr, char *tagval, t_image *img, char **filename)
+{
+	char	*temp;
+	int		retval;
+
+	if (filename == NULL)
+	{
+		filename = &temp;
+		temp = NULL;
+	}
+	retval = load_tex_core(mlx_ptr, tagval, img, filename);
+	if (filename == &temp)
+		free(temp);
+	return (retval);
+}
+
+static void	parse_texture_wall(char *line, t_cub3d *c, int *retval)
+{
+	char	*tagval;
+
+	if (get_tag_value(line, MAP_TAG_NORTH_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[North],
+				&c->map.north_tfname);
+	if (get_tag_value(line, MAP_TAG_SOUTH_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[South],
+				&c->map.south_tfname);
+	if (get_tag_value(line, MAP_TAG_WEST_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[West],
+				&c->map.west_tfname);
+	if (get_tag_value(line, MAP_TAG_EAST_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[East],
+				&c->map.east_tfname);
+	if (get_tag_value(line, MAP_TAG_OPEN_DOOR_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.open_door_tex,
+				&c->map.open_door_tfname);
+	if (get_tag_value(line, MAP_TAG_CLOSED_DOOR_TEX, &tagval))
+		*retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.closed_door_tex,
+				&c->map.closed_door_tfname);
+}
+
 int	parse_texture(char *line, t_cub3d *c)
 {
 	int		retval;
 	char	*tagval;
 
 	retval = EXIT_FAILURE;
-	if (get_tag_value(line, MAP_TAG_NORTH_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[North],
-				&c->map.north_tfname);
-	if (get_tag_value(line, MAP_TAG_SOUTH_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[South],
-				&c->map.south_tfname);
-	if (get_tag_value(line, MAP_TAG_WEST_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[West],
-				&c->map.west_tfname);
-	if (get_tag_value(line, MAP_TAG_EAST_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.wall_tex[East],
-				&c->map.east_tfname);
-	if (get_tag_value(line, MAP_TAG_OPEN_DOOR_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.open_door_tex,
-				&c->map.open_door_tfname);
-	if (get_tag_value(line, MAP_TAG_CLOSED_DOOR_TEX, &tagval))
-		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.closed_door_tex,
-				&c->map.closed_door_tfname);
+	parse_texture_wall(line, c, &retval);
+	if (get_tag_value(line, MAP_TAG_FLOOR_TEX, &tagval))
+		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.text[TXID_FLOOR],
+				NULL);
+	if (get_tag_value(line, MAP_TAG_CEIL_TEX, &tagval))
+		retval = load_tex(c->mlx.mlx_ptr, tagval, &c->mlx.text[TXID_CEIL],
+				NULL);
 	free(line);
 	return (retval);
 }

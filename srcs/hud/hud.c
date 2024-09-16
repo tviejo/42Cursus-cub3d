@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:27:53 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 19:53:01 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:49:05 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ static void	print_remaining_ammo(t_cub3d *cub)
 	const int	height = cub->mlx.mlx_img.dim.height;
 	char		*info;
 
-	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, height - 150,
+	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, height - 65,
 		COL_WHITE, "Ammo:");
 	info = ft_itoa(cub->player.ammo);
 	if (cub->player.ammo <= 5)
 	{
 		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, height
-			- 150, COL_RED, info);
+			- 65, COL_RED, info);
 		if (cub->player.ammo == 0)
 			mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 50, height
-				- 120, COL_WHITE, "press R to reload");
+				- 40, COL_WHITE, "press R to reload");
 	}
 	else
 		mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, 100, height
-			- 150, COL_WHITE, info);
+			- 65, COL_WHITE, info);
 	free(info);
 }
 

@@ -7,21 +7,21 @@
 # Texture files:
 # use tags NO/SO/WE/EA to specify North/South/West/East wall texture files
 
-#NO ./assets/textures/_2001VIGNETTE.xpm
-#SO ./assets/textures/2001 l'Odyssee de l'espace - Credit MGM - DR - TCD.xpm
-#WE ./assets/textures/2001-l-odyssee-de-l-espace-stanley-kubrick.xpm
-#EA ./assets/textures/EGS_AlienIsolation_CreativeAssembly_S5-1920x1080.xpm   
-#openDoorTex   ./assets/textures/openDoorTex.xpm
-#closedDoorTex ./assets/textures/closedDoorTex.xpm
+#NO ./assets/textures/2001/_2001VIGNETTE.xpm
+#SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Credit MGM - DR - TCD.xpm
+#WE ./assets/textures/2001/2001-l-odyssee-de-l-espace-stanley-kubrick.xpm
+#EA ./assets/textures/2001/EGS_AlienIsolation_CreativeAssembly_S5-1920x1080.xpm   
+#openDoorTex   ./assets/textures/doors/openDoorTex.xpm
+#closedDoorTex ./assets/textures/doors/closedDoorTex.xpm
 
 TEX_SIZE 1024
-NO ./assets/textures/_2001Footing_1024x1024.xpm
-SO ./assets/textures/2001 l'Odyssee de l'espace - Couloir 1024x1024.xpm
-WE ./assets/textures/2001-l-odyssee-de-l-espace-HAL-memory-room-1024x1024.xpm
-EA ./assets/textures/EGS_AlienIsolation_CreativeAssembly_S5-1024x1024.xpm
+NO ./assets/textures/2001/_2001Footing_1024x1024.xpm
+SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 1024x1024.xpm
+WE ./assets/textures/2001/2001-l-odyssee-de-l-espace-HAL-memory-room-1024x1024.xpm
+EA ./assets/textures/2001/EGS_AlienIsolation_CreativeAssembly_S5-1024x1024.xpm
 
-#openDoorTex   ./assets/textures/porte 1024x1024.xpm
-closedDoorTex ./assets/textures/porte 1024x1024.xpm
+#openDoorTex   ./assets/textures/doors/porte 1024x1024.xpm
+closedDoorTex ./assets/textures/doors/porte 1024x1024.xpm
 
 
 # Colors: Floor and Ceil colors (r,g,b) [0-255]:

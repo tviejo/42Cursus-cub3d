@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:10:03 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/09 10:11:38 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:14:35 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_faded_color(t_cub3d *c, int color, int line_height, double sens)
 		printf("[get_faded_color()] line: %i  distance: %f\n", line_height,
 			distance);*/
 
-void	draw_floor_n_ceil(t_cub3d *c)
+void	draw_floor_n_ceil_colored(t_cub3d *c)
 {
 	t_pt2d	p0;
 	t_pt2d	p1;
@@ -56,4 +56,12 @@ void	draw_floor_n_ceil(t_cub3d *c)
 		p0.y++;
 		p1.y++;
 	}
+}
+
+void	draw_floor_n_ceil(t_cub3d *c)
+{
+	if (c->game.rendering_mode == RENDER_COLOR)
+		draw_floor_n_ceil_colored(c);
+	/*if (c->game.rendering_mode == RENDER_TEXTURE)
+		draw_floor_n_ceil_textured(c);*/
 }
