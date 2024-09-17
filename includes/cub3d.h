@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 10:25:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:40:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 # define WALK_HEIGHT_RANGE 16.0
 # define PLAYER_HEIGHT_FACTOR 0.08
 
+// table des ombrages
+# define SHADE_TABLE_SIZE 1024
+# define SHADE_PER_DIST 16.0
 # define LUM_FADE_DIST 55.0
 # define TEX_FADE_DIST 91.0
 // facteur d'echelle des textures
@@ -326,6 +329,7 @@ typedef struct s_mlx
 	int				color_ceil;
 	// Z-buffer des tranches de murs, exloité pour le rendu des sprites
 	double			*slices_zbuffer;
+	float			shade_table[SHADE_TABLE_SIZE];
 }					t_mlx;
 
 typedef struct s_color
@@ -483,7 +487,30 @@ typedef struct s_render_tex
 	double		w_dist;
 }	t_render_tex;
 
-typedef struct s_render_horiz_tex
+typedef struct s_rdr_horiz_tex
+{
+	double			img_h2;
+	double			_1_img_h2;
+	double			rel_angle;
+	double			tx;
+	double			ty;
+	double			tx_mul;
+	double			ty_mul;
+	double			scale_cos;
+	double			floor_dist;
+	double			pl_tx;
+	double			pl_ty;
+	double			h_diff;
+	double			h_eye;
+	double			shade;
+	int				x;
+	int				y;
+	int				ymax;
+	t_image			*texture;
+	t_image			*img_dst;
+}	t_rdr_horiz_tex;
+
+/*typedef struct s_render_horiz_tex
 {
 	int			line;
 	int			x0;
@@ -502,7 +529,7 @@ typedef struct s_render_horiz_tex
 	double		dist;
 	double 		scale;
 	double		angle;
-}	t_render_horiz_tex;
+}	t_render_horiz_tex;*/
 
 typedef struct s_scaninfo
 {
@@ -680,5 +707,9 @@ void				draw_monsters(t_cub3d *cub);
 void				draw_sprite(t_cub3d *c, t_sprite *spr, int img_num);
 void				draw_slice(t_cub3d *c, t_sprite *spr, int img_num);
 
-void				draw_floor_n_ceil_textured(t_cub3d *c);
+//void				draw_floor_n_ceil_textured(t_cub3d *c);
+void				render_tex_ceil_n_floor(t_cub3d *c, t_raycast *rc, t_render_tex *r);
+void				render_floor_column(t_rdr_horiz_tex t);
+void				render_ceil_column(t_rdr_horiz_tex t);
+
 #endif

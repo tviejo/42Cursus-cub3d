@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 03:47:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/17 10:25:15 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:38:25 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,59 +32,33 @@ static inline int	get_shaded_color(int color, double shade, int item)
 		+ (int)((color & 255) * shade));
 }
 
-static inline int	get_shaded_ceilfloor(int color, double shade)
-{
-	return (
-		((int)(((color >> 16) & 255) * shade) << 16)
-		+ ((int)(((color >> 8) & 255) * shade) << 8)
-		+ (int)((color & 255) * shade));
-}
-
 void	render_tex_ceil_n_floor(t_cub3d *c, t_raycast *rc, t_render_tex *r)
 {
-	const double	img_h2 = 0.5 * c->mlx.mlx_img.dim.height;
-	const double	rel_angle = angles_add(rc->angle, -c->player.dir);
-	double			tx;
-	double			ty;
-	double			tx_mul;
-	double			ty_mul;
-	double			floor_dist;
-	double			real_y;
+	t_rdr_horiz_tex	t;
 
-	tx_mul = 0.25 * cos(rc->angle) * c->mlx.mlx_img.dim.height * TEX_SCALE / cos(rel_angle);
-	ty_mul = 0.25 * sin(rc->angle) * c->mlx.mlx_img.dim.height * TEX_SCALE / cos(rel_angle);
-	r->ymax = c->mlx.mlx_img.dim.height;
-	//r->y = r->y0 + r->height;
+	t.img_h2 = 0.5 * c->mlx.mlx_img.dim.height;
+	t._1_img_h2 = 1.0 / (t.img_h2 * c->map.wall_heightscale);
+	t.rel_angle = angles_add(rc->angle, -c->player.dir);
+	t.h_diff = c->player.view_height + c->player.walk_height_shift;
+	t.h_eye = t.h_diff + t.img_h2 * c->map.wall_heightscale;
+	t.pl_tx = 0.5 * c->player.pos.x * TEX_SCALE;
+	t.pl_ty = 0.5 * c->player.pos.y * TEX_SCALE;
+	t.scale_cos = c->mlx.mlx_img.dim.height * TEX_SCALE / cos(t.rel_angle);
+	t.tx_mul = 0.25 * cos(rc->angle) * t._1_img_h2 * t.scale_cos;
+	t.ty_mul = 0.25 * sin(rc->angle) * t._1_img_h2 * t.scale_cos;
+	t.img_dst = &c->mlx.mlx_img;
+	t.texture = r->texFloor;
+	t.x = rc->column;
+	t.ymax = c->mlx.mlx_img.dim.height;
+	t.y = r->y;
 	if (r->texFloor->ptr)
-		while (r->y < r->ymax)
-		{
-			floor_dist = (- (c->player.view_height + c->player.walk_height_shift)
-			- img_h2 * c->map.wall_heightscale) / (r->y - img_h2);
-			real_y = r->y + (c->player.view_height + c->player.walk_height_shift) / floor_dist;
-			tx = 0.5 * c->player.pos.x * TEX_SCALE + tx_mul / (real_y - 0.5 * c->mlx.mlx_img.dim.height);
-			ty = 0.5 * c->player.pos.y * TEX_SCALE - ty_mul / (real_y - 0.5 * c->mlx.mlx_img.dim.height);
-			
-			r->shadeCeilFloor = LUM_FADE_DIST / (LUM_FADE_DIST + floor_dist * floor_dist);
-			put_pixel(&c->mlx.mlx_img, rc->column, r->y, get_shaded_ceilfloor(
-					get_pixel(r->texFloor, (int)tx & (TEX_SIZE - 1), (int)ty & (TEX_SIZE - 1)), r->shadeCeilFloor));
-			r->y++;
-		}
-	r->ymax = r->y0;
-	r->y = 0;
+		render_floor_column(t);
+	t.texture = r->texCeil;
+	t.ymax = r->y0;
+	t.y = 0;
+	t.h_eye = t.img_h2 * c->map.wall_heightscale - t.h_diff;
 	if (r->texCeil->ptr)
-		while (r->y < r->ymax)
-		{
-			floor_dist = ((c->player.view_height + c->player.walk_height_shift)
-			- img_h2 * c->map.wall_heightscale) / (r->y - img_h2);
-			real_y = r->y - (c->player.view_height + c->player.walk_height_shift) / floor_dist;
-			tx = - 0.5 * c->player.pos.x * TEX_SCALE + tx_mul / (real_y - 0.5 * c->mlx.mlx_img.dim.height);
-			ty = + 0.5 * c->player.pos.y * TEX_SCALE + ty_mul / (real_y - 0.5 * c->mlx.mlx_img.dim.height);
-					
-			r->shadeCeilFloor = LUM_FADE_DIST / (LUM_FADE_DIST + floor_dist * floor_dist);
-			put_pixel(&c->mlx.mlx_img, rc->column, r->y /*+ delta_y*/, get_shaded_ceilfloor(
-					get_pixel(r->texCeil, (int)tx & (TEX_SIZE - 1), (int)ty & (TEX_SIZE - 1)), r->shadeCeilFloor));
-			r->y++;
-		}
+		render_ceil_column(t);
 }
 
 void	render_ray_textured(t_cub3d *c, t_raycast *rc, int item)

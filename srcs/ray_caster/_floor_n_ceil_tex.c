@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor_n_ceil_tex.c                                 :+:      :+:    :+:   */
+/*   _floor_n_ceil_tex.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 01:43:33 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/16 11:25:10 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:43:23 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
 static inline void	put_pixel(t_image *img, int x, int y, int color)
 {
 	*(t_uint *)(img->pixels + y * img->line_size + 4 * x) = color;
@@ -60,8 +61,10 @@ void	render_fnc_textured(t_cub3d *c, int line, int sens)
 	r.xmax = c->mlx.mlx_img.dim.width;
 	r.ftex_xinc = cos(r.angle) * TEX_SCALE / (double)r.scale;
 	r.ftex_yinc = sin(r.angle) * TEX_SCALE / (double)r.scale;
-	r.ftex_x = (line / (double)c->mlx.mlx_img.dim.height) * cos(r.angle) * c->player.pos.x * TEX_SCALE;
-	r.ftex_y = (line / (double)c->mlx.mlx_img.dim.height) * sin(r.angle) * c->player.pos.y * TEX_SCALE;
+	r.ftex_x = (line / (double)c->mlx.mlx_img.dim.height) * cos(r.angle)
+		* c->player.pos.x * TEX_SCALE;
+	r.ftex_y = (line / (double)c->mlx.mlx_img.dim.height) * sin(r.angle)
+		* c->player.pos.y * TEX_SCALE;
 	r.x = r.x0;
 	while (r.x < r.xmax)
 	{
@@ -95,3 +98,4 @@ void	draw_floor_n_ceil_textured(t_cub3d *c)
 		y++;
 	}
 }
+*/

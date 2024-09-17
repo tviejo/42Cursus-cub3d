@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:28:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 10:50:37 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:04:27 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    shade_image (t_image *img, int health)
 
 	if (health >= 55)
 		return ;
-	shade = health * (0.8 / 55.0) + 0.2;
+	shade = health * (0.7 / 55.0) + 0.3;
 	y = 0;
 	while (y < img->dim.height)
 	{
