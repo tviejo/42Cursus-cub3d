@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/16 16:46:53 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:05:39 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@
 # define MINIMAP_SIZE 12
 
 # define DEG_VERTICAL_FOV 86.3
-//# define WALK_HEIGHT_RANGE 20.0
-# define WALK_HEIGHT_RANGE 0.0
-//# define PLAYER_HEIGHT_FACTOR 0.08
-# define PLAYER_HEIGHT_FACTOR 0.0
+# define WALK_HEIGHT_RANGE 16.0
+# define PLAYER_HEIGHT_FACTOR 0.08
 
 # define LUM_FADE_DIST 55.0
 # define TEX_FADE_DIST 91.0
@@ -79,8 +77,8 @@
 //# define SND_MUSIC "-volume 35 'assets/sounds/Amon Tobin - Easy Muffin.mp3'"
 //# define SND_MUSIC "-volume 65 'assets/sounds/BOSolaris-WearYourSeatBelt.mp3'"
 //# define SND_MUSIC "'assets/sounds/DepMode-Agent-Orange.mp3'"
-//# define SND_MUSIC "assets/sounds/dm-pimpf.aac"
-# define SND_MUSIC "-volume 60 assets/sounds/dm-nothing.aac"
+# define SND_MUSIC "assets/sounds/dm-pimpf.aac"
+//# define SND_MUSIC "-volume 60 assets/sounds/dm-nothing.aac"
 # define SND_SHOOT "assets/sounds/shoot.mp3"
 # define SND_STEP "-volume 32 assets/sounds/step.mp3"
 # define SND_DAMAGE "assets/sounds/damage.mp3"

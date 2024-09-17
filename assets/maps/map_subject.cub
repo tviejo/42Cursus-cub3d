@@ -15,14 +15,22 @@
 #closedDoorTex ./assets/textures/doors/closedDoorTex.xpm
 
 TEX_SIZE 512
-#NO ./assets/sprites/monster_mummie_1.xpm
-NO ./assets/textures/2001/_2001Footing_512x512.xpm
-SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 512x512.xpm
+NO ./assets/textures/floor-ceil/closeup-marble-textured-tiled512.xpm
+#NO ./assets/textures/2001/_2001Footing_512x512.xpm
+#SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 512x512.xpm
+#SO ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
+SO ./assets/textures/floor-ceil/wall-grey-blocks-photos2-512.xpm
 WE ./assets/textures/2001/2001-l-odyssee-de-l-espace-HAL-memory-room-512x512.xpm
 EA ./assets/textures/2001/EGS_AlienIsolation_CreativeAssembly_S5-512x512.xpm
 
-FloorTex ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
-CeilTex  ./assets/textures/floor-ceil/white-cubes-3d_tiled_512.xpm
+#FloorTex ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
+#CeilTex  ./assets/textures/floor-ceil/white-cubes-3d_tiled_512.xpm
+#CeilTex  ./assets/textures/floor-ceil/closeup-marble-textured-tiled512.xpm
+#FloorTex  ./assets/textures/floor-ceil/wall-grey-blocks-tiled512.xpm
+#FloorTex  ./assets/textures/floor-ceil/brown-marble-texture-tiled512.xpm
+#CeilTex  ./assets/textures/floor-ceil/wall-grey-blocks-photos-512.xpm
+FloorTex ./assets/textures/floor-ceil/black-marbled-surface-tiled512.xpm
+CeilTex  ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
 
 closedDoorTex ./assets/textures/doors/porte 512x512.xpm
 #closedDoorTex ./assets/textures/doors/door-leading-magical-world-512x512.xpm
