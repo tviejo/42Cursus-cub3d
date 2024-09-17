@@ -84,6 +84,7 @@ SRCS		+= interaction/monster_utils.c
 SRCS		+= hud/hud.c
 SRCS		+= hud/health_bar.c
 SRCS		+= hud/load_images.c
+SRCS		+= hud/damage.c
 
 SRCS		+= game_over_page/game_over.c
 

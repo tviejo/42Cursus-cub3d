@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 10:05:39 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 10:25:04 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include <pthread.h>
 
 // dimensions initiales de la fenetre
-//# define WINDOW_WIDTH 1920
-//# define WINDOW_HEIGHT 1010
-# define WINDOW_WIDTH 1600
-# define WINDOW_HEIGHT 900
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1010
+// # define WINDOW_WIDTH 1600
+// # define WINDOW_HEIGHT 900
 //# define WINDOW_WIDTH 1200
 //# define WINDOW_HEIGHT 700
 
@@ -647,6 +647,7 @@ void				draw_floor_n_ceil(t_cub3d *c);
 
 void				draw_hud(t_cub3d *cub);
 void				draw_health_bar(t_cub3d *cub);
+void				shade_image(t_image *img, int health);
 
 void				update_health(t_cub3d *cub);
 
