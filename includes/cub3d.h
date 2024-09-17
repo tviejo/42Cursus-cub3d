@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 16:40:04 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:45:53 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 // le carré inclus de coté égal à la plus grande puissance de 2 sera exploité. 
 # define TEX_SIZE 512
 
-# define MAX_TEXTURES 30
+//# define MAX_TEXTURES 30
 # define MAX_SPRITES 30
 
 // 1 pour activer le son
@@ -234,18 +234,16 @@ typedef struct s_monsters
 	struct s_monsters	*next;
 }	t_monsters;
 
-
+// hot spot: un sprite est affiché en (x,y) il sera centré sur son hotspot
 typedef struct s_sprite_img
 {
 	t_image		img;
-	// hot spot: un sprite est affiché en (x,y) il sera centré sur son hotspot
 	t_point		hspot;
 }	t_sprite_img;
 
+/*
 typedef struct s_sprite
-{
-	int				nb_images;
-	t_sprite_img	*images;
+
 	// facteur d'echelle
 	double			scale;
 	// ratio largeur/hauteur
@@ -260,7 +258,18 @@ typedef struct s_sprite
 	int				height;
 	// colonne pour le rendu d'une tranche
 	int				column;
-	//
+*/
+typedef struct s_sprite
+{
+	int				nb_images;
+	t_sprite_img	*images;
+	double			scale;
+	double			ratio_w_h;
+	t_pointd		pos;
+	double			dist;
+	double			angle;
+	int				height;
+	int				column;
 	double			x_spot;
 }	t_sprite;
 
@@ -314,6 +323,9 @@ typedef struct s_image
 }					t_image;
 */
 
+// Z-buffer des tranches de murs, exloité pour le rendu des sprites
+//	double			*slices_zbuffer;
+
 typedef struct s_mlx
 {
 	void			*mlx_ptr;
@@ -322,12 +334,9 @@ typedef struct s_mlx
 	t_image			wall_tex[4];
 	t_image			open_door_tex;
 	t_image			closed_door_tex;
-	//int				nb_textures;
-	//t_image			text[MAX_TEXTURES];
 	t_image			text[TXID_MAXIMUM];
 	int				color_floor;
 	int				color_ceil;
-	// Z-buffer des tranches de murs, exloité pour le rendu des sprites
 	double			*slices_zbuffer;
 	float			shade_table[SHADE_TABLE_SIZE];
 }					t_mlx;
@@ -339,8 +348,7 @@ typedef struct s_color
 	int				b;
 }					t_color;
 
-typedef struct s_player
-{
+/*	
 	// position
 	t_pointd		pos;
 	// direction: angle in radians
@@ -355,13 +363,21 @@ typedef struct s_player
 	double			walk_height_shift;
 	// hauteur des yeux
 	double			view_height;
+*/
+typedef struct s_player
+{
+	t_pointd		pos;
+	double			dir;
+	double			vertical_fov;
+	double			walk_distance;
+	double			walk_height_shift;
+	double			view_height;
 	double			player_pos_z;
 	int				health;
 	int				ammo;
 	double			speed;
 	double			shoot_last_time;
 }					t_player;
-
 
 typedef struct s_check_parse
 {
@@ -390,8 +406,7 @@ typedef struct s_map
 	t_error			error;
 }					t_map;
 
-typedef struct s_game
-{
+/*
 	// temps du jeu en secondes (mis à jour à chaque nouvelle frame)
 	double				time;
 	// temps de calcul de la dernière frame en seconde
@@ -400,6 +415,11 @@ typedef struct s_game
 	// qui met a jour le temps du jeu ('time') ainsi que 'frame_time'.
 	// Tous les autres fonctions devraient exploiter time et frame_time et ne
 	// pas faire d'appel à gettimeofday()
+*/
+typedef struct s_game
+{
+	double				time;
+	double				frame_time;
 	struct timeval		last_tod;
 	t_page				page;
 	int					minimap_size;
@@ -432,8 +452,9 @@ typedef struct s_cub3d
 	look_right,
 }	t_looking_dir*/
 
+/*
 typedef struct s_raycast
-{
+
 	// image column to render
 	int				column;
 	// ray angle
@@ -464,6 +485,25 @@ typedef struct s_raycast
 	double			h_dist;
 	// distance entre deux intersections horizontales
 	double			h_dist_inc;
+*/
+typedef struct s_raycast
+{
+	int				column;
+	double			angle;
+	t_point			mapc;
+	bool			vertical_wall;
+	t_directions	wall_orientation;
+	t_pointd		wall_inter;
+
+	t_pointd		v_inter;
+	t_size2d		v_inc;
+	double			v_dist;
+	double			v_dist_inc;
+
+	t_pointd		h_inter;
+	t_size2d		h_inc;
+	double			h_dist;
+	double			h_dist_inc;
 }					t_raycast;
 
 typedef struct s_render_tex
@@ -477,13 +517,12 @@ typedef struct s_render_tex
 	double		ftex_y;
 	double		ftex_yinc;
 	t_image		*tex;
-	t_image		*texCeil;
-	t_image		*texFloor;
+	t_image		*texceil;
+	t_image		*texfloor;
 	int			tex_modulo_m1;
 	double		shade;
-	double		shadeCeilFloor;
+	double		shade_ceilfloor;
 	int			pixel;
-	// wall distance
 	double		w_dist;
 }	t_render_tex;
 
@@ -531,6 +570,7 @@ typedef struct s_rdr_horiz_tex
 	double		angle;
 }	t_render_horiz_tex;*/
 
+/*
 typedef struct s_scaninfo
 {
 	// coordonnées de map de l'element trouvé
@@ -538,16 +578,21 @@ typedef struct s_scaninfo
 	// element trouvé
 	int			item;
 	// distance précise du joueur à l'élément trouvé
+*/
+typedef struct s_scaninfo
+{
+	t_point		mpos;
+	int			item;
 	double		distance;
 }	t_scaninfo;
 
+// t_size2i	dim;   //dimensions of rectangle to copy after clipping
 typedef struct s_copy_img
 {
 	t_image		*srcimg;
 	t_image		*dstimg;
 	t_point		srcpos;
 	t_point		dstpos;
-	// dimensions of rectangle to copy after clipping
 	t_size2i	dim;
 }	t_copy_img;
 
@@ -563,22 +608,19 @@ typedef struct s_draw_img
 	t_image		*dstimg;
 	t_point		srcpos;
 	t_point		dstpos;
-	// dimensions of rectangle to copy after clipping
-	//t_size2i	dim;
 	double		scale;
 	int			dst_x0;
 	double		src_x0;
 	double		src_x;
 	double		src_y;
 	double		inc;
-	//double		src_xinc;
-	//double		src_yinc;
 	t_point		dst;
 	t_point		dstmax;
 	int			srci_y;
 	int			pixel;
 }	t_draw_img;
-
+	//double		src_xinc;
+	//double		src_yinc;
 
 void				amlx_enable_win_resizing(t_mlx *mlx,
 						t_size2i min, t_size2i max);
@@ -708,7 +750,8 @@ void				draw_sprite(t_cub3d *c, t_sprite *spr, int img_num);
 void				draw_slice(t_cub3d *c, t_sprite *spr, int img_num);
 
 //void				draw_floor_n_ceil_textured(t_cub3d *c);
-void				render_tex_ceil_n_floor(t_cub3d *c, t_raycast *rc, t_render_tex *r);
+void				render_tex_ceil_n_floor(t_cub3d *c, t_raycast *rc,
+						t_render_tex *r);
 void				render_floor_column(t_rdr_horiz_tex t);
 void				render_ceil_column(t_rdr_horiz_tex t);
 

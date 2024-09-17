@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:58:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/15 11:28:03 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:25:35 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,6 @@ typedef struct s_pt2d
 {
 	int		x;
 	int		y;
-	//double	z;
-	//double	z0;
 	int		color;
 }	t_pt2d;
 

@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:46:36 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/15 14:25:20 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:05:22 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	sort_monsters_n_get_nb_monsters(t_cub3d *cub, t_monsters **monsters)
 
 void	draw_monsters(t_cub3d *cub)
 {
-	static t_monsters	*monsters[MAX_MONSTERS*5];
+	static t_monsters	*monsters[MAX_MONSTERS * 5];
 	t_sprite *const		spr = &cub->sprites[SPR_MONSTER1];
 	int					i;
 

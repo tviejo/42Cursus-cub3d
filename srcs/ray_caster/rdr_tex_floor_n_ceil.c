@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 12:14:41 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/17 16:41:24 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:03:47 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	render_floor_column(t_rdr_horiz_tex t)
 		t.floor_dist = t.h_eye / (t.y - t.img_h2);
 		t.tx = t.pl_tx + t.tx_mul * t.floor_dist;
 		t.ty = t.pl_ty - t.ty_mul * t.floor_dist;
-		//shade = c->mlx.shade_table[(int)(SHADE_PER_DIST * floor_dist) & (SHADE_TABLE_SIZE - 1)];
 		t.shade = LUM_FADE_DIST / (LUM_FADE_DIST + t.floor_dist * t.floor_dist);
 		put_pixel(t.img_dst, t.x, t.y, get_shaded_color(
 				get_pixel(t.texture, (int)t.tx & (TEX_SIZE - 1),
@@ -53,7 +52,6 @@ void	render_ceil_column(t_rdr_horiz_tex t)
 		t.floor_dist = t.h_eye / (t.img_h2 - t.y);
 		t.tx = t.pl_tx + t.tx_mul * t.floor_dist;
 		t.ty = -t.pl_ty + t.ty_mul * t.floor_dist;
-		//shade = c->mlx.shade_table[(int)(SHADE_PER_DIST * floor_dist) & (SHADE_TABLE_SIZE - 1)];
 		t.shade = LUM_FADE_DIST / (LUM_FADE_DIST + t.floor_dist * t.floor_dist);
 		put_pixel(t.img_dst, t.x, t.y, get_shaded_color(
 				get_pixel(t.texture, (int)t.tx & (TEX_SIZE - 1),
@@ -61,3 +59,6 @@ void	render_ceil_column(t_rdr_horiz_tex t)
 		t.y++;
 	}
 }
+
+		//shade = c->mlx.shade_table[(int)(SHADE_PER_DIST * floor_dist)
+		//	& (SHADE_TABLE_SIZE - 1)];

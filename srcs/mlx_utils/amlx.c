@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:53:56 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/16 16:45:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:22:43 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	amlx_update_img_size(t_cub3d *cub)
 		if (mlx_create_img(cub, attr.width, attr.height) == EXIT_FAILURE)
 			ft_close(cub,
 				"amlx_update_img_size(): mlx_create_img() fails !\n");
-		cub->player.view_height = PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
+		cub->player.view_height
+			= PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
 	}
 }
 

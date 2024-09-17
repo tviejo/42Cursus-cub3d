@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/16 16:45:17 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:22:13 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	init_game_vars(t_cub3d *cub)
 */
 void	init_game_final(t_cub3d *cub)
 {
-	cub->player.view_height = PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
+	cub->player.view_height
+		= PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
 	srand(time(NULL));
 	init_keys(cub);
 	amlx_enable_win_resizing(&cub->mlx,

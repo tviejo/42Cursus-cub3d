@@ -6,11 +6,11 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:28:27 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 12:04:27 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:08:42 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 static inline int	get_shade(int color, double shade)
 {
@@ -20,7 +20,7 @@ static inline int	get_shade(int color, double shade)
 		+ (int)((color & 255) * shade));
 }
 
-void    shade_image (t_image *img, int health)
+void	shade_image(t_image *img, int health)
 {
 	double	shade;
 	int		x;
@@ -36,7 +36,7 @@ void    shade_image (t_image *img, int health)
 		while (x < img->dim.width)
 		{
 			*(int *)(img->pixels + y * img->line_size + 4 * x) = get_shade(
-				*(int *)(img->pixels + y * img->line_size + 4 * x), shade);
+					*(int *)(img->pixels + y * img->line_size + 4 * x), shade);
 			x++;
 		}
 		y++;

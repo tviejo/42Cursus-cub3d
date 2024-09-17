@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 03:47:02 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/17 16:38:25 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 22:44:35 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ void	render_tex_ceil_n_floor(t_cub3d *c, t_raycast *rc, t_render_tex *r)
 	t.tx_mul = 0.25 * cos(rc->angle) * t._1_img_h2 * t.scale_cos;
 	t.ty_mul = 0.25 * sin(rc->angle) * t._1_img_h2 * t.scale_cos;
 	t.img_dst = &c->mlx.mlx_img;
-	t.texture = r->texFloor;
+	t.texture = r->texfloor;
 	t.x = rc->column;
 	t.ymax = c->mlx.mlx_img.dim.height;
 	t.y = r->y;
-	if (r->texFloor->ptr)
+	if (r->texfloor->ptr)
 		render_floor_column(t);
-	t.texture = r->texCeil;
+	t.texture = r->texceil;
 	t.ymax = r->y0;
 	t.y = 0;
 	t.h_eye = t.img_h2 * c->map.wall_heightscale - t.h_diff;
-	if (r->texCeil->ptr)
+	if (r->texceil->ptr)
 		render_ceil_column(t);
 }
 

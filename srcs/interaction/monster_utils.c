@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 20:04:44 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/17 21:09:41 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	print_m(t_cub3d *cub, t_monsters *tmp)
 {
 	const int	width = cub->mlx.mlx_img.dim.width;
-	char	*info;
+	char		*info;
 
 	mlx_string_put(cub->mlx.mlx_ptr, cub->mlx.win_ptr, width / 2 - 100,
 		30, COL_WHITE, "Monster id:");
