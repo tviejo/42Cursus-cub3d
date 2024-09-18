@@ -20,8 +20,8 @@ NO ./assets/textures/floor-ceil/closeup-marble-textured-tiled512.xpm
 #SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 512x512.xpm
 #SO ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
 SO ./assets/textures/floor-ceil/wall-grey-blocks-photos2-512.xpm
-WE ./assets/textures/2001/2001-l-odyssee-de-l-espace-HAL-memory-room-512x512.xpm
-EA ./assets/textures/2001/EGS_AlienIsolation_CreativeAssembly_S5-512x512.xpm
+EA ./assets/textures/creepy/brown_old_wall_3.xpm
+WE ./assets/textures/creepy/cement_old_wall_1.xpm
 
 #FloorTex ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
 #CeilTex  ./assets/textures/floor-ceil/white-cubes-3d_tiled_512.xpm
