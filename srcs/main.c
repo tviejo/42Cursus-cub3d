@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/18 12:25:21 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 12:52:26 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,18 @@ int	load_resources(t_cub3d *c)
 	return (EXIT_SUCCESS);
 }
 
+/*if (argc > 2)
+		return (ft_dprintf(2, "Error: please, provide zero (for default map) 
+or one argument: <map filename>\n"), 0);*/
+
 int	main(int argc, char **argv)
 {
 	t_cub3d	cub;
 	char	*map_fname;
 
-	if (argc > 2)
-		return (ft_dprintf(2, "Error: please, provide zero (for default map) \
-or one argument: <map filename>\n"),
-			0);
+	if (argc != 2)
+		return (ft_dprintf(2, "Error: please, provide the cub map file: \
+<name.cub>\n"), 0);
 	map_fname = MAP_DEFAULT_FNAME;
 	if (argc == 2)
 		map_fname = argv[1];

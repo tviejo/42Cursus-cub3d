@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:24:17 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 11:56:34 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:50:39 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	update_player_inputs(t_player_inputs *in)
 
 	in->mv_forward = in->k_up_1 | in->k_up_2;
 	in->mv_backward = in->k_down_1 | in->k_down_2;
-	in->mv_left = strafe & (in->k_left_1 | in->k_left_2);
-	in->mv_right = strafe & (in->k_right_1 | in->k_right_2);
-	in->turn_left = (!strafe) & (in->k_left_1 | in->k_left_2);
-	in->turn_right = (!strafe) & (in->k_right_1 | in->k_right_2);
+	in->mv_left = (strafe & in->k_left_1) | (!strafe & in->k_left_2);
+	in->mv_right = (strafe & in->k_right_1) | (!strafe & in->k_right_2);
+	in->turn_left = (!strafe & in->k_left_1) | (strafe & in->k_left_2);
+	in->turn_right = (!strafe & in->k_right_1) | (strafe & in->k_right_2);
 	in->open = in->k_open_1 | in->k_open_2;
 	in->run = in->k_run;
 }
