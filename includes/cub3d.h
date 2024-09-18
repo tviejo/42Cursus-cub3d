@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:29:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/18 12:06:17 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:22:30 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 // 1 pour activer le son
 # define SOUND_SUPPORT 1
 // 1 pour activer la gestion show/hide de la souris
-# define MOUSE_SHOWHIDE 1
+# define MOUSE_SHOWHIDE 0
 // 1 pour activer les fonts custom
 # define CUSTOM_FONT 1
 # define M_SENSITIVITY 0.0015
@@ -641,8 +641,8 @@ void					init_parsing(t_cub3d *cub3d);
 void					free_parsing(t_map *map);
 void					print_parsing(t_cub3d *cub3d);
 char					parse_char(t_cub3d *cub3d, char c, int x, int y);
-bool					is_texture(char *line);
-bool					is_color(char *line);
+bool					is_texture(char *line, t_cub3d *cub3d);
+bool					is_color(char *line, t_cub3d *cube3d);
 int						load_hud_textures(t_cub3d *c);
 int						check_parsing(t_cub3d *cub3d);
 void					add_back_monster(t_cub3d *cub, t_monsters *new);
@@ -676,8 +676,6 @@ void					init_ray_v_inter(t_raycast *rc, double angle,
 void					init_ray_h_inter(t_raycast *rc, double angle,
 							t_pointd pos);
 int						scan_in_front(t_cub3d *c, t_scaninfo *si, double angle);
-int						scanner(t_cub3d *cub, t_scaninfo *si, double angle,
-							t_pointd pos);
 
 int						render(t_cub3d *cub3d);
 int						render_landing_page(t_cub3d *cub3d);
@@ -763,5 +761,6 @@ void					render_floor_column(t_rdr_horiz_tex t);
 void					render_ceil_column(t_rdr_horiz_tex t);
 
 long					ft_labs(long n);
+bool					is_invalid_line(char *line);
 
 #endif

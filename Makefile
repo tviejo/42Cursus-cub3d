@@ -40,8 +40,6 @@ SRCS		+= parsing/free_parsing.c
 SRCS		+= parsing/print_parsing.c
 SRCS		+= parsing/check_parsing.c
 SRCS		+= parsing/monster_utils.c
-SRCS		+= parsing/parse_map_utils.c
-
 
 SRCS		+= mlx_utils/amlx.c
 SRCS		+= mlx_utils/mlx_utils.c
@@ -98,9 +96,12 @@ SRCS_BONUS		+= ray_caster/scanner_bonus.c
 
 SRCS_BONUS		+= sound/sound_bonus.c
 
+SRCS_BONUS		+= parsing/parse_map_utils_bonus.c
+
 ifneq ($(MAKECMDGOALS), bonus)
 	SRCS += game_page/game_page.c
 	SRCS += sound/sound.c
+	SRCS += parsing/parse_map_utils.c
 endif
 
 vpath %.c $(SRC_DIR)

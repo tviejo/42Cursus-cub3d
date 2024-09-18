@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:56:34 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 19:16:43 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:56:56 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static bool	is_valid_color(t_color c)
 {
-	return (c.r >= 0 && c.r <= 255
-		&& c.g >= 0 && c.g <= 255
-		&& c.b >= 0 && c.b <= 255);
+	return (c.r >= 0 && c.r <= 255 && c.g >= 0 && c.g <= 255 && c.b >= 0
+		&& c.b <= 255);
 }
 
-bool	is_color(char *line)
+bool	is_color(char *line, t_cub3d *cub)
 {
-	return (begin_with_tag(line, MAP_TAG_FLOOR_COLOR)
-		|| begin_with_tag(line, MAP_TAG_CEIL_COLOR));
+	return ((begin_with_tag(line, MAP_TAG_FLOOR_COLOR)
+			&& cub->map.col_floor.r == -1) || (begin_with_tag(line,
+				MAP_TAG_CEIL_COLOR) && cub->map.col_ceil.r == -1));
 }
 
 /*static int	find_type(char *line)
@@ -31,7 +31,6 @@ bool	is_color(char *line)
 		return (FLOOR);
 	return (CEIL);
 }*/
-
 static void	assign_color(t_cub3d *cube3d, int colortype, t_color color)
 {
 	if (colortype == CT_FLOOR)

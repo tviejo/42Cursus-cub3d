@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:59:05 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 13:31:19 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	parse_map(t_cub3d *cub3d, int fd, char *line)
 	int	i_line;
 
 	if (cub3d->map.m)
-		return (ft_dprintf(2, "Error: map already loaded !\n"), EXIT_FAILURE);
+		return (ft_dprintf(2, "Error: map already loaded !\n"), free(line),
+			ft_close(cub3d, NULL), EXIT_FAILURE);
 	if (allocate_map(cub3d) == EXIT_FAILURE)
 		return (ft_dprintf(2, "Error: allocate_map(): malloc fails !\n"),
 			EXIT_FAILURE);
