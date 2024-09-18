@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monster.c                                          :+:      :+:    :+:   */
+/*   monster_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 11:24:25 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/15 15:10:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 12:06:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	move_monsters(t_cub3d *cub)
 	if (old_time.tv_sec == 0)
 		gettimeofday(&old_time, NULL);
 	gettimeofday(&m_time, NULL);
-	if (labs(m_time.tv_usec - old_time.tv_usec) > 100000)
+	if (ft_labs(m_time.tv_usec - old_time.tv_usec) > 100000)
 	{
 		old_time = m_time;
 		m = cub->monsters;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 22:22:13 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:51:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	init_game_final(t_cub3d *cub)
 {
 	cub->player.view_height
 		= PLAYER_HEIGHT_FACTOR * cub->mlx.mlx_img.dim.height;
-	srand(time(NULL));
 	init_keys(cub);
 	amlx_enable_win_resizing(&cub->mlx,
 		(t_size2i){{480}, {360}}, (t_size2i){{9000}, {9000}});

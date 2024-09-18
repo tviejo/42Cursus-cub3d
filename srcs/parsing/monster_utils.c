@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   monster_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 10:58:22 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/13 09:23:58 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:07:05 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+long	ft_labs(long n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
 t_monsters	*new_monster(t_pointd pos, int hp)
 {
@@ -24,7 +31,7 @@ t_monsters	*new_monster(t_pointd pos, int hp)
 	new->pos = pos;
 	new->hp = hp;
 	new->next = NULL;
-	new->random = rand() % 8;
+	new->random = 1;
 	id++;
 	return (new);
 }

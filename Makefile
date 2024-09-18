@@ -1,5 +1,7 @@
 NAME		=	cub3D
 
+NAME_BONUS	=	cub3D_bonus
+
 SRC_DIR		=	srcs/
 
 OBJ_DIR     =   objs/
@@ -26,7 +28,6 @@ SRCS		+= ray_caster/rdr_tex_loop.c
 SRCS		+= ray_caster/floor_n_ceil.c
 SRCS		+= ray_caster/rdr_tex_floor_n_ceil.c
 SRCS		+= ray_caster/render_utils.c
-SRCS		+= ray_caster/scanner.c
 
 SRCS		+= parsing/parsing.c
 SRCS		+= parsing/parsing_utils.c
@@ -52,7 +53,6 @@ SRCS		+= render/render.c
 
 SRCS		+= close/close.c
 
-SRCS		+= game_page/game_page.c
 SRCS		+= game_page/fps_counter.c
 SRCS		+= game_page/time.c
 
@@ -65,37 +65,48 @@ SRCS		+= keys/keys_utils.c
 SRCS		+= keys/mouse.c
 SRCS		+= keys/keys_2.c
 
-SRCS		+= minimap/minimap.c
-SRCS		+= minimap/print_player.c
-SRCS		+= minimap/print_walls.c
-SRCS		+= minimap/print_map_border.c
-SRCS		+= minimap/print_monster.c
-
 SRCS		+= player/move.c
 SRCS		+= player/move_utils.c
 SRCS		+= player/collision.c
 SRCS		+= player/health.c
 SRCS		+= player/gun.c
 
-SRCS		+= interaction/door.c
-SRCS		+= interaction/monster.c
-SRCS		+= interaction/monster2.c
-SRCS		+= interaction/monster_utils.c
-
-SRCS		+= hud/hud.c
-SRCS		+= hud/health_bar.c
 SRCS		+= hud/load_images.c
-SRCS		+= hud/damage.c
 
 SRCS		+= game_over_page/game_over.c
 
-SRCS		+= sound/sound.c
-
 SRCS		+= main.c
+
+SRCS_BONUS	=	game_page/game_page_bonus.c
+
+SRCS_BONUS		+= interaction/door_bonus.c
+SRCS_BONUS		+= interaction/monster_bonus.c
+SRCS_BONUS		+= interaction/monster2_bonus.c
+SRCS_BONUS		+= interaction/monster_utils_bonus.c
+
+SRCS_BONUS		+= hud/hud_bonus.c
+SRCS_BONUS		+= hud/damage_bonus.c
+SRCS_BONUS		+= hud/health_bar_bonus.c
+
+SRCS_BONUS		+= minimap/minimap_bonus.c
+SRCS_BONUS		+= minimap/print_player_bonus.c
+SRCS_BONUS		+= minimap/print_walls_bonus.c
+SRCS_BONUS		+= minimap/print_map_border_bonus.c
+SRCS_BONUS		+= minimap/print_monster_bonus.c
+
+SRCS_BONUS		+= ray_caster/scanner_bonus.c
+
+SRCS_BONUS		+= sound/sound_bonus.c
+
+ifneq ($(MAKECMDGOALS), bonus)
+	SRCS += game_page/game_page.c
+	SRCS += sound/sound.c
+endif
 
 vpath %.c $(SRC_DIR)
 
 OBJS		=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
+OBJS_BONUS	=	$(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS_BONUS))
 
 CC			=	cc
 
@@ -154,6 +165,9 @@ endef
 all: 			$(LIBFT) $(MLX) ${NAME}
 				@echo "$(GREEN)$(BOLD_START)${NAME} created$(BOLD_END)$(END)"
 
+bonus:			$(LIBFT) $(MLX) ${NAME_BONUS}
+				@echo "$(GREEN)$(BOLD_START)${NAME_BONUS} created$(BOLD_END)$(END)"
+
 $(LIBFT):
 				@$(PRINT_LOADING)
 				$(MAKE) -s -C libft/
@@ -165,6 +179,10 @@ $(MLX):
 ${NAME}: 		${OBJS}
 				$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) $(MLX_FLAGS)
 
+
+${NAME_BONUS}: 	${OBJS} ${OBJS_BONUS}
+				$(CC) $(CFLAGS) ${OBJS} $(OBJS_BONUS) $(LIBS) -o $(NAME_BONUS) $(MLX_FLAGS)
+
 $(OBJ_DIR)%.o: %.c
 				@echo "$(BLUE)Compiling: $@ $(END)"
 				mkdir -p $(OBJ_DIR) $(OBJ_DIR)draw/ $(OBJ_DIR)sprite/ $(OBJ_DIR)ray_caster/ $(OBJ_DIR)parsing/ $(OBJ_DIR)mlx_utils/ $(OBJ_DIR)close/ $(OBJ_DIR)render/ $(OBJ_DIR)game_page/ $(OBJ_DIR)landing_page/ $(OBJ_DIR)exit_page/ $(OBJ_DIR)keys/ $(OBJ_DIR)minimap/ $(OBJ_DIR)player/ $(OBJ_DIR)interaction/ $(OBJ_DIR)hud/ $(OBJ_DIR)game_over_page/ $(OBJ_DIR)sound/
@@ -172,7 +190,7 @@ $(OBJ_DIR)%.o: %.c
 
 clean:
 				$(RM) -r $(OBJ_DIR)
-				${RM} ${OBJS}
+				${RM} ${OBJS} ${OBJS_BONUS}
 				${RM} ${D_FILES}
 				@echo "$(RED)Clean libft$(END)"
 				$(MAKE) clean -s -C ./libft/

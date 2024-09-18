@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_page.c                                        :+:      :+:    :+:   */
+/*   game_page_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:22:41 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/18 12:08:33 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:51:59 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,26 @@
 
 int	render_game_page(t_cub3d *cub)
 {
+	srand(time(NULL));
 	update_player_pos(cub);
+	update_health(cub);
+	gunfire(cub);
 	mlx_put_image_to_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr,
 		cub->mlx.mlx_img.ptr, 0, 0);
 	render_frame(cub);
+	if (cub->nb_monsters > 0)
+	{
+		draw_monsters(cub);
+		move_monsters(cub);
+		shoot_monsters(cub);
+		sound_close_monster(cub);
+	}
+	draw_minimap(cub);
+	interact_door(cub, cub->player.pos);
 	update_time(&cub->game);
 	draw_fps(cub);
+	reload(cub);
+	draw_hud(cub);
+	shade_image(&cub->mlx.mlx_img, cub->player.health);
 	return (0);
 }

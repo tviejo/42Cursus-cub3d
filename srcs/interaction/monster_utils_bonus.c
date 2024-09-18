@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monster_utils.c                                    :+:      :+:    :+:   */
+/*   monster_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:27:44 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/17 21:09:41 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:06:50 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ void	sound_close_monster(t_cub3d *cub)
 	t_monsters				*tmp;
 	static struct timeval	old_time = {.tv_sec = 0, .tv_usec = 0};
 
-	if (labs(old_time.tv_sec - cub->game.last_tod.tv_sec) > 3)
+	if (ft_labs(old_time.tv_sec - cub->game.last_tod.tv_sec) > 3)
 	{
 		old_time = cub->game.last_tod;
 		tmp = cub->monsters;
 		while (tmp)
 		{
-			if (labs((int)tmp->pos.x - (int)cub->player.pos.x) < 3
-				&& labs((int)tmp->pos.y - (int)cub->player.pos.y) < 3)
+			if (ft_labs((int)tmp->pos.x - (int)cub->player.pos.x) < 3
+				&& ft_labs((int)tmp->pos.y - (int)cub->player.pos.y) < 3)
 				play_sound(SND_MONSTER_CLOSE_2, cub);
 			tmp = tmp->next;
 		}
