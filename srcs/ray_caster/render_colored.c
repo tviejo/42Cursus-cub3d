@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:54:49 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/10 16:59:28 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:11:36 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ void	render_ray_colored(t_cub3d *c, t_raycast *r, int wallitem)
 	p1 = (t_pt2d){.x = p0.x, .y = y0 + height};
 	draw_line(&c->mlx.mlx_img, p0, p1);
 }
-
-/*	if (y0 == 450)
-		printf("[render_ray_colored()] y0: %i  distance: %f\n", y0,
-			p_wall_dist);*/
 
 /*
 void	render_ray_colored_v1(t_cub3d *c, t_raycast *r, bool vertical_wall,

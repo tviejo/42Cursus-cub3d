@@ -6,7 +6,7 @@
 /*   By: ade-sarr <ade-sarr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:10:03 by ade-sarr          #+#    #+#             */
-/*   Updated: 2024/09/17 09:44:55 by ade-sarr         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:11:10 by ade-sarr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ static int	get_faded_color(t_cub3d *c, int color, int line_height, double sens)
 		+ ((int)(((color >> 8) & 255) * fade) << 8)
 		+ (int)((color & 255) * fade));
 }
-
-/*	if (line_height == 450)
-		printf("[get_faded_color()] line: %i  distance: %f\n", line_height,
-			distance);*/
 
 void	draw_floor(t_cub3d *c)
 {
