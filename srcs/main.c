@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:27:39 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/18 11:51:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 12:25:21 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_game_vars(t_cub3d *cub)
 	cub->player.speed = 1.0;
 	cub->player.shoot_last_time = 0.0;
 	cub->map.wall_heightscale = 86.3 / DEG_VERTICAL_FOV;
+	cub->map.m = NULL;
 }
 
 /* A appeler juste avant l'appel à mlx_set_hooks_n_loop()

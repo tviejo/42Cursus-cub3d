@@ -6,7 +6,7 @@
 /*   By: tviejo <tviejo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:57:43 by tviejo            #+#    #+#             */
-/*   Updated: 2024/09/14 21:34:50 by tviejo           ###   ########.fr       */
+/*   Updated: 2024/09/18 12:26:54 by tviejo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ static int	parse_file(char *filename, t_cub3d *cub3d)
 
 int	parse_cub3d(char *filename, t_cub3d *cub)
 {
+	if (ft_strlen(filename) < 5 || ft_strncmp(filename + ft_strlen(filename)
+			- 4, ".cub", 4))
+	{
+		ft_close(cub, "Error: invalid file extension\n");
+		return (EXIT_FAILURE);
+	}
 	init_parsing(cub);
 	if (parse_file(filename, cub) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
