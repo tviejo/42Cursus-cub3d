@@ -14,7 +14,7 @@
 #openDoorTex   ./assets/textures/doors/openDoorTex.xpm
 #closedDoorTex ./assets/textures/doors/closedDoorTex.xpm
 
-TEX_SIZE 512
+#TEX_SIZE 512
 NO ./assets/textures/floor-ceil/closeup-marble-textured-tiled512.xpm
 #NO ./assets/textures/2001/_2001Footing_512x512.xpm
 #SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 512x512.xpm
@@ -35,8 +35,6 @@ CeilTex  ./assets/textures/floor-ceil/cracked-creme-granite_tiled_512x512.xpm
 closedDoorTex ./assets/textures/doors/porte 512x512.xpm
 #closedDoorTex ./assets/textures/doors/door-leading-magical-world-512x512.xpm
 
-#animSprite format: tex_id, format, nb_images, path_of_first_texture_without_number_nor_ext
-animSprite MONSTER_1, 4, XPM, ./assets/sprites/monster_mummie_
 
 
 # Colors: Floor and Ceil colors (r,g,b) [0-255]:

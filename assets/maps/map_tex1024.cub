@@ -14,7 +14,7 @@
 #openDoorTex   ./assets/textures/doors/openDoorTex.xpm
 #closedDoorTex ./assets/textures/doors/closedDoorTex.xpm
 
-TEX_SIZE 1024
+#TEX_SIZE 1024
 NO ./assets/textures/2001/_2001Footing_1024x1024.xpm
 SO ./assets/textures/2001/2001 l'Odyssee de l'espace - Couloir 1024x1024.xpm
 WE ./assets/textures/2001/2001-l-odyssee-de-l-espace-HAL-memory-room-1024x1024.xpm

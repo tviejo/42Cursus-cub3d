@@ -2,8 +2,6 @@
 
 closedDoorTex ./assets/textures/doors/porte 512x512.xpm
 
-animSprite MONSTER_1, 4, XPM, ./assets/sprites/monster_mummie_
-
 NO ./assets/textures/creepy/brown_old_wall_2.xpm
 SO ./assets/textures/creepy/brown_old_wall_3.xpm
 WE ./assets/textures/creepy/cement_old_wall_1.xpm
